@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.javawebinar.topjava.model.baseEntities.Restaurant;
-import ru.javawebinar.topjava.repository.datajpa.DataJPARestaurantRepository;
+import ru.javawebinar.topjava.repository.datajpa.DataJpaRestaurantRepository;
 
 import java.util.List;
 
@@ -14,10 +14,10 @@ import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
 @Service
 public class RestaurantService {
 
-    private final DataJPARestaurantRepository repository;
+    private final DataJpaRestaurantRepository repository;
 
     @Autowired
-    public RestaurantService(DataJPARestaurantRepository repository) {
+    public RestaurantService(DataJpaRestaurantRepository repository) {
         this.repository = repository;
     }
 

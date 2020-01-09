@@ -9,9 +9,12 @@ import ru.javawebinar.topjava.repository.datajpa.CrudUserRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+
+//Интерфесы репозитории не создаю тк только 1 реализация
+
 @Repository
-public class DataJPAUserRepository {
-    // TODO delete class
+public class DataJpaUserRepository{
+    // TODO написать
 
     @Autowired
     CrudUserRepository crudUserRepository;

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class DataJPARestaurantRepository {
+public class DataJpaRestaurantRepository{
 
 //    @Autowired
 //    CrudUserRepository crudUserRepository;
