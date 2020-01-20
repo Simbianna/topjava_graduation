@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "meals")
-public class Meal extends AbstractBaseEntity {
+public class Meal extends AbstractNamedEntity {
 
     private int price;
 

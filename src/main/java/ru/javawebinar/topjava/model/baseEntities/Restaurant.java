@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 
 @Entity
-public class Restaurant extends AbstractBaseEntity {
+public class Restaurant extends AbstractNamedEntity {
     private AtomicInteger todaysRating;
 
     private List<Meal> lunchMeals;

@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
-public class User extends AbstractBaseEntity {
+public class User extends AbstractNamedEntity {
 
     private String email;
     private String password;
@@ -16,7 +16,9 @@ public class User extends AbstractBaseEntity {
     private Date registered = new Date();
     private Set<Role> roles;
     private LocalDateTime votingTime;
-    private List<Vote> votes;
+    private boolean voted = false;
+    private Vote vote;
+    // private List<Vote> votes;
 
     public User() {
     }
@@ -24,7 +26,7 @@ public class User extends AbstractBaseEntity {
     public User(User u) {
         this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(),
                 u.getRegistered(), u.getRoles(),
-                u.votingTime, u.votes);
+                u.getVotingTime(), u.getVote());
     }
 
 
@@ -32,7 +34,7 @@ public class User extends AbstractBaseEntity {
         this(id, name, email, password, true, new Date(), EnumSet.of(role, roles), null, null);
     }
 
-    public User(int id, String name, String email, String password, boolean enabled, Date registered, Set<Role> roles, LocalDateTime votingTime, List<Vote> vote) {
+    public User(int id, String name, String email, String password, boolean enabled, Date registered, Set<Role> roles, LocalDateTime votingTime, Vote vote) {
         super(id, name);
         this.email = email;
         this.password = password;
@@ -40,7 +42,7 @@ public class User extends AbstractBaseEntity {
         this.registered = registered;
         setRoles(roles);
         this.votingTime = votingTime;
-        this.votes = vote;
+        this.vote = vote;
     }
 
     public String getEmail() {
@@ -67,20 +69,20 @@ public class User extends AbstractBaseEntity {
         this.enabled = enabled;
     }
 
-    public LocalDateTime getTodaysVotingTime() {
+    public LocalDateTime getVotingTime() {
         return votingTime;
     }
 
-    public void setTodaysVotingTime(LocalDateTime votingTime) {
+    public void setVotingTime(LocalDateTime votingTime) {
         this.votingTime = votingTime;
     }
 
-    public List<Vote> getTodaysVote() {
-        return votes;
+    public Vote getVote() {
+        return vote;
     }
 
-    public void setTodaysVote(List<Vote> votes) {
-        this.votes = votes;
+    public void setVote(Vote votes) {
+        this.vote = votes;
     }
 
     public Set<Role> getRoles() {
@@ -89,7 +91,6 @@ public class User extends AbstractBaseEntity {
 
     public void setRoles(Collection<Role> roles) {
         this.roles = CollectionUtils.isEmpty(roles) ? EnumSet.noneOf(Role.class) : EnumSet.copyOf(roles);
-        ;
     }
 
     public Date getRegistered() {
