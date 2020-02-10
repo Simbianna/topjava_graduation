@@ -1,8 +1,8 @@
-package ru.javawebinar.topjava.repository.mock;
+package ru.javawebinar.topjava.repository.inmemory;
 
 
 import org.springframework.stereotype.Repository;
-import ru.javawebinar.topjava.model.baseEntities.User;
+import ru.javawebinar.topjava.model.User;
 
 import java.util.Comparator;
 import java.util.List;

@@ -1,11 +1,10 @@
-package ru.javawebinar.topjava.repository.mock;
+package ru.javawebinar.topjava.repository.inmemory;
 
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import ru.javawebinar.topjava.model.baseEntities.Meal;
-import ru.javawebinar.topjava.util.Util;
+import ru.javawebinar.topjava.model.Meal;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

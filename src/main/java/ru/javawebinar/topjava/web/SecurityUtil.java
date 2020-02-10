@@ -1,6 +1,6 @@
 package ru.javawebinar.topjava.web;
 
-import ru.javawebinar.topjava.model.baseEntities.AbstractBaseEntity;
+import ru.javawebinar.topjava.model.AbstractBaseEntity;
 
 public class SecurityUtil {
 

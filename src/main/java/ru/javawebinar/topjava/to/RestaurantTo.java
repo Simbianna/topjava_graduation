@@ -1,6 +1,6 @@
 package ru.javawebinar.topjava.to;
 
-import ru.javawebinar.topjava.model.baseEntities.Meal;
+import ru.javawebinar.topjava.model.Meal;
 
 import java.util.List;
 

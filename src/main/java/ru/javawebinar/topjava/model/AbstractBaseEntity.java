@@ -1,4 +1,4 @@
-package ru.javawebinar.topjava.model.baseEntities;
+package ru.javawebinar.topjava.model;
 
 import org.hibernate.Hibernate;
 import ru.javawebinar.topjava.HasId;

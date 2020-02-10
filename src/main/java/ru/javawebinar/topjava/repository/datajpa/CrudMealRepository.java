@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
-import ru.javawebinar.topjava.model.baseEntities.Meal;
+import ru.javawebinar.topjava.model.Meal;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

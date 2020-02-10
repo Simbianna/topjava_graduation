@@ -1,4 +1,4 @@
-package ru.javawebinar.topjava.model.baseEntities;
+package ru.javawebinar.topjava.model;
 
 import org.hibernate.validator.constraints.SafeHtml;
 import ru.javawebinar.topjava.View;

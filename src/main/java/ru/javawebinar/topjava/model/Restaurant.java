@@ -1,15 +1,23 @@
-package ru.javawebinar.topjava.model.baseEntities;
+package ru.javawebinar.topjava.model;
 
-import javax.persistence.Entity;
+import org.hibernate.validator.constraints.Range;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
 @Entity
+@Table(name = "restaurants")
 public class Restaurant extends AbstractNamedEntity {
+
+    @Column(name = "rating")
+    @NotNull
+    @Range(min = 0)
     private AtomicInteger todaysRating;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")//, cascade = CascadeType.REMOVE, orphanRemoval = true
     private List<Meal> lunchMeals;
 
     public Restaurant() {
@@ -69,10 +77,10 @@ public class Restaurant extends AbstractNamedEntity {
     @Override
     public String toString() {
         return "Restaurant{" +
-                "todaysRating=" + todaysRating +
-                ", lunchMeals=" + lunchMeals +
-                ", id=" + id +
+                "id=" + id +
                 ", name='" + name + '\'' +
+                ", todaysRating=" + todaysRating +
+                ", lunchMeals=" + lunchMeals +
                 '}';
     }
 }
