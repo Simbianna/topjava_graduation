@@ -9,52 +9,61 @@ import ru.javawebinar.topjava.model.Meal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.function.Predicate;
 
 @Repository
 public class DataJpaMealRepository{
 
     @Autowired
-    CrudMealRepository crudMealRepository;
+    CrudMealRepository mealRepository;
 
     @Autowired
-    CrudRestaurantRepository crudRestaurantRepository;
+    CrudRestaurantRepository restaurantRepository;
 
     @Transactional
     public Meal save(Meal meal, int restaurantId) {
         if (!meal.isNew() && get(meal.getId(), restaurantId) == null) {
             return null;
         }
-        meal.setRestaurant(crudRestaurantRepository.getOne(restaurantId));
-        return crudMealRepository.save(meal);
+        meal.setRestaurant(restaurantRepository.getOne(restaurantId));
+        return mealRepository.save(meal);
     }
 
-    
     public boolean delete(int id, int restaurantId) {
-        return crudMealRepository.delete(id, restaurantId) != 0;
+        return mealRepository.delete(id, restaurantId) != 0;
     }
 
     
     public Meal get(int id, int restaurantId) {
-        return crudMealRepository.findById(id).filter(meal -> meal.getRestaurant().getId() == restaurantId).orElse(null);
+        return mealRepository.findById(id).filter(new Predicate<Meal>() {
+            @Override
+            public boolean test(Meal meal) {
+                return meal.getRestaurant().getId() == restaurantId;
+            }
+        }).orElse(null);
     }
 
     
     public List<Meal> getAll(int restaurantId) {
-        return crudMealRepository.getAll(restaurantId);
+        return mealRepository.getAll(restaurantId);
     }
 
     
     public List<Meal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int restaurantId) {
-        return crudMealRepository.getBetween(startDate, endDate, restaurantId);
+        return mealRepository.getBetween(startDate, endDate, restaurantId);
     }
 
-    
+//    public List<Meal> getForToday(int restaurantId) {
+//        return mealRepository.getBetween(LocalDate.now().atStartOfDay(),LocalDate.now().plusDays(1).atStartOfDay(), restaurantId);
+//    }
+
+
     public List<Meal> getForToday(LocalDate today, int restaurantId) {
-        return crudMealRepository.getForToday(today, restaurantId);
+        return mealRepository.getForToday(today, restaurantId);
     }
 
     
     public Meal getWithRestaurant(int id, int restaurantId) {
-        return crudMealRepository.getWithRestaurant(id, restaurantId);
+        return mealRepository.getWithRestaurant(id, restaurantId);
     }
 }

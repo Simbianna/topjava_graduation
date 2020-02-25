@@ -1,24 +1,22 @@
-package ru.javawebinar.topjava.repository.datajpa;
+package ru.javawebinar.topjava.repository;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.javawebinar.topjava.model.Restaurant;
+import ru.javawebinar.topjava.model.baseEntities.Meal;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class DataJpaRestaurantRepository{
-
-//    @Autowired
-//    CrudUserRepository crudUserRepository;
+public class MealRepository {
 
     @Autowired
-    CrudRestaurantRepository restaurantRepository;
+    CrudRestaurantRepository crudRestaurantRepository;
 
     @Transactional
-    public Restaurant save(Restaurant restaurant, int userId) {
+    public Meal save(Meal restaurant, int userId) {
         return null;
     }
 
@@ -26,11 +24,11 @@ public class DataJpaRestaurantRepository{
         return false;
     }
 
-    public Restaurant get(int id) {
-        return new Restaurant();
+    public Meal get(int id) {
+        return new Meal();
     }
 
-    public List<Restaurant> getAll() {
+    public List<Meal> getAll() {
         return new ArrayList<>();
     }
 }
