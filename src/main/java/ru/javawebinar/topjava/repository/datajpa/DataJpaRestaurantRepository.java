@@ -18,11 +18,11 @@ public class DataJpaRestaurantRepository{
     CrudRestaurantRepository restaurantRepository;
 
     @Transactional
-    public Restaurant save(Restaurant restaurant, int userId) {
+    public Restaurant save(Restaurant restaurant) {
         return null;
     }
 
-    public boolean delete(int id, int userId) {
+    public boolean delete(int id) {
         return false;
     }
 
@@ -33,4 +33,6 @@ public class DataJpaRestaurantRepository{
     public List<Restaurant> getAll() {
         return new ArrayList<>();
     }
+
+    public Restaurant getWithMeals(int id){return restaurantRepository.getWithMeals(id);}
 }

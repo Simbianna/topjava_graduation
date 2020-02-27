@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.model.Restaurant;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,29 +18,17 @@ public interface CrudMealRepository extends JpaRepository<Meal, Integer> {
 
     @Modifying
     @Transactional
-    @Query("DELETE FROM Meal m WHERE m.id=:id AND m.restaurant.id=:retaurantId")
-    int delete(@Param("id") int id, @Param("restaurantId") int restaurantId);
-
-    @Override
-    @Transactional
-    Meal save(Meal item);
-
-    //admin command
-    @Query("SELECT m FROM Meal m WHERE m.restaurant.id=:retaurantId ORDER BY m.added DESC")
-    List<Meal> getAll(@Param("mealId") int mealId);
-
-    //admin command
-    @SuppressWarnings("JpaQlInspection")
-    @Query("SELECT m from Meal m WHERE m.restaurant.id=:restaurantId AND m.dateTime >= :startDate AND m.dateTime < :endDate ORDER BY m.dateTime DESC")
-    List<Meal> getBetween(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate, @Param("mealId") int mealId);
-
-    //TODO
-    @SuppressWarnings("JpaQlInspection")
-    @Query("SELECT m from Meal m WHERE m.restaurant.id=:restaurantId AND m.dateTime = :today ORDER BY m.dateTime DESC")
-    List<Meal> getForToday(@Param("today") LocalDate today, @Param("mealId") int mealId);
-
+    @Query("DELETE FROM Meal m WHERE m.id=:id")
+    int delete(@Param("id") int id);
 
     @Query("SELECT m FROM Meal m JOIN FETCH m.restaurant WHERE m.id = ?1 and m.restaurant.id = ?2")
-    Meal getWithRestaurant(int id, int mealId);
+    Meal getWithRestaurant(int id);
+
+    List<Meal> getMealsByRestaurant_Id(int restaurantId);
+
+    List<Meal> getMealsByAddedBetweenAndRestaurant_Id(@NotNull LocalDateTime added, @NotNull LocalDateTime added2, int id);
+
+    @Query("SELECT m FROM  Meal m WHERE m.restaurant.id=:restaurantId AND m.added =:today")
+    List<Meal> getMealsByRestaurantForToday(@Param("today") LocalDate today, @Param("restaurantId") int restaurantId);
 
 }
