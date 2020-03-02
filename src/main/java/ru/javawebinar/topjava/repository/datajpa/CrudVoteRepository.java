@@ -27,4 +27,6 @@ public interface CrudVoteRepository extends JpaRepository<Vote, Integer> {
 
     @Query("SELECT v FROM Vote v JOIN FETCH v.user WHERE v.id = ?1 and v.user.id = ?2")
     Vote getWithUser(int id, int userId);
+
+    Vote findFirstByUser_IdOrderByVotingDateTimeDesc(int userId);
 }

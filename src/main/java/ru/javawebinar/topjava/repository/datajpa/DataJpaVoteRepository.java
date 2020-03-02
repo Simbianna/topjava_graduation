@@ -33,6 +33,10 @@ public class DataJpaVoteRepository {
         return voteRepository.findById(id).filter(vote -> vote.getUser().getId() == userId).orElse(null);
     }
 
+    public Vote getLastForUser(int userId){
+        return voteRepository.findFirstByUser_IdOrderByVotingDateTimeDesc(userId);
+    }
+
     public List<Vote> getAll(int userId) {
       return   voteRepository.getAll(userId);
     }

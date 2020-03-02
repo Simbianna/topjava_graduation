@@ -82,7 +82,7 @@ public class User extends AbstractNamedEntity implements HasEmail {
     }
 
 
-    public User(int id, String name, String email, String password, Role role, Role... roles) {
+    public User(Integer id, String name, String email, String password, Role role, Role... roles) {
         this(id, name, email, password, true, new Date(), EnumSet.of(role, roles));
     }
 
@@ -97,7 +97,7 @@ public class User extends AbstractNamedEntity implements HasEmail {
 //        this.vote = vote;
 //    }
 
-    public User(int id, String name, String email, String password, boolean enabled, Date registered, Set<Role> roles) {
+    public User(Integer id, String name, String email, String password, boolean enabled, Date registered, Set<Role> roles) {
         super(id, name);
         this.email = email;
         this.password = password;

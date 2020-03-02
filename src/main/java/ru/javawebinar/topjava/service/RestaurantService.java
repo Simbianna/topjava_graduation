@@ -25,21 +25,26 @@ public class RestaurantService {
         return checkNotFoundWithId(repository.get(id), id);
     }
 
-    public void delete(int id, int userId) {
-        checkNotFoundWithId(repository.delete(id, userId), id);
+    public void delete(int id) {
+        checkNotFoundWithId(repository.delete(id), id);
     }
 
     public List<Restaurant> getAll() {
         return repository.getAll();
     }
 
-    public void update(Restaurant restaurant, int userId) {
+    public void update(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
-        checkNotFoundWithId(repository.save(restaurant, userId), restaurant.getId());
+        checkNotFoundWithId(repository.save(restaurant), restaurant.getId());
     }
 
-    public Restaurant create(Restaurant restaurant, int userId) {
+    public Restaurant create(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
-        return repository.save(restaurant, userId);
+        return repository.save(restaurant);
     }
+
+    public Restaurant getWithMeals(int id) {
+        return checkNotFoundWithId(repository.getWithMeals(id), id);
+    }
+
 }
