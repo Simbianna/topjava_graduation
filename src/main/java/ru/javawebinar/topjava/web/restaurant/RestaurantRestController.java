@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import ru.javawebinar.topjava.model.Restaurant;
 import ru.javawebinar.topjava.service.RestaurantService;
 import ru.javawebinar.topjava.util.ValidationUtil;
-import ru.javawebinar.topjava.web.SecurityUtil;
+import ru.javawebinar.topjava.web.util.SecurityUtil;
 
 import java.util.List;
 

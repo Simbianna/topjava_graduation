@@ -23,23 +23,41 @@ public class Restaurant extends AbstractNamedEntity {
     public Restaurant() {
     }
 
+    public Restaurant(int id, String name){
+        super(id,name);
+    }
+
+    public Restaurant(String name){
+        super(name);
+    }
+
 //    public Restaurant(int id, String name, AtomicInteger todaysRating, Map<String, Double> lunchMeals) {
 //        super(id, name);
 //        this.todaysRating = todaysRating;
 //        this.lunchMeals = lunchMeals;
 //    }
 
-
-    public Restaurant(AtomicInteger todaysRating, List<Meal> lunchMeals) {
-        this.todaysRating = todaysRating;
-        this.lunchMeals = lunchMeals;
-    }
-
-    public Restaurant(int id, String name, AtomicInteger todaysRating, List<Meal> lunchMeals) {
-        super(id, name);
-        this.todaysRating = todaysRating;
-        this.lunchMeals = lunchMeals;
-    }
+//    public Restaurant(String name, List<Meal> lunchMeals) {
+//        super(name);
+//        this.lunchMeals = lunchMeals;
+//    }
+//
+//    public Restaurant(String name, AtomicInteger todaysRating, List<Meal> lunchMeals) {
+//        super(name);
+//        this.todaysRating = todaysRating;
+//        this.lunchMeals = lunchMeals;
+//    }
+//
+//    public Restaurant(int id, String name, List<Meal> lunchMeals) {
+//        super(id, name);
+//        this.lunchMeals = lunchMeals;
+//    }
+//
+//    public Restaurant(int id, String name, AtomicInteger todaysRating, List<Meal> lunchMeals) {
+//        super(id, name);
+//        this.todaysRating = todaysRating;
+//        this.lunchMeals = lunchMeals;
+//    }
 
     public AtomicInteger getTodaysRating() {
         return todaysRating;

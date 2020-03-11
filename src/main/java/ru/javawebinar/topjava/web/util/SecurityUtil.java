@@ -1,4 +1,4 @@
-package ru.javawebinar.topjava.web;
+package ru.javawebinar.topjava.web.util;
 
 import ru.javawebinar.topjava.model.AbstractBaseEntity;
 

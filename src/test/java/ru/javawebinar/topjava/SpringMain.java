@@ -1,11 +1,7 @@
 package ru.javawebinar.topjava;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.GenericXmlApplicationContext;
-import ru.javawebinar.topjava.web.User.UserRestController;
-import ru.javawebinar.topjava.web.restaurant.RestaurantRestController;
 
 import java.util.Arrays;
 

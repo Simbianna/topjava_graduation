@@ -21,7 +21,7 @@ public class Meal extends AbstractNamedEntity {
     @Column(name = "price")
     @NotNull
     @Range(min = 0)
-    private int price;
+    private double price;
 
 
     @Column(name = "added", nullable = false)
@@ -42,17 +42,17 @@ public class Meal extends AbstractNamedEntity {
         this(null, null, price, added);
     }
 
-    public Meal(Integer id, String name, int price, LocalDateTime added) {
+    public Meal(Integer id, String name, double price, LocalDateTime added) {
         super(id, name);
         this.price = price;
         this.added = added;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

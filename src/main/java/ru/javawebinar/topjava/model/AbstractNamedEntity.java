@@ -26,6 +26,10 @@ public abstract class AbstractNamedEntity extends AbstractBaseEntity {
         this.name = name;
     }
 
+    protected AbstractNamedEntity(String name){
+        this.name = name;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
