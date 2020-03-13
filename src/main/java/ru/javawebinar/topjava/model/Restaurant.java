@@ -18,7 +18,7 @@ public class Restaurant extends AbstractNamedEntity {
     private AtomicInteger todaysRating;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")//, cascade = CascadeType.REMOVE, orphanRemoval = true
-    private List<Meal> lunchMeals;
+    private List<Dish> lunchDishes;
 
     public Restaurant() {
     }
@@ -31,32 +31,32 @@ public class Restaurant extends AbstractNamedEntity {
         super(name);
     }
 
-//    public Restaurant(int id, String name, AtomicInteger todaysRating, Map<String, Double> lunchMeals) {
+//    public Restaurant(int id, String name, AtomicInteger todaysRating, Map<String, Double> lunchDishes) {
 //        super(id, name);
 //        this.todaysRating = todaysRating;
-//        this.lunchMeals = lunchMeals;
+//        this.lunchDishes = lunchDishes;
 //    }
 
-//    public Restaurant(String name, List<Meal> lunchMeals) {
+//    public Restaurant(String name, List<Dish> lunchDishes) {
 //        super(name);
-//        this.lunchMeals = lunchMeals;
+//        this.lunchDishes = lunchDishes;
 //    }
 //
-//    public Restaurant(String name, AtomicInteger todaysRating, List<Meal> lunchMeals) {
+//    public Restaurant(String name, AtomicInteger todaysRating, List<Dish> lunchDishes) {
 //        super(name);
 //        this.todaysRating = todaysRating;
-//        this.lunchMeals = lunchMeals;
+//        this.lunchDishes = lunchDishes;
 //    }
 //
-//    public Restaurant(int id, String name, List<Meal> lunchMeals) {
+//    public Restaurant(int id, String name, List<Dish> lunchDishes) {
 //        super(id, name);
-//        this.lunchMeals = lunchMeals;
+//        this.lunchDishes = lunchDishes;
 //    }
 //
-//    public Restaurant(int id, String name, AtomicInteger todaysRating, List<Meal> lunchMeals) {
+//    public Restaurant(int id, String name, AtomicInteger todaysRating, List<Dish> lunchDishes) {
 //        super(id, name);
 //        this.todaysRating = todaysRating;
-//        this.lunchMeals = lunchMeals;
+//        this.lunchDishes = lunchDishes;
 //    }
 
     public AtomicInteger getTodaysRating() {
@@ -67,29 +67,29 @@ public class Restaurant extends AbstractNamedEntity {
         this.todaysRating = todaysRating;
     }
 
-//    public Map<String, Double> getTodaysLunchMeals() {
-//        return lunchMeals;
+//    public Map<String, Double> getTodaysLunchDishes() {
+//        return lunchDishes;
 //    }
 //
-//    public void setTodaysLunchMeals(Map<String, Double> lunchMeals) {
-//        this.lunchMeals = lunchMeals;
+//    public void setTodaysLunchMeals(Map<String, Double> lunchDishes) {
+//        this.lunchDishes = lunchDishes;
 //    }
 
 //    @Override
 //    public String toString() {
 //        return "Restaurant{" +
 //                "todaysRating=" + todaysRating +
-//                ", lunchMeals=" + lunchMeals +
+//                ", lunchDishes=" + lunchDishes +
 //                '}';
 //    }
 
 
-    public List<Meal> getTodaysLunchMeals() {
-        return lunchMeals;
+    public List<Dish> getTodaysLunchMeals() {
+        return lunchDishes;
     }
 
-    public void setTodaysLunchMeals(List<Meal> lunchMeals) {
-        this.lunchMeals = lunchMeals;
+    public void setTodaysLunchMeals(List<Dish> lunchDishes) {
+        this.lunchDishes = lunchDishes;
     }
 
     @Override
@@ -98,7 +98,7 @@ public class Restaurant extends AbstractNamedEntity {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", todaysRating=" + todaysRating +
-                ", lunchMeals=" + lunchMeals +
+                ", lunchDishes=" + lunchDishes +
                 '}';
     }
 }

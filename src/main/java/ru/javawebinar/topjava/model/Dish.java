@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "meals")
-public class Meal extends AbstractNamedEntity {
+public class Dish extends AbstractNamedEntity {
 
     @Column(name = "price")
     @NotNull
@@ -35,14 +35,14 @@ public class Meal extends AbstractNamedEntity {
     @NotNull(groups = View.Persist.class)
     private Restaurant restaurant;
 
-    public Meal() {
+    public Dish() {
     }
 
-    public Meal(int price, LocalDateTime added) {
+    public Dish(int price, LocalDateTime added) {
         this(null, null, price, added);
     }
 
-    public Meal(Integer id, String name, double price, LocalDateTime added) {
+    public Dish(Integer id, String name, double price, LocalDateTime added) {
         super(id, name);
         this.price = price;
         this.added = added;
@@ -74,7 +74,7 @@ public class Meal extends AbstractNamedEntity {
 
     @Override
     public String toString() {
-        return "Meal{" +
+        return "Dish{" +
                 "id=" + id +
                 ", name='" + name +
                 ", price=" + price +

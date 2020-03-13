@@ -3,7 +3,6 @@ package ru.javawebinar.topjava.testData;
 import ru.javawebinar.topjava.model.Restaurant;
 
 import static ru.javawebinar.topjava.model.AbstractBaseEntity.START_SEQ;
-import static ru.javawebinar.topjava.testData.MealTestData.*;
 
 public class RestaurantTestData {
     public static final int STEAK_HOUSE_ID = START_SEQ + 2;

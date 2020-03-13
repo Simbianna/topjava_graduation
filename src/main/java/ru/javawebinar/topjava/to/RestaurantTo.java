@@ -1,19 +1,19 @@
 package ru.javawebinar.topjava.to;
 
-import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.model.Dish;
 
 import java.util.List;
 
 public class RestaurantTo extends BaseTo{
 
     private final String name;
-    private final List<Meal> todaysLunchMeals;
+    private final List<Dish> todaysLunchDishes;
     private final Integer todaysRating;
 
-    public RestaurantTo(Integer id, String name, List<Meal> todaysLunchMeals, Integer todaysRating) {
+    public RestaurantTo(Integer id, String name, List<Dish> todaysLunchDishes, Integer todaysRating) {
         super(id);
         this.name = name;
-        this.todaysLunchMeals = todaysLunchMeals;
+        this.todaysLunchDishes = todaysLunchDishes;
         this.todaysRating = todaysRating;
     }
 
@@ -22,8 +22,8 @@ public class RestaurantTo extends BaseTo{
         return name;
     }
 
-    public List<Meal> getTodaysLunchMeals() {
-        return todaysLunchMeals;
+    public List<Dish> getTodaysLunchDishes() {
+        return todaysLunchDishes;
     }
 
     public Integer getTodaysRating() {
@@ -35,7 +35,7 @@ public class RestaurantTo extends BaseTo{
         return "RestaurantTo{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", todaysLunchMeals=" + todaysLunchMeals +
+                ", todaysLunchDishes=" + todaysLunchDishes +
                 ", todaysRating=" + todaysRating +
                 '}';
     }
