@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+
 //TODO вообще не трогала, поправить
 public class DateTimeUtil {
     public static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm";
@@ -17,6 +18,22 @@ public class DateTimeUtil {
     private static final LocalDate MAX_DATE = LocalDate.of(3000, 1, 1);
 
     private DateTimeUtil() {
+    }
+
+    public static LocalDateTime getDaysBeginning(LocalDateTime localDateTime) {
+        return LocalDateTime.of(localDateTime.toLocalDate(), LocalTime.MIN);
+    }
+
+    public static LocalDateTime getDaysBeginning(LocalDate localDate) {
+        return LocalDateTime.of(localDate, LocalTime.MIN);
+    }
+
+    public static LocalDateTime getDaysEnd(LocalDateTime localDateTime) {
+        return LocalDateTime.of(localDateTime.toLocalDate(), LocalTime.MAX);
+    }
+
+    public static LocalDateTime getDaysEnd(LocalDate localDate) {
+        return LocalDateTime.of(localDate, LocalTime.MAX);
     }
 
     public static LocalDateTime adjustStartDateTime(LocalDate localDate) {

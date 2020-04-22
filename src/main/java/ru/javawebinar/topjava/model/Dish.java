@@ -15,14 +15,13 @@ import java.time.LocalDateTime;
 
 
 @Entity
-@Table(name = "meals")
-public class Dish extends AbstractNamedEntity {
+@Table(name = "dishes")
+public class Dish extends AbstractNamedEntity{
 
     @Column(name = "price")
     @NotNull
     @Range(min = 0)
     private double price;
-
 
     @Column(name = "added", nullable = false)
     @NotNull
@@ -38,14 +37,25 @@ public class Dish extends AbstractNamedEntity {
     public Dish() {
     }
 
-    public Dish(int price, LocalDateTime added) {
-        this(null, null, price, added);
+//    public Dish (String name, double price, LocalDateTime added) {
+//        this(null, name, price, added);
+//    }
+//
+//    public Dish(Integer id, String name, double price, LocalDateTime added) {
+//        super(id, name);
+//        this.price = price;
+//        this.added = added;
+//    }
+
+    public Dish (String name, double price, LocalDateTime added, Restaurant restaurant) {
+        this(null, name, price, added, restaurant);
     }
 
-    public Dish(Integer id, String name, double price, LocalDateTime added) {
+    public Dish(Integer id, String name, double price, LocalDateTime added, Restaurant restaurant) {
         super(id, name);
         this.price = price;
         this.added = added;
+        this.restaurant = restaurant;
     }
 
     public double getPrice() {
@@ -78,7 +88,7 @@ public class Dish extends AbstractNamedEntity {
                 "id=" + id +
                 ", name='" + name +
                 ", price=" + price +
-                ", restaurant=" + restaurant +
+//                ", restaurant=" + restaurant +
                 ", added=" + added +
                 '}';
     }

@@ -17,17 +17,24 @@ public interface CrudDishRepository extends JpaRepository<Dish, Integer> {
 
     @Modifying
     @Transactional
-    @Query("DELETE FROM Dish m WHERE m.id=:id")
+    @Query("DELETE FROM Dish d WHERE d.id=:id")
     int delete(@Param("id") int id);
 
-    @Query("SELECT m FROM Dish m JOIN FETCH m.restaurant WHERE m.id = ?1 and m.restaurant.id = ?2")
+    List<Dish> getDishesByRestaurant_Id(int restaurantId);
+
+    List<Dish> getDishesByRestaurant_IdAndAddedBetween(int restaurantId, LocalDateTime start, LocalDateTime end);
+
+//    @Query("SELECT d FROM  Dish d WHERE d.restaurant.id=:restaurantId AND d.added =:today")
+//    List<Dish> getDishesByRestaurantForToday(@Param("today") LocalDate today, @Param("restaurantId") int restaurantId);
+
+//    List<Dish> getDishesByRestaurant_IdAndAdded(int restaurantId, LocalDate date);
+
+    @Query("SELECT d FROM Dish d JOIN FETCH d.restaurant WHERE d.id = ?1 and d.restaurant.id = ?2")
     Dish getWithRestaurant(int id);
 
-    List<Dish> getMealsByRestaurant_Id(int restaurantId);
-
-    List<Dish> getMealsByAddedBetweenAndRestaurant_Id(@NotNull LocalDateTime added, @NotNull LocalDateTime added2, int id);
-
-    @Query("SELECT m FROM  Dish m WHERE m.restaurant.id=:restaurantId AND m.added =:today")
-    List<Dish> getMealsByRestaurantForToday(@Param("today") LocalDate today, @Param("restaurantId") int restaurantId);
-
+    //  List<Dish> getDishesByAddedBetweenAndRestaurant_Id(@NotNull LocalDateTime added, @NotNull LocalDateTime added2, int id);
+//    @Query("SELECT d FROM  Dish d WHERE d.restaurant.id=:restaurantId AND d.added =:today")
+//    List<Dish> getDishesByRestaurantForToday(@Param("today") LocalDate today, @Param("restaurantId") int restaurantId);
+    //    @Query("SELECT d FROM Dish d WHERE d.restaurant.id =:restaurantId")
+//    List<Dish> getDishesByRestaurantId(@Param("restaurantId") int restaurantId);
 }

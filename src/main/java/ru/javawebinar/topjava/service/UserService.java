@@ -38,10 +38,12 @@ public class UserService implements UserDetailsService {
     }
 
 
-    @CacheEvict(value = "users", allEntries = true)
+  //  @CacheEvict(value = "users", allEntries = true)
     public User create(User user) {
         Assert.notNull(user, "user must not be null");
-        return repository.save(prepareToSave(user, passwordEncoder));
+      //  return repository.save(prepareToSave(user, passwordEncoder));
+        return repository.save(user);
+
     }
 
     @CacheEvict(value = "users", allEntries = true)

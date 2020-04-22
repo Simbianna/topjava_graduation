@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class    DataJpaRestaurantRepository{
+public class DataJpaRestaurantRepository {
 
 //    @Autowired
 //    CrudUserRepository crudUserRepository;
@@ -19,20 +19,23 @@ public class    DataJpaRestaurantRepository{
 
     @Transactional
     public Restaurant save(Restaurant restaurant) {
-        return null;
+        return restaurantRepository.save(restaurant);
     }
 
+    @Transactional
     public boolean delete(int id) {
-        return false;
+        return restaurantRepository.delete(id) != 0;
     }
 
     public Restaurant get(int id) {
-        return new Restaurant();
+        return restaurantRepository.findById(id).orElse(null);
     }
 
     public List<Restaurant> getAll() {
-        return new ArrayList<>();
+        return restaurantRepository.findAll()  ;
     }
 
-    public Restaurant getWithMeals(int id){return restaurantRepository.getWithMeals(id);}
+    public Restaurant getWithMeals(int id) {
+        return restaurantRepository.getWithMeals(id);
+    }
 }

@@ -40,11 +40,11 @@ abstract public class AbstractControllerTest {
 
     protected MockMvc mockMvc;
 
-    @Autowired
-    private CacheManager cacheManager;
-
-    @Autowired(required = false)
-    private JpaUtil jpaUtil;
+//    @Autowired
+//    private CacheManager cacheManager;
+//
+//    @Autowired(required = false)
+//    private JpaUtil jpaUtil;
 
     @Autowired
     protected UserService userService;
@@ -52,8 +52,8 @@ abstract public class AbstractControllerTest {
     @Autowired
     private WebApplicationContext webApplicationContext;
 
-    @Autowired
-    protected MessageUtil messageUtil;
+//    @Autowired
+//    protected MessageUtil messageUtil;
 
     @PostConstruct
     private void postConstruct() {
@@ -64,23 +64,23 @@ abstract public class AbstractControllerTest {
                 .build();
     }
 
-    @BeforeEach
-    void setUp() {
-        cacheManager.getCache("users").clear();
-        if (jpaUtil != null) {
-            jpaUtil.clear2ndLevelHibernateCache();
-        }
-    }
+//    @BeforeEach
+//    void setUp() {
+//        cacheManager.getCache("users").clear();
+//        if (jpaUtil != null) {
+//            jpaUtil.clear2ndLevelHibernateCache();
+//        }
+//    }
 
-    private String getMessage(String code) {
-        return messageUtil.getMessage(code, MessageUtil.RU_LOCALE);
-    }
+//    private String getMessage(String code) {
+//        return messageUtil.getMessage(code, MessageUtil.RU_LOCALE);
+//    }
 
     public ResultMatcher errorType(ErrorType type) {
         return jsonPath("$.type").value(type.name());
     }
 
-    public ResultMatcher detailMessage(String code) {
-        return jsonPath("$.details").value(getMessage(code));
-    }
+//    public ResultMatcher detailMessage(String code) {
+//        return jsonPath("$.details").value(getMessage(code));
+//    }
 }

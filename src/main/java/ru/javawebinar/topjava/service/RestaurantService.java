@@ -14,37 +14,37 @@ import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
 @Service
 public class RestaurantService {
 
-    private final DataJpaRestaurantRepository repository;
+    private final DataJpaRestaurantRepository restaurantRepository;
 
     @Autowired
     public RestaurantService(DataJpaRestaurantRepository repository) {
-        this.repository = repository;
+        this.restaurantRepository = repository;
     }
 
     public Restaurant get(int id) {
-        return checkNotFoundWithId(repository.get(id), id);
+        return checkNotFoundWithId(restaurantRepository.get(id), id);
     }
 
-    public void delete(int id) {
-        checkNotFoundWithId(repository.delete(id), id);
+    public void delete(int id, int userId) {
+        checkNotFoundWithId(restaurantRepository.delete(id), id);
     }
 
     public List<Restaurant> getAll() {
-        return repository.getAll();
+        return restaurantRepository.getAll();
     }
 
-    public void update(Restaurant restaurant) {
+    public void update(Restaurant restaurant, int userId) {
         Assert.notNull(restaurant, "restaurant must not be null");
-        checkNotFoundWithId(repository.save(restaurant), restaurant.getId());
+        checkNotFoundWithId(restaurantRepository.save(restaurant), restaurant.getId());
     }
 
-    public Restaurant create(Restaurant restaurant) {
+    public Restaurant create(Restaurant restaurant, int userId) {
         Assert.notNull(restaurant, "restaurant must not be null");
-        return repository.save(restaurant);
+        return restaurantRepository.save(restaurant);
     }
 
     public Restaurant getWithMeals(int id) {
-        return checkNotFoundWithId(repository.getWithMeals(id), id);
+        return checkNotFoundWithId(restaurantRepository.getWithMeals(id), id);
     }
 
 }

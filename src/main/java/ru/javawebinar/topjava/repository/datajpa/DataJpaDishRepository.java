@@ -4,6 +4,7 @@ package ru.javawebinar.topjava.repository.datajpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.Dish;
 
 import java.time.LocalDate;
@@ -12,40 +13,48 @@ import java.util.List;
 
 @Repository
 public class DataJpaDishRepository {
-    private static final Sort SORT_NAME = new Sort(Sort.Direction.ASC, "name");
+    private static final Sort SORT_BY_ID = new Sort(Sort.Direction.DESC, "id");
 
     @Autowired
-    CrudDishRepository mealRepository;
+    CrudDishRepository dishRepository;
 
     //admin command
-    public Dish save(Dish dish){return mealRepository.save(dish);}
+    @Transactional
+    public Dish save(Dish dish) {
+        return dishRepository.save(dish);
+    }
 
     //admin command
-    public boolean delete(int id){return mealRepository.delete(id)!=0;}
+    @Transactional
+    public boolean delete(int id) {
+        return dishRepository.delete(id) != 0;
+    }
 
-    public Dish get(int id){return mealRepository.findById(id).orElse(null);}
+    public Dish get(int id) {
+        return dishRepository.findById(id).orElse(null);
+    }
 
-    //admin command
-    public List<Dish> getAll(){return mealRepository.findAll(SORT_NAME);}
+    public List<Dish> getAll() {
+        return dishRepository.findAll(SORT_BY_ID);
+    }
 
-    public List<Dish> getAllForRestaurant(int restaurantId){return mealRepository.getMealsByRestaurant_Id(restaurantId);}
+    public List<Dish> getAllForRestaurant(int restaurantId) {
+        return dishRepository.getDishesByRestaurant_Id(restaurantId);
+    }
 
-    //admin command
     public List<Dish> getAllForRestaurantBetweenDates(LocalDateTime startDate, LocalDateTime endDate, int restaurantId) {
-        return mealRepository.getMealsByAddedBetweenAndRestaurant_Id(startDate, endDate, restaurantId);
+        return dishRepository.getDishesByRestaurant_IdAndAddedBetween(restaurantId, startDate, endDate);
     }
 
-    public List<Dish> getForRestaurantForToday(LocalDate today, int restaurantId) {
-        return mealRepository.getMealsByRestaurantForToday(today, restaurantId);
-    }
-
-
-//    public List<Dish> getForToday(int restaurantId) {
-//        return mealRepository.getBetween(LocalDate.now().atStartOfDay(),LocalDate.now().plusDays(1).atStartOfDay(), restaurantId);
+//    public List<Dish> getAllForRestaurantForToday(LocalDateTime start today, int restaurantId) {
+//        return dishRepository.getDishesByRestaurantForToday(today, restaurantId);
 //    }
 
-
     public Dish getWithRestaurant(int id) {
-        return mealRepository.getWithRestaurant(id);
+        return dishRepository.getWithRestaurant(id);
     }
+
+    //    public List<Dish> getForToday(int restaurantId) {
+//        return mealRepository.getBetween(LocalDate.now().atStartOfDay(),LocalDate.now().plusDays(1).atStartOfDay(), restaurantId);
+//    }
 }

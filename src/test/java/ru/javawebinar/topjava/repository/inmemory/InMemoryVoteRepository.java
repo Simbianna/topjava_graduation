@@ -2,6 +2,7 @@ package ru.javawebinar.topjava.repository.inmemory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Vote;
 import ru.javawebinar.topjava.util.Util;
 
@@ -14,7 +15,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-
+@Repository
 public class InMemoryVoteRepository {
     private static final Logger log = LoggerFactory.getLogger(InMemoryVoteRepository.class);
 

@@ -3,24 +3,21 @@ package ru.javawebinar.topjava.web.vote;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
 import ru.javawebinar.topjava.model.Vote;
 import ru.javawebinar.topjava.service.VoteService;
-import ru.javawebinar.topjava.web.util.SecurityUtil;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static ru.javawebinar.topjava.util.ValidationUtil.*;
 import static ru.javawebinar.topjava.web.util.SecurityUtil.authUserId;
 
+@RestController
 public class VoteRestController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private final VoteService service;
-
-    public VoteRestController(VoteService service){
-        this.service = service;
-    }
+    @Autowired
+    private VoteService service;
 
     public Vote get(int id) {
         int userId = authUserId();
@@ -37,7 +34,7 @@ public class VoteRestController {
     public List<Vote> getAll() {
         int userId = authUserId();
         log.info("get all votes for user {}", userId);
-        return service.getAll(userId);
+        return service.getAllForUser(userId);
     }
 
     public Vote create(Vote vote) {
@@ -46,16 +43,16 @@ public class VoteRestController {
         checkVoteIsNewToday(lastVote);
         checkNew(vote);
         log.info("create vote {} for user {}", vote, userId);
-        return service.update(vote, userId);
+        return service.create(vote, userId);
     }
 
-    public Vote update(Vote vote){
+    public void update(Vote vote){
         int userId = authUserId();
         LocalDateTime votingTime = LocalDateTime.now();
         vote.setVotingDateTime(votingTime);
         checkVoteCanBeUpdated(votingTime);
         assureIdConsistent(vote, userId);
-        return service.update(vote,userId);
+       service.update(vote,userId);
     }
 
 }

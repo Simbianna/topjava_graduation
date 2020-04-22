@@ -47,9 +47,8 @@ public class User extends AbstractNamedEntity implements HasEmail {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Date registered = new Date();
 
-
     //TODO хз нужно ли кэширование?
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+  //  @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
@@ -64,17 +63,9 @@ public class User extends AbstractNamedEntity implements HasEmail {
 
     @Column(name = "voted", nullable = false, columnDefinition = "bool default false")
     private boolean voted = false;
-    //private LocalDateTime votingTime;
-
 
     public User() {
     }
-
-//    public User(User u) {
-//        this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(),
-//                u.getRegistered(), u.getRoles(),
-//                u.getVotingTime(), u.getVote());
-//    }
 
     public User(User u) {
         this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(),
@@ -86,25 +77,13 @@ public class User extends AbstractNamedEntity implements HasEmail {
         this(id, name, email, password, true, new Date(), EnumSet.of(role, roles));
     }
 
-//    public User(int id, String name, String email, String password, boolean enabled, Date registered, Set<Role> roles, LocalDateTime votingTime, Vote vote) {
-//        super(id, name);
-//        this.email = email;
-//        this.password = password;
-//        this.enabled = enabled;
-//        this.registered = registered;
-//        setRoles(roles);
-//        this.votingTime = votingTime;
-//        this.vote = vote;
-//    }
-
-    public User(Integer id, String name, String email, String password, boolean enabled, Date registered, Set<Role> roles) {
+    public User(Integer id, String name, String email, String password, boolean enabled, Date registered, Collection<Role> roles) {
         super(id, name);
         this.email = email;
         this.password = password;
         this.enabled = enabled;
         this.registered = registered;
         setRoles(roles);
-
     }
 
     public String getEmail() {
@@ -131,15 +110,6 @@ public class User extends AbstractNamedEntity implements HasEmail {
         this.enabled = enabled;
     }
 
-//    public LocalDateTime getVotingTime() {
-//        return votingTime;
-//    }
-//
-//    public void setVotingTime(LocalDateTime votingTime) {
-//        this.votingTime = votingTime;
-//    }
-
-
     public Set<Role> getRoles() {
         return roles;
     }
@@ -160,14 +130,6 @@ public class User extends AbstractNamedEntity implements HasEmail {
         return votes;
     }
 
-    public boolean isVoted() {
-        return voted;
-    }
-
-    public void setVoted(boolean voted) {
-        this.voted = voted;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -175,7 +137,6 @@ public class User extends AbstractNamedEntity implements HasEmail {
                 ", enabled=" + enabled +
                 ", registered=" + registered +
                 ", roles=" + roles +
-                ", voted=" + voted +
                 '}';
     }
 }
