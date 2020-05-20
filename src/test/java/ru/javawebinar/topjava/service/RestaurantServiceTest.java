@@ -1,7 +1,9 @@
 package ru.javawebinar.topjava.service;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import ru.javawebinar.topjava.model.Restaurant;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
@@ -15,6 +17,17 @@ class RestaurantServiceTest extends AbstractServiceTest {
 
     @Autowired
     RestaurantService service;
+
+    @Autowired
+    private CacheManager cacheManager;
+
+    @BeforeEach
+    void setUp() throws Exception {
+        cacheManager.getCache("restaurants").clear();
+//        if (isJpaBased()) {
+//            jpaUtil.clear2ndLevelHibernateCache();
+//        }
+    }
 
     @Test
     void get() throws Exception {
@@ -41,6 +54,11 @@ class RestaurantServiceTest extends AbstractServiceTest {
     }
 
     @Test
+    void getAll() throws Exception {
+        assertMatch(service.getAll(), ALL_RESTAURANTS);
+    }
+
+    @Test
     void create() throws Exception {
         Restaurant newRestaurant = getRussianCreated();
         Restaurant created = service.create(newRestaurant, ADMIN_ID);
@@ -54,11 +72,6 @@ class RestaurantServiceTest extends AbstractServiceTest {
         Restaurant updated = getItalianUpdated();
         service.update(updated, ADMIN_ID);
         assertMatch(service.get(ITALIAN_ID),updated);
-    }
-
-    @Test
-    void getAll() throws Exception {
-        assertMatch(service.getAll(), ALL_RESTAURANTS);
     }
 
     @Test

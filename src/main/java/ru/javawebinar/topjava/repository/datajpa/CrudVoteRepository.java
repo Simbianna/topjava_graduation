@@ -1,5 +1,7 @@
 package ru.javawebinar.topjava.repository.datajpa;
 
+import org.hibernate.annotations.NamedQuery;
+import org.hibernate.annotations.SQLInsert;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -23,17 +25,23 @@ public interface CrudVoteRepository extends JpaRepository<Vote, Integer> {
     @Transactional
     Vote save(Vote vote);
 
-   // Vote getVoteByIdAndUserId(int restaurantId, int userId);
 
     Vote findFirstByUser_IdOrderByVotingDateTimeDesc(int userId);
 
-    List<Vote> findAllByUser_IdOrderByVotingDateTimeDesc(int userId);
+    @Query("SELECT v FROM Vote v WHERE v.user.id=:userId ORDER BY v.votingDateTime DESC")
+    List<Vote> getAllForUser(@Param("userId") int userId);
 
-    List<Vote> findAllByUser_IdAndVotingDateTimeBetweenOrderByVotingDateTimeDesc(int userId, LocalDateTime start, LocalDateTime end);
+    @SuppressWarnings("JpaQlInspection")
+    @Query("SELECT v FROM Vote v WHERE v.user.id=:userId AND v.votingDateTime BETWEEN :startDate AND :endDate ORDER BY v.votingDateTime DESC")
+    List<Vote> getAllForUserBetween(@Param("userId") int userId, @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 
-    List<Vote> findAllByRestaurant_IdOrderByVotingDateTimeDesc(int restaurantId);
 
-    List<Vote> findAllByRestaurant_IdAndVotingDateTimeBetweenOrderByIdDesc(int restaurantId, LocalDateTime start, LocalDateTime end);
+    @Query("SELECT v FROM Vote v WHERE v.restaurant.id=:restaurantId ORDER BY v.votingDateTime DESC")
+    List<Vote> getAllByRestaurant(@Param("restaurantId") int restaurantId);
+
+    @SuppressWarnings("JpaQlInspection")
+    @Query("SELECT v FROM Vote v WHERE v.restaurant.id=:restaurantId and v.votingDateTime BETWEEN :startDate AND :endDate ORDER BY v.votingDateTime DESC")
+    List<Vote> getAllByRestaurantBetween(@Param("restaurantId") int restaurantId, @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 
     @Query("SELECT v FROM Vote v JOIN FETCH v.user WHERE v.id = ?1 and v.user.id = ?2")
     Vote getWithUser(int id, int userId);
@@ -41,9 +49,9 @@ public interface CrudVoteRepository extends JpaRepository<Vote, Integer> {
     @Query("SELECT v FROM Vote v JOIN FETCH v.user WHERE v.id = ?1 and v.restaurant.id = ?2")
     Vote getWithRestaurant(int id, int restaurantId);
 
-    //    @Query("SELECT v FROM Vote v WHERE v.user.id=:userId ORDER BY v.votingDateTime DESC")
-//    List<Vote> getAllForUser(@Param("userId") int userId);
+    //  List<Vote> findAllByUser_IdOrderByVotingDateTimeDesc(int userId);
+    //  List<Vote> findAllByRestaurant_IdAndVotingDateTimeBetweenOrderByIdDesc(int restaurantId, LocalDateTime start, LocalDateTime end);
+    //  List<Vote> findAllByRestaurant_IdOrderByVotingDateTimeDesc(int restaurantId);
+    //  List<Vote> findAllByUser_IdAndVotingDateTimeBetweenOrderByVotingDateTimeDesc(int userId, LocalDateTime start, LocalDateTime end);
 
-    /* @Query("SELECT v FROM Vote v WHERE v.user.id=:userId ORDER BY v.votingDateTime DESC")
-    List<Vote> getAllForUser(@Param("userId") int userId);*/
 }

@@ -46,11 +46,11 @@ public class DataJpaVoteRepository {
     }
 
     public List<Vote> getAllForRestaurant(int restaurantId){
-        return voteRepository.findAllByRestaurant_IdOrderByVotingDateTimeDesc(restaurantId);
+        return voteRepository.getAllByRestaurant(restaurantId);
     }
 
     public List<Vote> getAllForRestaurantBetweenDateTimes(int restaurantId, LocalDateTime start, LocalDateTime end) {
-        return voteRepository.findAllByRestaurant_IdAndVotingDateTimeBetweenOrderByIdDesc(restaurantId, start, end);
+        return voteRepository.getAllByRestaurantBetween(restaurantId, start, end);
     }
 
     public Vote getLastForUser(int userId) {
@@ -58,11 +58,11 @@ public class DataJpaVoteRepository {
     }
 
     public List<Vote> getAllForUser(int userId) {
-        return voteRepository.findAllByUser_IdOrderByVotingDateTimeDesc(userId);
+        return voteRepository.getAllForUser(userId);
     }
 
     public List<Vote> getAllForUserBetweenDateTimes(int userId, LocalDateTime start, LocalDateTime end){
-        return voteRepository.findAllByUser_IdAndVotingDateTimeBetweenOrderByVotingDateTimeDesc(userId, start, end);
+        return voteRepository.getAllForUserBetween(userId, start, end);
     }
 
     public Vote getWithUser(int id, int userId) {

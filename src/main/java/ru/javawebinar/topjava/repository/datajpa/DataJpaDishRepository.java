@@ -39,11 +39,11 @@ public class DataJpaDishRepository {
     }
 
     public List<Dish> getAllForRestaurant(int restaurantId) {
-        return dishRepository.getDishesByRestaurant_Id(restaurantId);
+        return dishRepository.getAll(restaurantId);
     }
 
     public List<Dish> getAllForRestaurantBetweenDates(LocalDateTime startDate, LocalDateTime endDate, int restaurantId) {
-        return dishRepository.getDishesByRestaurant_IdAndAddedBetween(restaurantId, startDate, endDate);
+        return dishRepository.getAllBetween(restaurantId, startDate, endDate);
     }
 
 //    public List<Dish> getAllForRestaurantForToday(LocalDateTime start today, int restaurantId) {

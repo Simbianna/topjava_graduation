@@ -39,8 +39,8 @@ public class VoteRestController {
 
     public Vote create(Vote vote) {
         int userId = authUserId();
-        Vote lastVote = service.getLastForUser(userId);
-        checkVoteIsNewToday(lastVote);
+      Vote lastVote = service.getLastForUser(userId);
+     checkVoteIsNewToday(lastVote);
         checkNew(vote);
         log.info("create vote {} for user {}", vote, userId);
         return service.create(vote, userId);

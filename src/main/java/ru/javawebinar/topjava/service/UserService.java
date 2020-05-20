@@ -37,13 +37,10 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
-
-  //  @CacheEvict(value = "users", allEntries = true)
+    @CacheEvict(value = "users", allEntries = true)
     public User create(User user) {
         Assert.notNull(user, "user must not be null");
-      //  return repository.save(prepareToSave(user, passwordEncoder));
-        return repository.save(user);
-
+        return repository.save(prepareToSave(user, passwordEncoder));
     }
 
     @CacheEvict(value = "users", allEntries = true)
@@ -68,7 +65,6 @@ public class UserService implements UserDetailsService {
     @CacheEvict(value = "users", allEntries = true)
     public void update(User user) {
         Assert.notNull(user, "user must not be null");
-//      checkNotFoundWithId : check works only for JDBC, disabled
         repository.save(prepareToSave(user, passwordEncoder));
     }
 
@@ -84,7 +80,6 @@ public class UserService implements UserDetailsService {
     public void enable(int id, boolean enabled) {
         User user = get(id);
         user.setEnabled(enabled);
-        repository.save(user);  // !! need only for JDBC implementation
     }
 
     @Override

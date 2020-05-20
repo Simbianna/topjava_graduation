@@ -18,22 +18,19 @@
 
     <tx:annotation-driven/>
 
-    <!--// <beans>-->
     <context:property-placeholder location="classpath:db/hsqldb.properties" system-properties-mode="OVERRIDE"/>
 
-    <!--if no pooling use driver-->
-    <!--class="org.springframework.jdbc.datasource.DriverManagerDataSource"-->
+    <!--for pooling use driver-->
+    <!--class="org.apache.tomcat.jdbc.pool.DataSource"-->
+
 
     <bean id="dataSource"
-    class="org.apache.tomcat.jdbc.pool.DataSource"
+    class="org.springframework.jdbc.datasource.DriverManagerDataSource"
           p:driverClassName="org.hsqldb.jdbcDriver"
           p:url="${database.url}"
           p:username="${database.username}"
           p:password="${database.password}"/>
-    <!--</beans>-->
 
-
-    <!--<beans>-->
     <context:component-scan base-package="ru.javawebinar.**.repository.datajpa"/>
     <jpa:repositories base-package="ru.javawebinar.**.repository.datajpa"/>
 
@@ -81,6 +78,5 @@
           p:entityManagerFactory-ref="entityManagerFactory"/>
 
     <bean class="ru.javawebinar.topjava.repository.JpaUtil"/>
-    <!--</beans>-->
 
 </beans>
