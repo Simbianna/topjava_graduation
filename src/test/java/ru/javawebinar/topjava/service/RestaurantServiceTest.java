@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import ru.javawebinar.topjava.model.Restaurant;
+import ru.javawebinar.topjava.repository.JpaUtil;
 import ru.javawebinar.topjava.testData.DishTestData;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
@@ -22,12 +23,13 @@ class RestaurantServiceTest extends AbstractServiceTest {
     @Autowired
     private CacheManager cacheManager;
 
+    @Autowired
+    private JpaUtil jpaUtil;
+
     @BeforeEach
     void setUp() throws Exception {
         cacheManager.getCache("restaurants").clear();
-//        if (isJpaBased()) {
-//            jpaUtil.clear2ndLevelHibernateCache();
-//        }
+        jpaUtil.clear2ndLevelHibernateCache();
     }
 
     @Test

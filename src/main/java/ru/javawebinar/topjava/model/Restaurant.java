@@ -1,13 +1,14 @@
 package ru.javawebinar.topjava.model;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Range;
-
+import org.hibernate.annotations.Cache;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
-
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity
 @Table(name = "restaurants")
 public class Restaurant extends AbstractNamedEntity {

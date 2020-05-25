@@ -6,7 +6,6 @@ import org.hibernate.SessionFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-//TODO проверить нужен ли класс
 public class JpaUtil {
 
     @PersistenceContext
