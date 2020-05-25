@@ -46,4 +46,6 @@ public class DataJpaUserRepository{
         return userRepository.getWithVotes(id);
     }
 
+//    public User getWithLastVote(int id) { return userRepository.getWithLastVote(id);
+//    }
 }

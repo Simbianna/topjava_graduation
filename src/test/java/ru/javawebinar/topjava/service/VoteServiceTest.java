@@ -3,6 +3,7 @@ package ru.javawebinar.topjava.service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.javawebinar.topjava.model.Vote;
+import ru.javawebinar.topjava.testData.UserTestData;
 import ru.javawebinar.topjava.util.exception.ErrorType;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
@@ -94,5 +95,14 @@ class VoteServiceTest extends AbstractServiceTest {
 
     @Test
     void getWithUser() {
+        Vote vote = service.getWithUser(VOTE_ID, USER_ID);
+        assertMatch(vote, USER_VOTE_D1);
+        UserTestData.assertMatch(vote.getUser(), USER);
+    }
+
+    @Test
+    void getWithUserNotFound() throws Exception {
+        assertThrows(NotFoundException.class, () ->
+                service.getWithUser(VOTE_ID, ADMIN_ID));
     }
 }

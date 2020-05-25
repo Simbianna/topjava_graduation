@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import ru.javawebinar.topjava.model.Vote;
 import ru.javawebinar.topjava.service.VoteService;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -39,20 +40,20 @@ public class VoteRestController {
 
     public Vote create(Vote vote) {
         int userId = authUserId();
-      Vote lastVote = service.getLastForUser(userId);
-     checkVoteIsNewToday(lastVote);
+        Vote lastVote = service.getLastForUser(userId);
+        checkVoteIsNewToday(lastVote);
         checkNew(vote);
         log.info("create vote {} for user {}", vote, userId);
         return service.create(vote, userId);
     }
 
-    public void update(Vote vote){
+    public void update(Vote vote) {
         int userId = authUserId();
         LocalDateTime votingTime = LocalDateTime.now();
         vote.setVotingDateTime(votingTime);
         checkVoteCanBeUpdated(votingTime);
         assureIdConsistent(vote, userId);
-       service.update(vote,userId);
+        service.update(vote, userId);
     }
 
 }

@@ -40,7 +40,7 @@ public class VoteTestData {
     public static final List<Vote> ALL_VOTES_FOR_ITALIAN_SORTED = collectEntitiesByCriteriaSorted(ALL_VOTES, vote -> vote.getRestaurant().getId() == ITALIAN_ID, SORT_VOTES_BY_DATETIME_DESC);
     public static final List<Vote> ALL_VOTES_FOR_ITALIAN_CHECK_DATE = getAllVotesBetweenDateTimes(ALL_VOTES_FOR_ITALIAN_SORTED, CHECK_DATE_START, CHECK_DATE_END);
     public static final List<Vote> ALL_VOTES_FOR_ITALIAN_BETWEEN_DATE_TIMES = getAllVotesBetweenDateTimes(ALL_VOTES_FOR_ITALIAN_SORTED, START_DATE_TIME, END_DATE_TIME);
-    public static final List<Vote> ALL_VOTES_FOR_ITALIAN_WITH_CREATED = collectEntitiesAddingToBeginning(ALL_VOTES_FOR_ITALIAN_SORTED, ITALIAN_VOTE_CREATED);
+   public static final List<Vote> ALL_VOTES_FOR_ITALIAN_WITH_CREATED = collectEntitiesSorted(SORT_VOTES_BY_DATETIME_DESC, ALL_VOTES_FOR_ITALIAN_SORTED, ITALIAN_VOTE_CREATED);
     //   public static final List<Vote> ALL_VOTES_BETWEEN_DATE_TIMES = getAllVotesBetweenDateTimes(ALL_VOTES, START_DATE_TIME, END_DATE_TIME);
 
     private static List<Vote> getAllVotesBetweenDateTimes(List<Vote> votes, LocalDateTime start, LocalDateTime end) {

@@ -61,5 +61,9 @@ public class DishService {
         return dishRepository.save(Dish);
     }
 
+    public Dish getWithRestaurant(int id, int restaurantId) {
+        return checkNotFoundWithId(dishRepository.getWithRestaurant(id, restaurantId), id);
+    }
+
 
 }

@@ -49,8 +49,8 @@ public class RestaurantService {
         return restaurantRepository.save(restaurant);
     }
 
-    public Restaurant getWithMeals(int id) {
-        return checkNotFoundWithId(restaurantRepository.getWithMeals(id), id);
+    public Restaurant getWithDishes(int id) {
+        return checkNotFoundWithId(restaurantRepository.getWithDishes(id), id);
     }
 
 }

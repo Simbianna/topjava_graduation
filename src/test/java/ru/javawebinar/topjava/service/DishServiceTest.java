@@ -4,6 +4,7 @@ package ru.javawebinar.topjava.service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.javawebinar.topjava.model.Dish;
+import ru.javawebinar.topjava.testData.RestaurantTestData;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.time.LocalDate;
@@ -12,8 +13,7 @@ import java.time.Month;
 import static java.time.LocalDateTime.of;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.javawebinar.topjava.testData.DishTestData.*;
-import static ru.javawebinar.topjava.testData.RestaurantTestData.ITALIAN_ID;
-import static ru.javawebinar.topjava.testData.RestaurantTestData.STEAK_HOUSE_ID;
+import static ru.javawebinar.topjava.testData.RestaurantTestData.*;
 import static ru.javawebinar.topjava.testData.UserTestData.ADMIN_ID;
 
 
@@ -35,7 +35,7 @@ class DishServiceTest extends AbstractServiceTest {
     @Test
     void delete() throws Exception {
         service.delete(DISH1_ID, ADMIN_ID);
-        assertMatch(service.getAllForRestaurant(ITALIAN_ID), ITALIAN_DISHES.subList(1, 4));
+        assertMatch(service.getAllForRestaurant(ITALIAN_ID), ITALIAN_DISHES_SORTED_BY_DT_EXCEPT_DELETED);
     }
 
     @Test
@@ -49,7 +49,7 @@ class DishServiceTest extends AbstractServiceTest {
         Dish created = service.create(newDish, ADMIN_ID);
         newDish.setId(created.getId());
         assertMatch(newDish, created);
-        assertMatch(service.getAllForRestaurant(ITALIAN_ID), ITALIAN_DISHES_WITH_CREATED);
+        assertMatch(service.getAllForRestaurant(ITALIAN_ID), ITALIAN_DISHES_SORTED_BY_DT_WITH_CREATED);
     }
 
     @Test
@@ -61,12 +61,12 @@ class DishServiceTest extends AbstractServiceTest {
 
     @Test
     void getAll() throws Exception {
-        assertMatch(service.getAll(), getDishesSortedByID(ALL_DISHES));
+        assertMatch(service.getAll(), getDishesSortedByID(ALL_DISHES_SORTED_BY_DT));
     }
 
     @Test
     void getAllForRestaurant() throws Exception {
-        assertMatch(service.getAllForRestaurant(STEAK_HOUSE_ID), STEAK_DISHES);
+        assertMatch(service.getAllForRestaurant(STEAK_HOUSE_ID), STEAK_DISHES_SORTED_BY_DT);
     }
 
     @Test
@@ -78,6 +78,19 @@ class DishServiceTest extends AbstractServiceTest {
     @Test
     void getAllForRestaurantForToday() {
         assertMatch(service.getAllForRestaurantForToday(LocalDate.of(2020, Month.MARCH, 30), ITALIAN_ID), ITALIAN_DISHES_D_1);
+    }
+
+    @Test
+    void getWithRestaurant() throws Exception {
+        Dish italian1 = service.getWithRestaurant(DISH1_ID, ITALIAN_ID);
+        assertMatch(italian1, ITALIAN_DISH_1);
+        RestaurantTestData.assertMatch(italian1.getRestaurant(),ITALIAN);
+    }
+
+    @Test
+    void getWithRestaurantNotFound() throws Exception {
+        assertThrows(NotFoundException.class, () ->
+                service.getWithRestaurant(DISH1_ID, VIETNAM_ID));
     }
 
 

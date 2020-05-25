@@ -24,7 +24,7 @@ public interface CrudDishRepository extends JpaRepository<Dish, Integer> {
     @Transactional
     Dish save(Dish item);
 
-    @Query("SELECT d FROM Dish d WHERE d.restaurant.id=:restaurantId")
+    @Query("SELECT d FROM Dish d WHERE d.restaurant.id=:restaurantId ORDER BY d.added DESC")
     List<Dish> getAll(@Param("restaurantId") int restaurantId);
 
     @SuppressWarnings("JpaQlInspection")
@@ -32,7 +32,7 @@ public interface CrudDishRepository extends JpaRepository<Dish, Integer> {
     List<Dish> getAllBetween(@Param("restaurantId") int restaurantId, @Param("startDate") LocalDateTime start, @Param("endDate") LocalDateTime end);
 
     @Query("SELECT d FROM Dish d JOIN FETCH d.restaurant WHERE d.id = ?1 and d.restaurant.id = ?2")
-    Dish getWithRestaurant(int id);
+    Dish getWithRestaurant(int id, int restaurantID);
 
 //List<Dish> getDishesByRestaurant_IdAndAddedBetween(int restaurantId, LocalDateTime start, LocalDateTime end);
 //    @Query("SELECT d FROM  Dish d WHERE d.restaurant.id=:restaurantId AND d.added =:today")

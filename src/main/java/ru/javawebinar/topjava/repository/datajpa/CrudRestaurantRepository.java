@@ -18,8 +18,9 @@ public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Inte
 
 
     //    https://stackoverflow.com/a/46013654/548473
-    @EntityGraph(attributePaths = {"meals"}, type = EntityGraph.EntityGraphType.LOAD)
+    @EntityGraph(attributePaths = {"dishes"}, type = EntityGraph.EntityGraphType.LOAD)
     @Query("SELECT r FROM Restaurant r WHERE r.id=?1")
-    Restaurant getWithMeals(int id);
+    Restaurant getWithDishes(int id);
+
 
 }

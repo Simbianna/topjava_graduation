@@ -15,7 +15,7 @@ public class RestaurantsUtil {
 
     public static RestaurantTo getWithRating(Restaurant restaurant, List<Vote> votes) {
         int rating = votes != null ? votes.size() : DEFAULT_RATING;
-        return new RestaurantTo(restaurant.getId(), restaurant.getName(), restaurant.getLunchMenu(), rating);
+        return new RestaurantTo(restaurant.getId(), restaurant.getName(), restaurant.getDishes(), rating);
     }
 
    /* public static List<RestaurantTo> getWithRatings(Collection<Restaurant> restaurants) {

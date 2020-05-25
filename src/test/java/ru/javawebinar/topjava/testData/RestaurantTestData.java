@@ -29,7 +29,7 @@ public class RestaurantTestData {
     }
 
     public static void assertMatch(Restaurant actual, Restaurant expected) {
-        assertThat(actual).isEqualToIgnoringGivenFields(expected, "lunchMenu", "todaysRating");
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, "dishes", "rating");
     }
 
     public static void assertMatch(List<Restaurant> actual, Restaurant... expected) {
@@ -37,7 +37,7 @@ public class RestaurantTestData {
     }
 
     public static void assertMatch(List<Restaurant> actual, List<Restaurant> expected) {
-        assertThat(actual).usingElementComparatorIgnoringFields("todaysRating", "lunchMenu", "rating").isEqualTo(expected);
+        assertThat(actual).usingElementComparatorIgnoringFields("dishes", "rating").isEqualTo(expected);
     }
 
 

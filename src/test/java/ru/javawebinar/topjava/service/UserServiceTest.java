@@ -8,6 +8,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
+import ru.javawebinar.topjava.testData.VoteTestData;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import javax.validation.ConstraintViolationException;
@@ -106,12 +107,21 @@ class UserServiceTest extends AbstractServiceTest {
 
     @Test
     void createWithException() throws Exception {
-        validateRootCause(() -> service.create(new User(null, "  ", "mail@yandex.ru", "password",Role.ROLE_USER)), ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new User(null, "  ", "mail@yandex.ru", "password", Role.ROLE_USER)), ConstraintViolationException.class);
         validateRootCause(() -> service.create(new User(null, "User", "  ", "password", Role.ROLE_USER)), ConstraintViolationException.class);
         validateRootCause(() -> service.create(new User(null, "User", "mail@yandex.ru", "  ", Role.ROLE_USER)), ConstraintViolationException.class);
     }
 
     @Test
     void getWithVotes() {
+        User user = service.getWithVotes(USER_ID);
+        assertMatch(user, USER);
+        VoteTestData.assertMatch(user.getVotes(), VoteTestData.ALL_VOTES_BY_USER1);
+    }
+
+    @Test
+    void getWithVotesNotFound() {
+        assertThrows(NotFoundException.class, () ->
+                service.getWithVotes(1));
     }
 }

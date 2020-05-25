@@ -91,6 +91,10 @@ public class UserService implements UserDetailsService {
         return new AuthorizedUser(user);
     }
 
+//    public User getLastVote(int id) {
+//        return checkNotFoundWithId(repository.getWithLastVote(id), id);
+//    }
+
     public User getWithVotes(int id) {
         return checkNotFoundWithId(repository.getWithVotes(id), id);
     }

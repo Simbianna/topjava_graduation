@@ -35,7 +35,7 @@ public class DataJpaRestaurantRepository {
         return restaurantRepository.findAll()  ;
     }
 
-    public Restaurant getWithMeals(int id) {
-        return restaurantRepository.getWithMeals(id);
+    public Restaurant getWithDishes(int id) {
+        return restaurantRepository.getWithDishes(id);
     }
 }

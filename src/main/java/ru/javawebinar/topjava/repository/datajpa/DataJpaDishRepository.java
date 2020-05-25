@@ -50,8 +50,8 @@ public class DataJpaDishRepository {
 //        return dishRepository.getDishesByRestaurantForToday(today, restaurantId);
 //    }
 
-    public Dish getWithRestaurant(int id) {
-        return dishRepository.getWithRestaurant(id);
+    public Dish getWithRestaurant(int id, int restaurantId) {
+        return dishRepository.getWithRestaurant(id, restaurantId);
     }
 
     //    public List<Dish> getForToday(int restaurantId) {

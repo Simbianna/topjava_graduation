@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import ru.javawebinar.topjava.model.Restaurant;
+import ru.javawebinar.topjava.testData.DishTestData;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.util.List;
@@ -64,17 +65,26 @@ class RestaurantServiceTest extends AbstractServiceTest {
         Restaurant created = service.create(newRestaurant, ADMIN_ID);
         newRestaurant.setId(created.getId());
         assertMatch(newRestaurant, created);
-        assertMatch(service.getAll(),STEAK_HOUSE, ITALIAN, VIETNAM, RUSSIAN) ;
+        assertMatch(service.getAll(), STEAK_HOUSE, ITALIAN, VIETNAM, RUSSIAN);
     }
 
     @Test
     void update() throws Exception {
         Restaurant updated = getItalianUpdated();
         service.update(updated, ADMIN_ID);
-        assertMatch(service.get(ITALIAN_ID),updated);
+        assertMatch(service.get(ITALIAN_ID), updated);
     }
 
     @Test
-    void getWithMenu() throws Exception {
+    void getWithDishes() throws Exception {
+        Restaurant italian = service.getWithDishes(ITALIAN_ID);
+        assertMatch(italian, ITALIAN);
+        DishTestData.assertMatch(italian.getDishes(),DishTestData.ITALIAN_DISHES_SORTED_BY_DT);
+    }
+
+    @Test
+    void getWithDishesNotFound() throws Exception {
+        assertThrows(NotFoundException.class, () ->
+                service.getWithDishes(1));
     }
 }

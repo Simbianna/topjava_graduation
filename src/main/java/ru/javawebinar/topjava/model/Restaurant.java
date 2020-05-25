@@ -3,7 +3,6 @@ package ru.javawebinar.topjava.model;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -16,10 +15,11 @@ public class Restaurant extends AbstractNamedEntity {
     @Column(name = "rating")
   //  @NotNull
     @Range(min = 0)
-    private AtomicInteger todaysRating;
+    private AtomicInteger rating;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")//, cascade = CascadeType.REMOVE, orphanRemoval = true
-    private List<Dish> lunchMenu;
+    @OrderBy("added DESC")
+    private List<Dish> dishes;
 
     public Restaurant() {
     }
@@ -32,18 +32,18 @@ public class Restaurant extends AbstractNamedEntity {
         super(name);
     }
 
-    public List<Dish> getLunchMenu() {
-        return lunchMenu;
+    public List<Dish> getDishes() {
+        return dishes;
     }
 
-    public void setLunchMenu(List<Dish> lunchMenu) {
-        this.lunchMenu = lunchMenu;
+    public void setDishes(List<Dish> dishes) {
+        this.dishes = dishes;
     }
 
     @Override
     public String toString() {
         return "Restaurant{" +
-                "todaysRating=" + todaysRating +
+                "rating=" + rating +
                 ", name='" + name + '\'' +
                 ", id=" + id +
                 '}';
@@ -79,12 +79,12 @@ public class Restaurant extends AbstractNamedEntity {
 //        this.lunchDishes = lunchDishes;
 //    }
 //TODO вот тут надо подумать
-    public AtomicInteger getTodaysRating() {
-        return Objects.requireNonNullElse(todaysRating,new AtomicInteger(0));
+    public AtomicInteger getRating() {
+        return Objects.requireNonNullElse(rating,new AtomicInteger(0));
     }
 
-    public void setTodaysRating(AtomicInteger todaysRating) {
-        this.todaysRating = Objects.requireNonNullElse(todaysRating,new AtomicInteger(0));
+    public void setRating(AtomicInteger todaysRating) {
+        this.rating = Objects.requireNonNullElse(todaysRating,new AtomicInteger(0));
     }
 
 //    public Map<String, Double> getTodaysLunchDishes() {
@@ -105,11 +105,11 @@ public class Restaurant extends AbstractNamedEntity {
 
 //
 //    public List<Dish> getTodaysLunchMeals() {
-//        return lunchMenu;
+//        return dishes;
 //    }
 //
 //    public void setTodaysLunchMeals(List<Dish> lunchDishes) {
-//        this.lunchMenu = lunchDishes;
+//        this.dishes = lunchDishes;
 //    }
 
 

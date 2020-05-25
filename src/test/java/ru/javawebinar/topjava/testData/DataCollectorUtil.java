@@ -10,8 +10,49 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class DataCollectorUtil {
-    static final Comparator<HasId> SORT_BY_ID_DESC = (o1, o2) -> o2.getId().compareTo(o1.getId());
+    private static final Comparator<HasId> SORT_BY_ID_DESC = (o1, o2) -> o2.getId().compareTo(o1.getId());
 
+    @SafeVarargs
+    static <T extends AbstractBaseEntity> List<T> collectEntities(List<T>... entities) {
+        return Stream.of(entities)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+    }
+
+    static <T extends AbstractBaseEntity> List<T> collectEntities(List<T> entities, T entity) {
+        return Stream.concat(Stream.of(entity), entities.stream())
+                .collect(Collectors.toList());
+    }
+
+    static <T extends AbstractBaseEntity> List<T> collectEntitiesExceptOne(List<T> entities, T entity) {
+        return entities.stream()
+                .filter(t -> t!= entity)
+                .collect(Collectors.toList());
+    }
+
+    static <T extends AbstractBaseEntity> List<T> collectEntitiesSortedExceptOne(List<T> entities, T entity, Comparator<T> comparator) {
+        return entities.stream()
+                .filter(t -> t!= entity)
+                .sorted(comparator)
+                .collect(Collectors.toList());
+    }
+
+    @SafeVarargs
+    static <T extends AbstractBaseEntity> List<T> collectEntitiesSorted(Comparator<T> comparator, List<T>... entities) {
+        return Stream.of(entities)
+                .flatMap(Collection::stream)
+                .sorted(comparator)
+                .collect(Collectors.toList());
+    }
+
+    static <T extends AbstractBaseEntity> List<T> collectEntitiesSorted(Comparator<T> comparator, List<T> entities, T entity) {
+        return Stream.concat(Stream.of(entity), entities.stream())
+                .sorted(comparator)
+                .collect(Collectors.toList());
+    }
+
+
+/*
     @SafeVarargs
     static <T extends AbstractBaseEntity> List<T> collectEntitiesAddingToBeginning(List<T>... entities) {
         return Stream.of(entities)
@@ -28,7 +69,7 @@ public class DataCollectorUtil {
         return Stream.concat(entities.stream(), Stream.of(entity))
                 .collect(Collectors.toList());
     }
-
+*/
     static <T extends AbstractBaseEntity> List<T> getEntitiesSorted(List<T> entities, Comparator<T> comparator) {
         return entities.stream()
                 .sorted(comparator)
