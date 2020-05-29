@@ -108,12 +108,6 @@ class UserServiceTest extends AbstractServiceTest {
         assertTrue(service.get(USER_ID).isEnabled());
     }
 
-    @Test
-    void createWithException() throws Exception {
-        validateRootCause(() -> service.create(new User(null, "  ", "mail@yandex.ru", "password", Role.ROLE_USER)), ConstraintViolationException.class);
-        validateRootCause(() -> service.create(new User(null, "User", "  ", "password", Role.ROLE_USER)), ConstraintViolationException.class);
-        validateRootCause(() -> service.create(new User(null, "User", "mail@yandex.ru", "  ", Role.ROLE_USER)), ConstraintViolationException.class);
-    }
 
     @Test
     void getWithVotes() {
@@ -126,5 +120,12 @@ class UserServiceTest extends AbstractServiceTest {
     void getWithVotesNotFound() {
         assertThrows(NotFoundException.class, () ->
                 service.getWithVotes(1));
+    }
+
+    @Test
+    void createWithException() throws Exception {
+        validateRootCause(() -> service.create(new User(null, "  ", "mail@yandex.ru", "password", Role.ROLE_USER)), ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new User(null, "User", "  ", "password", Role.ROLE_USER)), ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new User(null, "User", "mail@yandex.ru", "  ", Role.ROLE_USER)), ConstraintViolationException.class);
     }
 }

@@ -7,6 +7,8 @@ import ru.javawebinar.topjava.testData.UserTestData;
 import ru.javawebinar.topjava.util.exception.ErrorType;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
+import javax.validation.ConstraintViolationException;
+import java.time.Month;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -22,6 +24,8 @@ class VoteServiceTest extends AbstractServiceTest {
 
     @Test
     void get() throws Exception {
+        Vote v = service.get(VOTE_ID, USER_ID);
+        Vote v2 = USER_VOTE_D1;
         assertMatch(service.get(VOTE_ID, USER_ID), USER_VOTE_D1);
     }
 
@@ -105,4 +109,5 @@ class VoteServiceTest extends AbstractServiceTest {
         assertThrows(NotFoundException.class, () ->
                 service.getWithUser(VOTE_ID, ADMIN_ID));
     }
+    
 }

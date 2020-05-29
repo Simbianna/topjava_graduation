@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.javawebinar.topjava.model.Dish;
+import ru.javawebinar.topjava.repository.DishRepository;
 import ru.javawebinar.topjava.repository.datajpa.DataJpaDishRepository;
 
 import java.time.LocalDate;
@@ -18,10 +19,10 @@ import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
 @Service
 public class DishService {
 
-    private final DataJpaDishRepository dishRepository;
+    private final DishRepository dishRepository;
 
     @Autowired
-    public DishService(DataJpaDishRepository repository) {
+    public DishService(DishRepository repository) {
         this.dishRepository = repository;
     }
 
@@ -38,25 +39,19 @@ public class DishService {
         checkNotFoundWithId(dishRepository.save(dish), dish.getId());
     }
 
-    public List<Dish> getAll() {
-        return dishRepository.getAll();
+    public List<Dish> getAll(int restaurantId) {
+        return dishRepository.getAll(restaurantId);
     }
 
-    //If needed
-    public List<Dish> getAllForRestaurant(int restaurantId) {
-        return dishRepository.getAllForRestaurant(restaurantId);
-    }
-    //admin command
-
-    public List<Dish> getAllForRestaurantBetweenDates(LocalDateTime startDate, LocalDateTime endDate, int restaurantId) {
-        return dishRepository.getAllForRestaurantBetweenDates(startDate, endDate, restaurantId);
+    public List<Dish> getBetween(LocalDateTime startDate, LocalDateTime endDate, int restaurantId) {
+        return dishRepository.getBetween(startDate, endDate, restaurantId);
     }
 
-    public List<Dish> getAllForRestaurantForToday(LocalDate today, int restaurantId) {
-        return dishRepository.getAllForRestaurantBetweenDates(getDaysBeginning(today), getDaysEnd(today), restaurantId);
+    public List<Dish> getAllForToday(LocalDate today, int restaurantId) {
+        return dishRepository.getBetween(getDaysBeginning(today), getDaysEnd(today), restaurantId);
     }
 
-    public Dish create(Dish Dish, int UserId) {
+    public Dish create(Dish Dish) {
         Assert.notNull(Dish, "Dish must not be null");
         return dishRepository.save(Dish);
     }

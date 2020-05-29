@@ -4,15 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.Restaurant;
+import ru.javawebinar.topjava.repository.RestaurantRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class DataJpaRestaurantRepository {
-
-//    @Autowired
-//    CrudUserRepository crudUserRepository;
+public class DataJpaRestaurantRepository implements RestaurantRepository {
 
     @Autowired
     CrudRestaurantRepository restaurantRepository;
@@ -38,4 +36,5 @@ public class DataJpaRestaurantRepository {
     public Restaurant getWithDishes(int id) {
         return restaurantRepository.getWithDishes(id);
     }
+
 }

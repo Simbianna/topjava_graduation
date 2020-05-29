@@ -5,6 +5,7 @@
        xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:jee="http://www.springframework.org/schema/jee"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
@@ -20,12 +21,15 @@
 
     <context:property-placeholder location="classpath:db/hsqldb.properties" system-properties-mode="OVERRIDE"/>
 
-    <!--for pooling use driver-->
+    <!--For pooling use driver-->
     <!--class="org.apache.tomcat.jdbc.pool.DataSource"-->
+
+    <!--If no pooling use driver:-->
+    <!--class="org.springframework.jdbc.datasource.DriverManagerDataSource"-->
 
 
     <bean id="dataSource"
-    class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+          class="org.apache.tomcat.jdbc.pool.DataSource"
           p:driverClassName="org.hsqldb.jdbcDriver"
           p:url="${database.url}"
           p:username="${database.username}"
@@ -42,7 +46,8 @@
         <property name="jpaPropertyMap">
             <map>
                 <entry key="#{T(org.hibernate.cfg.AvailableSettings).FORMAT_SQL}" value="${hibernate.format_sql}"/>
-                <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SQL_COMMENTS}" value="${hibernate.use_sql_comments}"/>
+                <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SQL_COMMENTS}"
+                       value="${hibernate.use_sql_comments}"/>
                 <entry key="#{T(org.hibernate.cfg.AvailableSettings).JPA_PROXY_COMPLIANCE}" value="false"/>
                 <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_AUTO}" value="${hibernate.hbm2ddl.auto}"/>-->
 
@@ -57,12 +62,7 @@
                 <entry key="javax.persistence.validation.group.pre-persist"
                        value="ru.javawebinar.topjava.View$Persist"/>
                 <entry key="javax.persistence.validation.group.pre-update" value="ru.javawebinar.topjava.View$Persist"/>
-                <!--
-                                    <entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_SCRIPTS_ACTION}" value="drop-and-create"/>
-                                    <entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_SCRIPTS_CREATE_TARGET}" value="${TOPJAVA_ROOT}/config/ddl/create.ddl"/>
-                                    <entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_SCRIPTS_DROP_TARGET}" value="${TOPJAVA_ROOT}/config/ddl/drop.ddl"/>
-                                    <entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_AUTO}" value="create"/>
-                -->
+
             </map>
         </property>
 
@@ -77,5 +77,6 @@
           p:entityManagerFactory-ref="entityManagerFactory"/>
 
     <bean class="ru.javawebinar.topjava.repository.JpaUtil"/>
+
 
 </beans>

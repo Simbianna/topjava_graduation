@@ -6,6 +6,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.javawebinar.topjava.model.Restaurant;
+import ru.javawebinar.topjava.repository.RestaurantRepository;
 import ru.javawebinar.topjava.repository.datajpa.DataJpaRestaurantRepository;
 
 import java.util.List;
@@ -16,10 +17,10 @@ import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
 @Service
 public class RestaurantService {
 
-    private final DataJpaRestaurantRepository restaurantRepository;
+    private final RestaurantRepository restaurantRepository;
 
     @Autowired
-    public RestaurantService(DataJpaRestaurantRepository repository) {
+    public RestaurantService(RestaurantRepository repository) {
         this.restaurantRepository = repository;
     }
 

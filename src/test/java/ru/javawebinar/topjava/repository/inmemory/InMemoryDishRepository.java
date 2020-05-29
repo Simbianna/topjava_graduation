@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Dish;
+import ru.javawebinar.topjava.repository.DishRepository;
 import ru.javawebinar.topjava.util.Util;
 
 
@@ -16,10 +17,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-//TODO исправлены только красные ошибка, переписать реализацию в зависимости от основного кода
 
 @Repository
-public class InMemoryDishRepository extends InMemoryBaseRepository<Dish> {
+public class InMemoryDishRepository extends InMemoryBaseRepository<Dish> implements DishRepository {
     private static final Logger log = LoggerFactory.getLogger(InMemoryDishRepository.class);
 
     private Map<Integer, InMemoryBaseRepository<Dish>> dishesMap = new ConcurrentHashMap<>();
@@ -64,9 +64,12 @@ public class InMemoryDishRepository extends InMemoryBaseRepository<Dish> {
     }
 
     public List<Dish> getBetween(LocalDateTime startDateTime, LocalDateTime endDateTime, int restaurantId){
-        Objects.requireNonNull(startDateTime, "startDateTime must not be null");
-        Objects.requireNonNull(endDateTime, "endDateTime must not be null");
-        return getAllFiltered(restaurantId, dish -> Util.isBetween(dish.getAdded(), startDateTime, endDateTime));
+//        Objects.requireNonNull(startDateTime, "startDateTime must not be null");
+//        Objects.requireNonNull(endDateTime, "endDateTime must not be null");
+//        return getAllFiltered(restaurantId, dish -> Util.isBetween(dish.getAdded(), startDateTime, endDateTime));
+        return null;
     }
+
+
 
 }

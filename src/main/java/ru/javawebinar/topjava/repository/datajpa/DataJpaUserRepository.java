@@ -6,16 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.domain.Sort;
 import ru.javawebinar.topjava.model.User;
+import ru.javawebinar.topjava.repository.UserRepository;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 
-//Интерфесы репозитории не создаю тк только 1 реализация
 
 @Repository
-public class DataJpaUserRepository{
+public class DataJpaUserRepository implements UserRepository {
     private static final Sort SORT_NAME_EMAIL = new Sort(Sort.Direction.ASC, "name", "email");
 
     @Autowired

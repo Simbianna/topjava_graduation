@@ -7,6 +7,7 @@ import ru.javawebinar.topjava.model.Dish;
 import ru.javawebinar.topjava.testData.RestaurantTestData;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
+import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
 import java.time.Month;
 
@@ -14,7 +15,7 @@ import static java.time.LocalDateTime.of;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.javawebinar.topjava.testData.DishTestData.*;
 import static ru.javawebinar.topjava.testData.RestaurantTestData.*;
-import static ru.javawebinar.topjava.testData.UserTestData.ADMIN_ID;
+import static ru.javawebinar.topjava.testData.UserTestData.*;
 
 
 class DishServiceTest extends AbstractServiceTest {
@@ -35,7 +36,7 @@ class DishServiceTest extends AbstractServiceTest {
     @Test
     void delete() throws Exception {
         service.delete(DISH1_ID, ADMIN_ID);
-        assertMatch(service.getAllForRestaurant(ITALIAN_ID), ITALIAN_DISHES_SORTED_BY_DT_EXCEPT_DELETED);
+        assertMatch(service.getAll(ITALIAN_ID), ITALIAN_DISHES_SORTED_BY_DT_EXCEPT_DELETED);
     }
 
     @Test
@@ -46,10 +47,10 @@ class DishServiceTest extends AbstractServiceTest {
     @Test
     void create() throws Exception {
         Dish newDish = getItalianCreated();
-        Dish created = service.create(newDish, ADMIN_ID);
+        Dish created = service.create(newDish);
         newDish.setId(created.getId());
         assertMatch(newDish, created);
-        assertMatch(service.getAllForRestaurant(ITALIAN_ID), ITALIAN_DISHES_SORTED_BY_DT_WITH_CREATED);
+        assertMatch(service.getAll(ITALIAN_ID), ITALIAN_DISHES_SORTED_BY_DT_WITH_CREATED);
     }
 
     @Test
@@ -59,25 +60,21 @@ class DishServiceTest extends AbstractServiceTest {
         assertMatch(service.get(DISH1_ID), updated);
     }
 
-    @Test
-    void getAll() throws Exception {
-        assertMatch(service.getAll(), getDishesSortedByID(ALL_DISHES_SORTED_BY_DT));
-    }
 
     @Test
     void getAllForRestaurant() throws Exception {
-        assertMatch(service.getAllForRestaurant(STEAK_HOUSE_ID), STEAK_DISHES_SORTED_BY_DT);
+        assertMatch(service.getAll(STEAK_HOUSE_ID), STEAK_DISHES_SORTED_BY_DT);
     }
 
     @Test
     void getAllForRestaurantBetweenDates() throws Exception {
-        assertMatch(service.getAllForRestaurantBetweenDates(of(2020, Month.MARCH, 31, 10, 0),
+        assertMatch(service.getBetween(of(2020, Month.MARCH, 31, 10, 0),
                 of(2020, Month.MARCH, 31, 10, 0), ITALIAN_ID), ITALIAN_DISHES_D_2);
     }
 
     @Test
     void getAllForRestaurantForToday() {
-        assertMatch(service.getAllForRestaurantForToday(LocalDate.of(2020, Month.MARCH, 30), ITALIAN_ID), ITALIAN_DISHES_D_1);
+        assertMatch(service.getAllForToday(LocalDate.of(2020, Month.MARCH, 30), ITALIAN_ID), ITALIAN_DISHES_D_1);
     }
 
     @Test
@@ -90,7 +87,13 @@ class DishServiceTest extends AbstractServiceTest {
     @Test
     void getWithRestaurantNotFound() throws Exception {
         assertThrows(NotFoundException.class, () ->
-                service.getWithRestaurant(DISH1_ID, VIETNAM_ID));
+                service.getWithRestaurant(DISH1_ID, 2));
+    }
+
+    @Test
+    void createWithException() throws Exception {
+        validateRootCause(() -> service.create(new Dish( " ", 1, of(2020, Month.MARCH, 31, 10, 0), ITALIAN)), ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new Dish( " ", 1, of(2020, Month.MARCH, 31, 10, 0), null)), ConstraintViolationException.class);
     }
 
 

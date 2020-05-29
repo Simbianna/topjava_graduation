@@ -8,7 +8,6 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-//TODO вообще не трогала, переделать
 
 @Repository
 public class InMemoryBaseRepository<T extends AbstractBaseEntity> {

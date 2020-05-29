@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.javawebinar.topjava.AuthorizedUser;
 import ru.javawebinar.topjava.model.User;
+import ru.javawebinar.topjava.repository.UserRepository;
 import ru.javawebinar.topjava.repository.datajpa.DataJpaUserRepository;
 import ru.javawebinar.topjava.to.UserTo;
 import ru.javawebinar.topjava.util.UserUtil;
@@ -28,11 +29,11 @@ import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class UserService implements UserDetailsService {
 
-    private final DataJpaUserRepository repository;
+    private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(DataJpaUserRepository repository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository repository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
     }

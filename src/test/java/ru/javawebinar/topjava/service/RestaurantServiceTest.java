@@ -9,6 +9,7 @@ import ru.javawebinar.topjava.repository.JpaUtil;
 import ru.javawebinar.topjava.testData.DishTestData;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -89,4 +90,5 @@ class RestaurantServiceTest extends AbstractServiceTest {
         assertThrows(NotFoundException.class, () ->
                 service.getWithDishes(1));
     }
+
 }

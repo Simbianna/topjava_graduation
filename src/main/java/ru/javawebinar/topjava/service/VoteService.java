@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.javawebinar.topjava.model.Vote;
+import ru.javawebinar.topjava.repository.VoteRepository;
 import ru.javawebinar.topjava.repository.datajpa.DataJpaVoteRepository;
 
 import java.time.LocalDate;
@@ -17,10 +18,10 @@ import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
 @Service
 public class VoteService {
 
-    private final DataJpaVoteRepository voteRepository;
+    private final VoteRepository voteRepository;
 
     @Autowired
-    VoteService(DataJpaVoteRepository repository) {
+    VoteService(VoteRepository repository) {
         this.voteRepository = repository;
     }
 
@@ -32,12 +33,12 @@ public class VoteService {
         checkNotFoundWithId(voteRepository.delete(id, userId), id);
     }
 
-    public List<Vote> getAll() {
+        public List<Vote> getAll() {
         return voteRepository.getAll();
     }
 
     //TODO подумать насчет userId
-    public List<Vote> getAllForRestaurant(int restaurantId, int userId){
+    public List<Vote> getAllForRestaurant(int restaurantId, int userId) {
         return voteRepository.getAllForRestaurant(restaurantId);
     }
 
@@ -56,7 +57,7 @@ public class VoteService {
     public List<Vote> getAllForRestaurantBetweenDateTimes(int restaurantId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         Assert.notNull(startDateTime, "startDateTime must not be null");
         Assert.notNull(endDateTime, "endDateTime  must not be null");
-        return voteRepository.getAllForRestaurantBetweenDateTimes(restaurantId, startDateTime, endDateTime);
+        return voteRepository.getAllForRestaurantBetween(restaurantId, startDateTime, endDateTime);
     }
 
     public Vote getLastForUser(int userId) {
@@ -67,10 +68,10 @@ public class VoteService {
         return voteRepository.getAllForUser(userId);
     }
 
-    public List<Vote> getAllForUserBetweenDateTimes(int userId, LocalDateTime startDateTime, LocalDateTime endDateTime){
+    public List<Vote> getAllForUserBetweenDateTimes(int userId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         Assert.notNull(startDateTime, "startDateTime must not be null");
         Assert.notNull(endDateTime, "endDateTime  must not be null");
-        return voteRepository.getAllForUserBetweenDateTimes(userId, startDateTime, endDateTime);
+        return voteRepository.getAllForUserBetween(userId, startDateTime, endDateTime);
     }
 
     public void update(Vote vote, int userId) {
@@ -86,4 +87,10 @@ public class VoteService {
     public Vote getWithUser(int id, int userId) {
         return checkNotFoundWithId(voteRepository.getWithUser(id, userId), id);
     }
+
+    public Vote getWithRestaurant(int id, int userId) {
+        return checkNotFoundWithId(voteRepository.getWithRestaurant(id, userId), id);
+    }
+
+
 }
