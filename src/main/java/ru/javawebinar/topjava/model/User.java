@@ -59,8 +59,8 @@ public class User extends AbstractNamedEntity implements HasEmail {
     @OrderBy("votingDateTime DESC")
     private List<Vote> votes;
 
-    @Column(name = "voted", nullable = false, columnDefinition = "bool default false")
-    private boolean voted = false;
+   /* @Column(name = "voted", nullable = false, columnDefinition = "bool default false")
+    private boolean voted = false;*/
 
     public User() {
     }

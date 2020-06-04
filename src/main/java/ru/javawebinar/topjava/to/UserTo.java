@@ -30,9 +30,8 @@ public class UserTo extends BaseTo implements HasEmail, Serializable {
     @Size(min = 5, max = 32, message = "length must be between 5 and 32 characters")
     private String password;
 
-    @Range(min = 0, max = 5)
-    @NotNull
-    private Vote vote;
+//    @Range(min = 0, max = 5)
+//    private Vote vote;
 
     public UserTo() {
     }
@@ -44,13 +43,13 @@ public class UserTo extends BaseTo implements HasEmail, Serializable {
         this.password = password;
     }
 
-    public UserTo(Integer id, String name, String email, String password, Vote vote) {
+   /* public UserTo(Integer id, String name, String email, String password, Vote vote) {
         super(id);
         this.name = name;
         this.email = email;
         this.password = password;
         this.vote = vote;
-    }
+    }*/
 
     public String getPassword() {
         return password;
@@ -77,13 +76,13 @@ public class UserTo extends BaseTo implements HasEmail, Serializable {
         this.email = email;
     }
 
-    public void setVote(Vote vote) {
+  /*  public void setVote(Vote vote) {
         this.vote = vote;
     }
 
     public Vote getVote() {
         return vote;
-    }
+    }*/
 
     @Override
     public String toString() {
@@ -91,7 +90,7 @@ public class UserTo extends BaseTo implements HasEmail, Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", vote='" + vote + '\'' +
+          //      ", vote='" + vote + '\'' +
                 '}';
     }
 

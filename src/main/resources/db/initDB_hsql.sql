@@ -15,8 +15,8 @@ CREATE TABLE users
   email      VARCHAR(255)            NOT NULL,
   password   VARCHAR(255)            NOT NULL,
   registered TIMESTAMP DEFAULT now() NOT NULL,
-  enabled    BOOLEAN   DEFAULT TRUE  NOT NULL,
-  voted      BOOLEAN   DEFAULT FALSE NOT NULL
+  enabled    BOOLEAN   DEFAULT TRUE  NOT NULL
+  /*voted      BOOLEAN   DEFAULT FALSE NOT NULL*/
   --   voting_time   TIMESTAMP,
   --   restaurant_id INTEGER,
   --   FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE CASCADE

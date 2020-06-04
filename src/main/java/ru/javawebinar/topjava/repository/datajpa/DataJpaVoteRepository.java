@@ -12,9 +12,9 @@ import java.util.List;
 
 @Repository
 public class DataJpaVoteRepository implements VoteRepository {
-   // private static final Sort SORT_DATE_USER = new Sort(Sort.Direction.ASC, "votingDateTime", "user");
-   // private static final Sort SORT_BY_DATETIME = new Sort(Sort.Direction.ASC, "votingDateTime");
-    private static final Sort SORT_BY_ID = new Sort(Sort.Direction.DESC, "id");
+    // private static final Sort SORT_DATE_USER = new Sort(Sort.Direction.ASC, "votingDateTime", "user");
+    // private static final Sort SORT_BY_DATETIME = new Sort(Sort.Direction.ASC, "votingDateTime");
+    private static final Sort SORT_BY_ID = Sort.by(Sort.Direction.DESC, "id");
 
     @Autowired
     CrudVoteRepository voteRepository;
@@ -36,11 +36,11 @@ public class DataJpaVoteRepository implements VoteRepository {
     }
 
     public Vote get(int id, int userId) {
-      //  return voteRepository.getVoteByIdAndUserId(id, userId);
-      return voteRepository.findById(id).filter(vote -> vote.getUser().getId() == userId).orElse(null);
+        //  return voteRepository.getVoteByIdAndUserId(id, userId);
+        return voteRepository.findById(id).filter(vote -> vote.getUser().getId() == userId).orElse(null);
     }
 
-    public List<Vote> getAllForRestaurant(int restaurantId){
+    public List<Vote> getAllForRestaurant(int restaurantId) {
         return voteRepository.getAllByRestaurant(restaurantId);
     }
 
@@ -56,7 +56,7 @@ public class DataJpaVoteRepository implements VoteRepository {
         return voteRepository.getAllForUser(userId);
     }
 
-    public List<Vote> getAllForUserBetween(int userId, LocalDateTime start, LocalDateTime end){
+    public List<Vote> getAllForUserBetween(int userId, LocalDateTime start, LocalDateTime end) {
         return voteRepository.getAllForUserBetween(userId, start, end);
     }
 
@@ -64,7 +64,9 @@ public class DataJpaVoteRepository implements VoteRepository {
         return voteRepository.getWithUser(id, userId);
     }
 
-    public Vote getWithRestaurant(int id, int restaurantId){return voteRepository.getWithRestaurant(id, restaurantId);}
+    public Vote getWithRestaurant(int id, int restaurantId) {
+        return voteRepository.getWithRestaurant(id, restaurantId);
+    }
 
 
     public List<Vote> getAll() {

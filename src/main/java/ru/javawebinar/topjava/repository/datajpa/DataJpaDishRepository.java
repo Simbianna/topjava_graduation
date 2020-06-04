@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 public class DataJpaDishRepository implements DishRepository {
-    private static final Sort SORT_BY_ID = new Sort(Sort.Direction.DESC, "id");
+    private static final Sort SORT_BY_ID = Sort.by(Sort.Direction.DESC, "id");
 
     @Autowired
     CrudDishRepository dishRepository;

@@ -3,6 +3,7 @@ package ru.javawebinar.topjava.web.user;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import ru.javawebinar.topjava.model.AbstractBaseEntity;
@@ -26,7 +27,13 @@ public abstract class AbstractUserController {
     @Autowired
     private UniqueMailValidator emailValidator;
 
-    private boolean modificationRestriction;
+ //   private boolean modificationRestriction;
+
+//    @Autowired
+//    @SuppressWarnings("deprecation")
+//    public void setEnvironment(Environment environment) {
+//        modificationRestriction = environment.acceptsProfiles(Profiles.HEROKU);
+//    }
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -80,7 +87,8 @@ public abstract class AbstractUserController {
     }
 
     private void checkModificationAllowed(int id) {
-        if (modificationRestriction && id < AbstractBaseEntity.START_SEQ + 2) {
+   //     if (modificationRestriction && id < AbstractBaseEntity.START_SEQ + 2) {
+            if (id < AbstractBaseEntity.START_SEQ + 2) {
             throw new ModificationRestrictionException();
         }
     }
