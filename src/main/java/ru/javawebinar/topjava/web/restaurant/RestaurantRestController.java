@@ -11,7 +11,7 @@ import ru.javawebinar.topjava.service.VoteService;
 import ru.javawebinar.topjava.to.RestaurantTo;
 import ru.javawebinar.topjava.util.RestaurantsUtil;
 import ru.javawebinar.topjava.util.ValidationUtil;
-import ru.javawebinar.topjava.web.util.SecurityUtil;
+import ru.javawebinar.topjava.web.SecurityUtil;
 
 import java.time.LocalDateTime;
 import java.util.List;

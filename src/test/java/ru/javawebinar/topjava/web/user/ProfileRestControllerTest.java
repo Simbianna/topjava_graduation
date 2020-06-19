@@ -23,13 +23,14 @@ import static ru.javawebinar.topjava.web.ExceptionInfoHandler.EXCEPTION_DUPLICAT
 import static ru.javawebinar.topjava.web.user.ProfileRestController.REST_URL;
 
 class ProfileRestControllerTest extends AbstractControllerTest {
+
     @Test
     void get() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(REST_URL)
                 .with(userHttpBasic(USER)))
                 .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
-             //   .andExpect(contentJson(USER));
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(contentJson(USER));
     }
 
     @Test
@@ -49,6 +50,7 @@ class ProfileRestControllerTest extends AbstractControllerTest {
     @Test
     void register() throws Exception {
         UserTo createdTo = new UserTo(null, "newName", "newemail@ya.ru", "newPassword");
+
         ResultActions action = mockMvc.perform(MockMvcRequestBuilders.post(REST_URL + "/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(createdTo)))

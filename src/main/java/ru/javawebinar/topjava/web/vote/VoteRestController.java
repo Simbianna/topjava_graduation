@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static ru.javawebinar.topjava.util.ValidationUtil.*;
-import static ru.javawebinar.topjava.web.util.SecurityUtil.authUserId;
+import static ru.javawebinar.topjava.web.SecurityUtil.authUserId;
 
 @RestController
 public class VoteRestController {

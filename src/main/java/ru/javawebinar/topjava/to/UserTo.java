@@ -1,13 +1,12 @@
 package ru.javawebinar.topjava.to;
 
-import org.hibernate.validator.constraints.Range;
+
 import org.hibernate.validator.constraints.SafeHtml;
 import ru.javawebinar.topjava.HasEmail;
 import ru.javawebinar.topjava.model.Vote;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
@@ -29,9 +28,6 @@ public class UserTo extends BaseTo implements HasEmail, Serializable {
     @NotBlank
     @Size(min = 5, max = 32, message = "length must be between 5 and 32 characters")
     private String password;
-
-//    @Range(min = 0, max = 5)
-//    private Vote vote;
 
     public UserTo() {
     }

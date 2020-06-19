@@ -1,12 +1,16 @@
 package ru.javawebinar.topjava.testData;
 
 
+import org.springframework.test.web.servlet.ResultMatcher;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
+import ru.javawebinar.topjava.web.json.JsonUtil;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static ru.javawebinar.topjava.TestUtil.readFromJsonMvcResult;
+import static ru.javawebinar.topjava.TestUtil.readListFromJsonMvcResult;
 import static ru.javawebinar.topjava.model.AbstractBaseEntity.START_SEQ;
 
 public class UserTestData {
@@ -28,15 +32,15 @@ public class UserTestData {
         assertThat(actual).usingElementComparatorIgnoringFields("registered", "votes", "password").isEqualTo(expected);
     }
 
-//    public static ResultMatcher contentJson(User... expected) {
-//        return result -> assertMatch(readListFromJsonMvcResult(result, User.class), List.of(expected));
-//    }
-//
-//    public static ResultMatcher contentJson(User expected) {
-//        return result -> assertMatch(readFromJsonMvcResult(result, User.class), expected);
-//    }
+    public static ResultMatcher contentJson(User... expected) {
+        return result -> assertMatch(readListFromJsonMvcResult(result, User.class), List.of(expected));
+    }
 
-//    public static String jsonWithPassword(User user, String passw) {
-//        return JsonUtil.writeAdditionProps(user, "password", passw);
-//    }
+    public static ResultMatcher contentJson(User expected) {
+        return result -> assertMatch(readFromJsonMvcResult(result, User.class), expected);
+    }
+
+    public static String jsonWithPassword(User user, String passw) {
+        return JsonUtil.writeAdditionProps(user, "password", passw);
+    }
 }

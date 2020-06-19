@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import ru.javawebinar.topjava.model.Dish;
 import ru.javawebinar.topjava.service.DishService;
-import ru.javawebinar.topjava.web.util.SecurityUtil;
+import ru.javawebinar.topjava.web.SecurityUtil;
 
 import static ru.javawebinar.topjava.util.ValidationUtil.assureIdConsistent;
-import static ru.javawebinar.topjava.web.util.SecurityUtil.authUserId;
+import static ru.javawebinar.topjava.web.SecurityUtil.authUserId;
 
 @RestController
 public class DishRestController {

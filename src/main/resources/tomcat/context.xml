@@ -33,10 +33,10 @@
     <!--
     <Valve className="org.apache.catalina.valves.CometConnectionManagerValve" />
     -->
-    <Resource name="jdbc/graduation"
+    <Resource name="jdbc/restaurants"
               auth="Container"
               type="javax.sql.DataSource"
-              url="jdbc:postgresql://localhost:5432/graduation"
+              url="jdbc:postgresql://localhost:5432/restaurants"
               username="user"
               password="password"
               driverClassName="org.hsqldb.jdbcDriver"
@@ -49,4 +49,5 @@
               testOnBorrow="true"
               removeAbandonedOnBorrow="true"
               testWhileIdle="true"/>
+    <!--               validationQuery="SELECT 1"-->
 </Context>

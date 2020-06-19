@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import ru.javawebinar.topjava.HasEmail;
 import ru.javawebinar.topjava.model.User;
+import ru.javawebinar.topjava.repository.UserRepository;
 import ru.javawebinar.topjava.repository.datajpa.DataJpaUserRepository;
 import ru.javawebinar.topjava.web.ExceptionInfoHandler;
 
@@ -14,7 +15,7 @@ import ru.javawebinar.topjava.web.ExceptionInfoHandler;
 public class UniqueMailValidator implements org.springframework.validation.Validator {
 
     @Autowired
-    DataJpaUserRepository  repository;
+    UserRepository repository;
 
     @Override
     public boolean supports(Class<?> clazz) {
