@@ -45,7 +45,7 @@ class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     void delete() throws Exception {
-        service.delete(ITALIAN_ID, ADMIN_ID);
+        service.delete(ITALIAN_ID);
         System.out.println("done");
         List<Restaurant> restaurants = service.getAll();
         System.out.println("done");
@@ -54,7 +54,7 @@ class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     void deleteNotFound() throws Exception {
-        assertThrows(NotFoundException.class, () -> service.delete(1, ADMIN_ID));
+        assertThrows(NotFoundException.class, () -> service.delete(1));
     }
 
     @Test
@@ -65,7 +65,7 @@ class RestaurantServiceTest extends AbstractServiceTest {
     @Test
     void create() throws Exception {
         Restaurant newRestaurant = getRussianCreated();
-        Restaurant created = service.create(newRestaurant, ADMIN_ID);
+        Restaurant created = service.create(newRestaurant);
         newRestaurant.setId(created.getId());
         assertMatch(newRestaurant, created);
         assertMatch(service.getAll(), STEAK_HOUSE, ITALIAN, VIETNAM, RUSSIAN);
@@ -74,7 +74,7 @@ class RestaurantServiceTest extends AbstractServiceTest {
     @Test
     void update() throws Exception {
         Restaurant updated = getItalianUpdated();
-        service.update(updated, ADMIN_ID);
+        service.update(updated);
         assertMatch(service.get(ITALIAN_ID), updated);
     }
 

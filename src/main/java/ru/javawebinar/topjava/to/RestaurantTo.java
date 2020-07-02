@@ -7,27 +7,26 @@ import java.util.List;
 public class RestaurantTo extends BaseTo{
 
     private final String name;
-    private final List<Dish> todaysLunchDishes;
-    private final Integer todaysRating;
+    private final List<Dish> lunchMenu;
+    private final Integer rating;
 
-    public RestaurantTo(Integer id, String name, List<Dish> todaysLunchDishes, Integer todaysRating) {
+    public RestaurantTo(Integer id, String name, List<Dish> lunchMenu, Integer rating) {
         super(id);
         this.name = name;
-        this.todaysLunchDishes = todaysLunchDishes;
-        this.todaysRating = todaysRating;
+        this.lunchMenu = lunchMenu;
+        this.rating = rating;
     }
-
 
     public String getName() {
         return name;
     }
 
-    public List<Dish> getTodaysLunchDishes() {
-        return todaysLunchDishes;
+    public List<Dish> getLunchMenu() {
+        return lunchMenu;
     }
 
-    public Integer getTodaysRating() {
-        return todaysRating;
+    public Integer getRating() {
+        return rating;
     }
 
     @Override
@@ -35,8 +34,8 @@ public class RestaurantTo extends BaseTo{
         return "RestaurantTo{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", todaysLunchDishes=" + todaysLunchDishes +
-                ", todaysRating=" + todaysRating +
+                ", lunchMenu=" + lunchMenu +
+                ", rating=" + rating +
                 '}';
     }
 }

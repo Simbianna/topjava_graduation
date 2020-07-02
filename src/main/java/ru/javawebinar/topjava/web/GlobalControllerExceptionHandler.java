@@ -10,7 +10,6 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import ru.javawebinar.topjava.util.ValidationUtil;
 import ru.javawebinar.topjava.util.exception.ApplicationException;
 import ru.javawebinar.topjava.util.exception.ErrorType;
-import ru.javawebinar.topjava.web.util.MessageUtil;
 
 import javax.servlet.http.HttpServletRequest;
 

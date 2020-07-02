@@ -22,7 +22,6 @@ import ru.javawebinar.topjava.util.exception.ApplicationException;
 import ru.javawebinar.topjava.util.exception.ErrorInfo;
 import ru.javawebinar.topjava.util.exception.ErrorType;
 import ru.javawebinar.topjava.util.exception.IllegalRequestDataException;
-import ru.javawebinar.topjava.web.util.MessageUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;

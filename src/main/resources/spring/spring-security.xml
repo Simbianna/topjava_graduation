@@ -17,7 +17,8 @@
 
     <beans:bean class="org.springframework.security.crypto.factory.PasswordEncoderFactories" id="passwordEncoder" factory-method="createDelegatingPasswordEncoder"/>
 
-    <http>
+    <!--РАСКОМЕНТИТЬ И НАСТРОИТЬ-->
+  <!--  <http>
         <intercept-url pattern="/login" access="permitAll()"/>
         <intercept-url pattern="/profile/register" access="isAnonymous()"/>
 
@@ -28,8 +29,8 @@
                     authentication-failure-url="/login?error=true"
                     login-processing-url="/spring_security_check"/>
         <logout logout-success-url="/login"/>
-        <!--<csrf disabled="true"/>-->
-    </http>
+        &lt;!&ndash;<csrf disabled="true"/>&ndash;&gt;
+    </http>-->
 
     <authentication-manager>
         <authentication-provider user-service-ref="userService">

@@ -16,7 +16,7 @@ import java.net.URI;
 @RestController
 @RequestMapping(ProfileRestController.REST_URL)
 public class ProfileRestController extends AbstractUserController {
-    static final String REST_URL = "/rest/profile/users";
+    static final String REST_URL = "/rest/profile";
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public User get(@AuthenticationPrincipal AuthorizedUser authUser) {
@@ -46,8 +46,4 @@ public class ProfileRestController extends AbstractUserController {
         super.update(userTo, authUser.getId());
     }
 
-    @GetMapping(value = "/text")
-    public String testUTF() {
-        return "Русский текст";
-    }
 }

@@ -42,7 +42,7 @@ public class RestaurantRestController {
     public void delete(int id) {
         int userId = SecurityUtil.authUserId();
         log.info("get restaurant {}", id);
-        restaurantService.delete(id, userId);
+        restaurantService.delete(id);
     }
 
     public List<Restaurant> getAll() {
@@ -54,14 +54,14 @@ public class RestaurantRestController {
         int userId = SecurityUtil.authUserId();
         ValidationUtil.checkNew(restaurant);
         log.info("create restaurant {}", restaurant);
-        return restaurantService.create(restaurant, userId);
+        return restaurantService.create(restaurant);
     }
 
     public void update(Restaurant restaurant, int id) {
         int userId = SecurityUtil.authUserId();
         ValidationUtil.assureIdConsistent(restaurant, id);
         log.info("update restaurant {}", restaurant);
-        restaurantService.update(restaurant, userId);
+        restaurantService.update(restaurant);
     }
 
 

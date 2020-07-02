@@ -11,8 +11,9 @@ import ru.javawebinar.topjava.web.SecurityUtil;
 import static ru.javawebinar.topjava.util.ValidationUtil.assureIdConsistent;
 import static ru.javawebinar.topjava.web.SecurityUtil.authUserId;
 
-@RestController
-public class DishRestController {
+
+public abstract class AbstractDishRestController {
+    static final String REST_URL = "/rest/admin/dishes";
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired

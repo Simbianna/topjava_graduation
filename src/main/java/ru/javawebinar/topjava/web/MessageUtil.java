@@ -1,4 +1,4 @@
-package ru.javawebinar.topjava.web.util;
+package ru.javawebinar.topjava.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

@@ -29,7 +29,7 @@ public class RestaurantService {
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)
-    public void delete(int id, int userId) {
+    public void delete(int id) {
         checkNotFoundWithId(restaurantRepository.delete(id), id);
     }
 
@@ -39,13 +39,13 @@ public class RestaurantService {
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)
-    public void update(Restaurant restaurant, int userId) {
+    public void update(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
         checkNotFoundWithId(restaurantRepository.save(restaurant), restaurant.getId());
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)
-    public Restaurant create(Restaurant restaurant, int userId) {
+    public Restaurant create(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
         return restaurantRepository.save(restaurant);
     }
