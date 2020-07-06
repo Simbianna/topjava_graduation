@@ -1,22 +1,28 @@
 package ru.javawebinar.topjava.model;
 
+
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.validator.constraints.Range;
 import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.Formula;
+import org.springframework.context.annotation.Lazy;
+
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity
 @Table(name = "restaurants")
 public class Restaurant extends AbstractNamedEntity {
 
-    @Column(name = "rating")
-  //  @NotNull
-    @Range(min = 0)
-    private AtomicInteger rating;
+
+    /*
+    @Formula("(select count(v.id) as rating from restaurants as r left join votes as v on r.id = v.restaurant_id where r.id = id and v.restaurant_id = id group by r.id)")
+    */
+    @Transient
+    @Lazy
+    private Long rating;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")//, cascade = CascadeType.REMOVE, orphanRemoval = true
     @OrderBy("added DESC")
@@ -25,11 +31,16 @@ public class Restaurant extends AbstractNamedEntity {
     public Restaurant() {
     }
 
-    public Restaurant(int id, String name){
-        super(id,name);
+    public Restaurant(int id, String name) {
+        super(id, name);
     }
 
-    public Restaurant(String name){
+    public Restaurant(int id, String name, Long rating) {
+        super(id, name);
+        this.rating = rating;
+    }
+
+    public Restaurant(String name) {
         super(name);
     }
 
@@ -41,77 +52,21 @@ public class Restaurant extends AbstractNamedEntity {
         this.dishes = dishes;
     }
 
+    public Long getRating() {
+        return rating;
+    }
+
+    public void setRating(Long rating) {
+        this.rating = Objects.requireNonNullElse(rating, rating);
+    }
+
+
     @Override
     public String toString() {
         return "Restaurant{" +
-                "rating=" + rating +
                 ", name='" + name + '\'' +
                 ", id=" + id +
                 '}';
     }
-
-
-
-    //    public Restaurant(int id, String name, AtomicInteger todaysRating, Map<String, Double> lunchDishes) {
-//        super(id, name);
-//        this.todaysRating = todaysRating;
-//        this.lunchDishes = lunchDishes;
-//    }
-
-//    public Restaurant(String name, List<Dish> lunchDishes) {
-//        super(name);
-//        this.lunchDishes = lunchDishes;
-//    }
-//
-//    public Restaurant(String name, AtomicInteger todaysRating, List<Dish> lunchDishes) {
-//        super(name);
-//        this.todaysRating = todaysRating;
-//        this.lunchDishes = lunchDishes;
-//    }
-//
-//    public Restaurant(int id, String name, List<Dish> lunchDishes) {
-//        super(id, name);
-//        this.lunchDishes = lunchDishes;
-//    }
-//
-//    public Restaurant(int id, String name, AtomicInteger todaysRating, List<Dish> lunchDishes) {
-//        super(id, name);
-//        this.todaysRating = todaysRating;
-//        this.lunchDishes = lunchDishes;
-//    }
-//TODO вот тут надо подумать
-    public AtomicInteger getRating() {
-        return Objects.requireNonNullElse(rating,new AtomicInteger(0));
-    }
-
-    public void setRating(AtomicInteger todaysRating) {
-        this.rating = Objects.requireNonNullElse(todaysRating,new AtomicInteger(0));
-    }
-
-//    public Map<String, Double> getTodaysLunchDishes() {
-//        return lunchDishes;
-//    }
-//
-//    public void setTodaysLunchMeals(Map<String, Double> lunchDishes) {
-//        this.lunchDishes = lunchDishes;
-//    }
-
-//    @Override
-//    public String toString() {
-//        return "Restaurant{" +
-//                "todaysRating=" + todaysRating +
-//                ", lunchDishes=" + lunchDishes +
-//                '}';
-//    }
-
-//
-//    public List<Dish> getTodaysLunchMeals() {
-//        return dishes;
-//    }
-//
-//    public void setTodaysLunchMeals(List<Dish> lunchDishes) {
-//        this.dishes = lunchDishes;
-//    }
-
 
 }

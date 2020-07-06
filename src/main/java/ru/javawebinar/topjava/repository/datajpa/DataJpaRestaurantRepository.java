@@ -25,16 +25,42 @@ public class DataJpaRestaurantRepository implements RestaurantRepository {
         return restaurantRepository.delete(id) != 0;
     }
 
+    @Override
     public Restaurant get(int id) {
         return restaurantRepository.findById(id).orElse(null);
     }
 
+    @Override
     public List<Restaurant> getAll() {
         return restaurantRepository.findAll()  ;
     }
 
+    @Override
     public Restaurant getWithDishes(int id) {
         return restaurantRepository.getWithDishes(id);
     }
+
+    @Override
+    public Restaurant getWithRating(int id) {
+    //    return restaurantRepository.findById(id).orElse(null);
+        return restaurantRepository.getWithRating(id);
+    }
+
+   /* @Override
+    public Restaurant gerWithDishesAndRating(int id) {
+        return restaurantRepository.getWithDishesAndRating(id);
+    }
+*/
+
+
+   /* @Override
+    public Restaurant getWithVotes(int id) {
+        restaurantRepository.getWithVotes(id);
+    }
+
+    @Override
+    public Restaurant getWithDishesAndVotes(int id) {
+        restaurantRepository.getWithDishesAndVotes(id);
+    }*/
 
 }

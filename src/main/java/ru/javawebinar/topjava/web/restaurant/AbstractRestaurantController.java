@@ -5,7 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.javawebinar.topjava.model.Restaurant;
 import ru.javawebinar.topjava.service.RestaurantService;
-import ru.javawebinar.topjava.web.SecurityUtil;
+import ru.javawebinar.topjava.to.RestaurantTo;
+import ru.javawebinar.topjava.util.RestaurantsUtil;
 
 import java.util.List;
 
@@ -15,10 +16,16 @@ import static ru.javawebinar.topjava.util.ValidationUtil.checkNew;
 public abstract class AbstractRestaurantController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    public List<Restaurant> getAll() {
+    public List<Restaurant> getAllBase() {
         log.info("getAll");
         return restaurantService.getAll();
     }
+
+   /* public List<RestaurantTo> getAll(){
+        log.info("getAll with ratings");
+        RestaurantsUtil.createWithRating(restaurantService.getAll())
+        return restaurantService.getAll();
+    }*/
 
     @Autowired
     RestaurantService restaurantService;

@@ -15,6 +15,7 @@ public class RestaurantTestData {
     public static final Restaurant STEAK_HOUSE = new Restaurant(STEAK_HOUSE_ID, "SteakHouse");
     public static final Restaurant ITALIAN = new Restaurant(ITALIAN_ID, "Italian restaurant");
     public static final Restaurant VIETNAM = new Restaurant(VIETNAM_ID, "Vietnam restaurant");
+    public static final Restaurant ITALIAN_WITH_RATING = new Restaurant(ITALIAN_ID, "Italian restaurant", 3L);
 
     public static final List<Restaurant> ALL_RESTAURANTS = List.of(STEAK_HOUSE, ITALIAN, VIETNAM);
 
@@ -30,6 +31,10 @@ public class RestaurantTestData {
 
     public static void assertMatch(Restaurant actual, Restaurant expected) {
         assertThat(actual).isEqualToIgnoringGivenFields(expected, "dishes", "rating");
+    }
+
+    public static void assertMatchWithRating(Restaurant actual, Restaurant expected) {
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, "dishes");
     }
 
     public static void assertMatch(List<Restaurant> actual, Restaurant... expected) {

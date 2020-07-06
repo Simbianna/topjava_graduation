@@ -33,7 +33,7 @@ public class VoteService {
         checkNotFoundWithId(voteRepository.delete(id, userId), id);
     }
 
-        public List<Vote> getAll() {
+    public List<Vote> getAll() {
         return voteRepository.getAll();
     }
 

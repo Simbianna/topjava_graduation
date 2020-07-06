@@ -36,7 +36,7 @@ public class RestaurantRestController {
         log.info("get restaurant with rating");
         List<Vote> restaurantVotes = voteService.getAllForRestaurantForOneDay(id, date);
         Restaurant restaurant = restaurantService.get(id);
-        return RestaurantsUtil.getWithRating(restaurant, restaurantVotes);
+        return RestaurantsUtil.createWithRating(restaurant, restaurantVotes);
     }
 
     public void delete(int id) {

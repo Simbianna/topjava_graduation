@@ -19,8 +19,14 @@ public interface RestaurantRepository {
     // ORDERED dateTime desc
     List<Restaurant> getAll();
 
-    default Restaurant getWithDishes(int id) {
-        throw new UnsupportedOperationException();
-    }
+    Restaurant getWithDishes(int id);
+
+    Restaurant getWithRating(int id);
+
+  //  Restaurant gerWithDishesAndRating(int id);
+
+    /*Restaurant getWithVotes(int id);
+
+    Restaurant getWithDishesAndVotes(int id);*/
 
 }

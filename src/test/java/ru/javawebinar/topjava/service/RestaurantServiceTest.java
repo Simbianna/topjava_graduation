@@ -86,6 +86,13 @@ class RestaurantServiceTest extends AbstractServiceTest {
     }
 
     @Test
+    void getWithRating() throws Exception {
+        Restaurant italian = service.getWithRating(ITALIAN_ID);
+        assertMatchWithRating(italian, ITALIAN_WITH_RATING);
+    //    DishTestData.assertMatch(italian.getDishes(),DishTestData.ITALIAN_DISHES_SORTED_BY_DT);
+    }
+
+    @Test
     void getWithDishesNotFound() throws Exception {
         assertThrows(NotFoundException.class, () ->
                 service.getWithDishes(1));

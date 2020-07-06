@@ -54,4 +54,8 @@ public class RestaurantService {
         return checkNotFoundWithId(restaurantRepository.getWithDishes(id), id);
     }
 
+    public Restaurant getWithRating(int id) {
+        return checkNotFoundWithId(restaurantRepository.getWithRating(id), id);
+    }
+
 }

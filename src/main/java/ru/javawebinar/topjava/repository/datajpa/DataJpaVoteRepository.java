@@ -69,6 +69,8 @@ public class DataJpaVoteRepository implements VoteRepository {
     }
 
 
+
+
     public List<Vote> getAll() {
         return voteRepository.findAll(SORT_BY_ID);
     }
