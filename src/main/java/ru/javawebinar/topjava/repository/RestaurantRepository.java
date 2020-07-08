@@ -23,6 +23,8 @@ public interface RestaurantRepository {
 
     Restaurant getWithRating(int id);
 
+    List<Restaurant> getAllWithRating();
+
   //  Restaurant gerWithDishesAndRating(int id);
 
     /*Restaurant getWithVotes(int id);

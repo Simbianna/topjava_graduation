@@ -13,7 +13,7 @@ import static ru.javawebinar.topjava.util.ValidationUtil.*;
 import static ru.javawebinar.topjava.web.SecurityUtil.authUserId;
 
 
-public abstract class AbstractVoteRestController {
+public abstract class AbstractVoteController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired

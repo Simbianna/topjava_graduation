@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava.model;
 
 
+import net.bytebuddy.implementation.bind.annotation.Default;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
@@ -17,16 +18,18 @@ import java.util.Objects;
 public class Restaurant extends AbstractNamedEntity {
 
 
-    /*
-    @Formula("(select count(v.id) as rating from restaurants as r left join votes as v on r.id = v.restaurant_id where r.id = id and v.restaurant_id = id group by r.id)")
-    */
-    @Transient
+   // @Formula("(select count(v.id) as rating from restaurants as r left join votes as v on r.id = v.restaurant_id where r.id = id and v.restaurant_id = id group by r.id)")
+
     @Lazy
+ //   @Formula("(select count(v.id) as rating from restaurants as r left join votes as v on r.id = v.restaurant_id where r.id = id and v.restaurant_id = id group by r.id)")
     private Long rating;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")//, cascade = CascadeType.REMOVE, orphanRemoval = true
     @OrderBy("added DESC")
     private List<Dish> dishes;
+
+   /* @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")//, cascade = CascadeType.REMOVE, orphanRemoval = true
+    private List<Vote> votes;*/
 
     public Restaurant() {
     }
@@ -52,14 +55,20 @@ public class Restaurant extends AbstractNamedEntity {
         this.dishes = dishes;
     }
 
+   // @Access(AccessType.PROPERTY)
+ //   @Formula("(select count(v.id) as rating from restaurants as r left join votes as v on r.id = v.restaurant_id where r.id = id and v.restaurant_id = id group by r.id)")
     public Long getRating() {
         return rating;
     }
 
+ //   @Access(AccessType.PROPERTY)
     public void setRating(Long rating) {
-        this.rating = Objects.requireNonNullElse(rating, rating);
+        this.rating = rating;
     }
 
+    /* public List<Vote> getVotes() {
+        return votes;
+    }*/
 
     @Override
     public String toString() {

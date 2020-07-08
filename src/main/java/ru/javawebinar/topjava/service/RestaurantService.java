@@ -58,4 +58,8 @@ public class RestaurantService {
         return checkNotFoundWithId(restaurantRepository.getWithRating(id), id);
     }
 
+    public List<Restaurant> getAllWithRatings() {
+        return restaurantRepository.getAllWithRating();
+       // return null;
+    }
 }

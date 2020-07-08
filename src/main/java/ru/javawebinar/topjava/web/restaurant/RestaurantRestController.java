@@ -3,6 +3,9 @@ package ru.javawebinar.topjava.web.restaurant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.javawebinar.topjava.model.Restaurant;
 import ru.javawebinar.topjava.model.Vote;
@@ -18,22 +21,25 @@ import java.util.List;
 
 //TODO подумать, нужен ли UserID
 @RestController
-public class RestaurantRestController {
-    private static final Logger log = LoggerFactory.getLogger(RestaurantRestController.class);
+@RequestMapping(value = RestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class RestaurantRestController extends AbstractRestaurantController {
+    static final String REST_URL = "/rest/restaurants";
 
-    @Autowired
-    private RestaurantService restaurantService;
+    @Override
+    @GetMapping
+    public List<Restaurant> getAllWithRatings() {
+        return super.getAllWithRatings();
+    }
 
-    @Autowired
-    private VoteService voteService;
+
+/*
 
     public Restaurant get(int id) {
-        log.info("get restaurant {}", id);
+
         return restaurantService.get(id);
     }
 
     public RestaurantTo getWithRating(int id, LocalDateTime date) {
-        log.info("get restaurant with rating");
         List<Vote> restaurantVotes = voteService.getAllForRestaurantForOneDay(id, date);
         Restaurant restaurant = restaurantService.get(id);
         return RestaurantsUtil.createWithRating(restaurant, restaurantVotes);
@@ -63,6 +69,7 @@ public class RestaurantRestController {
         log.info("update restaurant {}", restaurant);
         restaurantService.update(restaurant);
     }
+*/
 
 
 }

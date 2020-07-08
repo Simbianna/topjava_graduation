@@ -24,17 +24,14 @@ public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Inte
     @Query("SELECT r FROM Restaurant r WHERE r.id=?1")
     Restaurant getWithDishes(int id);
 
-    @Query("select new ru.javawebinar.topjava.model.Restaurant(r.id,r.name, count(v)) from Restaurant r left join Vote v on r.id = v.restaurant.id where r.id = :id and v.restaurant.id = :id group by  r.id , r.name")
-
-        //   @Query("select r.id as id, r.name as name, count(v) as rating from Restaurant r left join Vote v on r.id = v.restaurant.id where r.id = :id and v.restaurant.id = :id group by  r.id , r.name")
-        // @Query("select res from Restaurant res left join (Select v.restaurant.id rty, count(v) cnt FROM Vote v group by v.restaurant.id) m on res.id = m.rty")
-        //@Query("SELECT u FROM User u LEFT JOIN FETCH u. WHERE u.id = ?1")
+    @Query("select new ru.javawebinar.topjava.model.Restaurant(r.id, r.name, count(v)) from Restaurant r left join Vote v on r.id = v.restaurant.id where r.id = :id and v.restaurant.id = :id group by  r.id , r.name")
     Restaurant getWithRating(@Param("id") int id);
 
     // @Query("select r, count(v) from Restaurant r left join Vote v on r.id = v.restaurant.id group by r")
     // @Query("select res from Restaurant res left join (Select v.restaurant.id rty, count(v) cnt FROM Vote v group by v.restaurant.id) m on res.id = m.rty")
-    //@Query("SELECT u FROM User u LEFT JOIN FETCH u. WHERE u.id = ?1")
-    //  List<Restaurant> getAllWithRating(int id);
+   // @Query("SELECT r.id, r.name, r. FROM Restaurant r LEFT JOIN FETCH r.votes")
+    @Query("select new ru.javawebinar.topjava.model.Restaurant(r.id, r.name, count(v)) from Restaurant r left join Vote v on r.id = v.restaurant.id group by r.id, r.name")
+    List<Restaurant> getAllWithRating();
 
 
     //  Restaurant getWithDishesAndRating(int id);

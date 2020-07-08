@@ -16,8 +16,11 @@ public class RestaurantTestData {
     public static final Restaurant ITALIAN = new Restaurant(ITALIAN_ID, "Italian restaurant");
     public static final Restaurant VIETNAM = new Restaurant(VIETNAM_ID, "Vietnam restaurant");
     public static final Restaurant ITALIAN_WITH_RATING = new Restaurant(ITALIAN_ID, "Italian restaurant", 3L);
+    public static final Restaurant STEAK_HOUSE_WITH_RATING = new Restaurant(STEAK_HOUSE_ID, "SteakHouse", 1L);
+    public static final Restaurant VIETNAM_WITH_RATING = new Restaurant(VIETNAM_ID, "Vietnam restaurant",0L);
 
     public static final List<Restaurant> ALL_RESTAURANTS = List.of(STEAK_HOUSE, ITALIAN, VIETNAM);
+    public static final List<Restaurant> ALL_RESTAURANTS_WITH_RATINGS = List.of(STEAK_HOUSE_WITH_RATING, ITALIAN_WITH_RATING, VIETNAM_WITH_RATING);
 
     public static final Restaurant RUSSIAN = new Restaurant("Russian Restaurant");
 
@@ -30,11 +33,11 @@ public class RestaurantTestData {
     }
 
     public static void assertMatch(Restaurant actual, Restaurant expected) {
-        assertThat(actual).isEqualToIgnoringGivenFields(expected, "dishes", "rating");
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, "dishes", "votes", "rating");
     }
 
     public static void assertMatchWithRating(Restaurant actual, Restaurant expected) {
-        assertThat(actual).isEqualToIgnoringGivenFields(expected, "dishes");
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, "dishes", "votes");
     }
 
     public static void assertMatch(List<Restaurant> actual, Restaurant... expected) {
@@ -42,7 +45,11 @@ public class RestaurantTestData {
     }
 
     public static void assertMatch(List<Restaurant> actual, List<Restaurant> expected) {
-        assertThat(actual).usingElementComparatorIgnoringFields("dishes", "rating").isEqualTo(expected);
+        assertThat(actual).usingElementComparatorIgnoringFields("dishes", "votes", "rating").isEqualTo(expected);
+    }
+
+    public static void assertMatchWithRatings(List<Restaurant> actual, List<Restaurant> expected) {
+        assertThat(actual).usingElementComparatorIgnoringFields("dishes", "votes").isEqualTo(expected);
     }
 
 

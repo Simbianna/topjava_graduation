@@ -16,19 +16,24 @@ import static ru.javawebinar.topjava.util.ValidationUtil.checkNew;
 public abstract class AbstractRestaurantController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
+    @Autowired
+    RestaurantService restaurantService;
+
+    public List<Restaurant> getAllWithRatings(){
+        log.info("getAll with ratings");
+        return restaurantService.getAllWithRatings();
+    }
+
     public List<Restaurant> getAllBase() {
         log.info("getAll");
         return restaurantService.getAll();
     }
-
    /* public List<RestaurantTo> getAll(){
         log.info("getAll with ratings");
         RestaurantsUtil.createWithRating(restaurantService.getAll())
         return restaurantService.getAll();
     }*/
 
-    @Autowired
-    RestaurantService restaurantService;
 
     public Restaurant get(int id) {
         log.info("get {}", id);

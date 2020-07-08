@@ -22,6 +22,7 @@ public class InMemoryRestaurantRepository extends InMemoryBaseRepository<Restaur
                 .sorted(Comparator.comparing(Restaurant::getName))
                 .collect(Collectors.toList());
     }
+    //TODO ничего не сделано
 
     @Override
     public Restaurant getWithDishes(int id) {
@@ -31,6 +32,13 @@ public class InMemoryRestaurantRepository extends InMemoryBaseRepository<Restaur
     @Override
     public Restaurant getWithRating(int id) {
         return null;
+    }
+
+    @Override
+    public List<Restaurant> getAllWithRating() {
+        return getCollection().stream()
+                .sorted(Comparator.comparing(Restaurant::getName))
+                .collect(Collectors.toList());
     }
 
    /* @Override

@@ -32,7 +32,7 @@ public class DataJpaRestaurantRepository implements RestaurantRepository {
 
     @Override
     public List<Restaurant> getAll() {
-        return restaurantRepository.findAll()  ;
+        return restaurantRepository.findAll();
     }
 
     @Override
@@ -42,8 +42,13 @@ public class DataJpaRestaurantRepository implements RestaurantRepository {
 
     @Override
     public Restaurant getWithRating(int id) {
-    //    return restaurantRepository.findById(id).orElse(null);
+       //    return restaurantRepository.findById(id).orElse(null);
         return restaurantRepository.getWithRating(id);
+    }
+
+    @Override
+    public List<Restaurant> getAllWithRating() {
+        return restaurantRepository.getAllWithRating();
     }
 
    /* @Override

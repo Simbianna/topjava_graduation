@@ -9,17 +9,21 @@ import ru.javawebinar.topjava.repository.JpaUtil;
 import ru.javawebinar.topjava.testData.DishTestData;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
-import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static ru.javawebinar.topjava.testData.RestaurantTestData.*;
 import static ru.javawebinar.topjava.testData.UserTestData.ADMIN_ID;
+import static ru.javawebinar.topjava.testData.UserTestData.USER_ID;
+import static ru.javawebinar.topjava.testData.VoteTestData.VOTE_ID;
 
 class RestaurantServiceTest extends AbstractServiceTest {
 
     @Autowired
     RestaurantService service;
+
+    @Autowired
+    VoteService vs;
 
     @Autowired
     private CacheManager cacheManager;
@@ -46,9 +50,7 @@ class RestaurantServiceTest extends AbstractServiceTest {
     @Test
     void delete() throws Exception {
         service.delete(ITALIAN_ID);
-        System.out.println("done");
         List<Restaurant> restaurants = service.getAll();
-        System.out.println("done");
         assertMatch(restaurants, STEAK_HOUSE, VIETNAM);
     }
 
@@ -82,14 +84,22 @@ class RestaurantServiceTest extends AbstractServiceTest {
     void getWithDishes() throws Exception {
         Restaurant italian = service.getWithDishes(ITALIAN_ID);
         assertMatch(italian, ITALIAN);
-        DishTestData.assertMatch(italian.getDishes(),DishTestData.ITALIAN_DISHES_SORTED_BY_DT);
+        DishTestData.assertMatch(italian.getDishes(), DishTestData.ITALIAN_DISHES_SORTED_BY_DT);
     }
 
     @Test
     void getWithRating() throws Exception {
-        Restaurant italian = service.getWithRating(ITALIAN_ID);
-        assertMatchWithRating(italian, ITALIAN_WITH_RATING);
-    //    DishTestData.assertMatch(italian.getDishes(),DishTestData.ITALIAN_DISHES_SORTED_BY_DT);
+        System.out.println(vs.getAll());
+        assertMatchWithRating(service.getWithRating(ITALIAN_ID), VIETNAM_WITH_RATING);
+       /* vs.delete(VOTE_ID+1, ADMIN_ID);
+        System.out.println(vs.getAll());
+        assertMatchWithRating(service.getWithRating(ITALIAN_ID), ITALIAN_WITH_RATING);*/
+    }
+
+    @Test
+    void getAllWithRatings() throws Exception{
+        System.out.println(service.getAllWithRatings().get(0).getRating());
+        assertMatchWithRatings(service.getAllWithRatings(), ALL_RESTAURANTS_WITH_RATINGS);
     }
 
     @Test
