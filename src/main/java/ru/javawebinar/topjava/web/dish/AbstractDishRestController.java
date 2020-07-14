@@ -8,12 +8,13 @@ import ru.javawebinar.topjava.model.Dish;
 import ru.javawebinar.topjava.service.DishService;
 import ru.javawebinar.topjava.web.SecurityUtil;
 
+import java.util.List;
+
 import static ru.javawebinar.topjava.util.ValidationUtil.assureIdConsistent;
 import static ru.javawebinar.topjava.web.SecurityUtil.authUserId;
 
 
 public abstract class AbstractDishRestController {
-    static final String REST_URL = "/rest/admin/dishes";
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
@@ -30,16 +31,16 @@ public abstract class AbstractDishRestController {
         service.delete(id, userId);
     }
 
-    public void getAll(int restaurantId) {
+    public List<Dish> getAll(int restaurantId) {
         log.info("get all dishes for restaurant {}", restaurantId);
-        service.get(restaurantId);
+        return service.getAll(restaurantId);
     }
 
     public void update(Dish dish, int id) {
         int userId = SecurityUtil.authUserId();
         assureIdConsistent(dish, id);
         log.info("update dish {}", dish);
-        service.update(dish , userId);
+        service.update(dish, userId);
     }
 
 

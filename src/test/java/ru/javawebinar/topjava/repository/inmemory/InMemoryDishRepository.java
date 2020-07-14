@@ -59,7 +59,7 @@ public class InMemoryDishRepository extends InMemoryBaseRepository<Dish> impleme
         return dishes == null ? Collections.emptyList() :
                 dishes.getCollection().stream()
                         .filter(filter)
-                        .sorted(Comparator.comparing(Dish::getAdded).reversed())
+                   //     .sorted(Comparator.comparing(Dish::getAdded).reversed())
                         .collect(Collectors.toList());
     }
 

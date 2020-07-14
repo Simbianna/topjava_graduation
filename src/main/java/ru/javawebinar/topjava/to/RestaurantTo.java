@@ -3,14 +3,15 @@ package ru.javawebinar.topjava.to;
 import ru.javawebinar.topjava.model.Dish;
 
 import java.util.List;
+import java.util.Set;
 
 public class RestaurantTo extends BaseTo{
 
     private final String name;
-    private final List<Dish> lunchMenu;
+    private final Set<Dish> lunchMenu;
     private final Integer rating;
 
-    public RestaurantTo(Integer id, String name, List<Dish> lunchMenu, Integer rating) {
+    public RestaurantTo(Integer id, String name, Set<Dish> lunchMenu, Integer rating) {
         super(id);
         this.name = name;
         this.lunchMenu = lunchMenu;
@@ -21,7 +22,7 @@ public class RestaurantTo extends BaseTo{
         return name;
     }
 
-    public List<Dish> getLunchMenu() {
+    public Set<Dish> getLunchMenu() {
         return lunchMenu;
     }
 

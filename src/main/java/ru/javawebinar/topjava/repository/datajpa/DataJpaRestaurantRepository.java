@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.Restaurant;
 import ru.javawebinar.topjava.repository.RestaurantRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -14,6 +13,16 @@ public class DataJpaRestaurantRepository implements RestaurantRepository {
 
     @Autowired
     CrudRestaurantRepository restaurantRepository;
+
+    @Override
+    public Restaurant get(int id) {
+        return restaurantRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Restaurant getWithDishes(int id) {
+        return restaurantRepository.getWithDishes(id);
+    }
 
     @Transactional
     public Restaurant save(Restaurant restaurant) {
@@ -26,46 +35,13 @@ public class DataJpaRestaurantRepository implements RestaurantRepository {
     }
 
     @Override
-    public Restaurant get(int id) {
-        return restaurantRepository.findById(id).orElse(null);
-    }
-
-    @Override
     public List<Restaurant> getAll() {
         return restaurantRepository.findAll();
     }
 
     @Override
-    public Restaurant getWithDishes(int id) {
-        return restaurantRepository.getWithDishes(id);
+    public List<Restaurant> getAllWithDishes() {
+        return restaurantRepository.getAllWithDishes();
     }
-
-    @Override
-    public Restaurant getWithRating(int id) {
-       //    return restaurantRepository.findById(id).orElse(null);
-        return restaurantRepository.getWithRating(id);
-    }
-
-    @Override
-    public List<Restaurant> getAllWithRating() {
-        return restaurantRepository.getAllWithRating();
-    }
-
-   /* @Override
-    public Restaurant gerWithDishesAndRating(int id) {
-        return restaurantRepository.getWithDishesAndRating(id);
-    }
-*/
-
-
-   /* @Override
-    public Restaurant getWithVotes(int id) {
-        restaurantRepository.getWithVotes(id);
-    }
-
-    @Override
-    public Restaurant getWithDishesAndVotes(int id) {
-        restaurantRepository.getWithDishesAndVotes(id);
-    }*/
 
 }

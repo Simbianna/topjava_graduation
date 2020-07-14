@@ -6,24 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import ru.javawebinar.topjava.model.Restaurant;
 import ru.javawebinar.topjava.repository.JpaUtil;
-import ru.javawebinar.topjava.testData.DishTestData;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static ru.javawebinar.topjava.testData.RestaurantTestData.*;
-import static ru.javawebinar.topjava.testData.UserTestData.ADMIN_ID;
-import static ru.javawebinar.topjava.testData.UserTestData.USER_ID;
-import static ru.javawebinar.topjava.testData.VoteTestData.VOTE_ID;
+
 
 class RestaurantServiceTest extends AbstractServiceTest {
 
     @Autowired
     RestaurantService service;
-
-    @Autowired
-    VoteService vs;
 
     @Autowired
     private CacheManager cacheManager;
@@ -47,6 +41,16 @@ class RestaurantServiceTest extends AbstractServiceTest {
         assertThrows(NotFoundException.class, () -> service.get(1));
     }
 
+
+   /* @Test
+    void getWithDishes() throws Exception {
+        Restaurant italian = service.getWithDishes(ITALIAN_ID);
+        assertMatch(italian, ITALIAN);
+        DishTestData.assertMatch(italian.getDishes(), DishTestData.ITALIAN_DISHES_SORTED_BY_DT);
+    }*/
+
+
+
     @Test
     void delete() throws Exception {
         service.delete(ITALIAN_ID);
@@ -62,6 +66,20 @@ class RestaurantServiceTest extends AbstractServiceTest {
     @Test
     void getAll() throws Exception {
         assertMatch(service.getAll(), ALL_RESTAURANTS);
+    }
+
+
+    @Test
+    void getAllWithDishes() throws Exception{
+        List<Restaurant> restaurants = service.getAllWithDishes();
+        assertMatchWithDishes(restaurants, ALL_RESTAURANTS);
+    }
+
+
+    @Test
+    void getWithDishesNotFound() throws Exception {
+        assertThrows(NotFoundException.class, () ->
+                service.getWithDishes(1));
     }
 
     @Test
@@ -80,32 +98,7 @@ class RestaurantServiceTest extends AbstractServiceTest {
         assertMatch(service.get(ITALIAN_ID), updated);
     }
 
-    @Test
-    void getWithDishes() throws Exception {
-        Restaurant italian = service.getWithDishes(ITALIAN_ID);
-        assertMatch(italian, ITALIAN);
-        DishTestData.assertMatch(italian.getDishes(), DishTestData.ITALIAN_DISHES_SORTED_BY_DT);
-    }
 
-    @Test
-    void getWithRating() throws Exception {
-        System.out.println(vs.getAll());
-        assertMatchWithRating(service.getWithRating(ITALIAN_ID), VIETNAM_WITH_RATING);
-       /* vs.delete(VOTE_ID+1, ADMIN_ID);
-        System.out.println(vs.getAll());
-        assertMatchWithRating(service.getWithRating(ITALIAN_ID), ITALIAN_WITH_RATING);*/
-    }
 
-    @Test
-    void getAllWithRatings() throws Exception{
-        System.out.println(service.getAllWithRatings().get(0).getRating());
-        assertMatchWithRatings(service.getAllWithRatings(), ALL_RESTAURANTS_WITH_RATINGS);
-    }
-
-    @Test
-    void getWithDishesNotFound() throws Exception {
-        assertThrows(NotFoundException.class, () ->
-                service.getWithDishes(1));
-    }
 
 }

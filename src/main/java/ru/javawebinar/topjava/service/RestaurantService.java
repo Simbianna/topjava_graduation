@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.javawebinar.topjava.model.Restaurant;
 import ru.javawebinar.topjava.repository.RestaurantRepository;
-import ru.javawebinar.topjava.repository.datajpa.DataJpaRestaurantRepository;
 
 import java.util.List;
 
@@ -28,14 +27,8 @@ public class RestaurantService {
         return checkNotFoundWithId(restaurantRepository.get(id), id);
     }
 
-    @CacheEvict(value = "restaurants", allEntries = true)
-    public void delete(int id) {
-        checkNotFoundWithId(restaurantRepository.delete(id), id);
-    }
-
-    @Cacheable("restaurants")
-    public List<Restaurant> getAll() {
-        return restaurantRepository.getAll();
+    public Restaurant getWithDishes(int id) {
+        return checkNotFoundWithId(restaurantRepository.getWithDishes(id), id);
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)
@@ -50,16 +43,18 @@ public class RestaurantService {
         return restaurantRepository.save(restaurant);
     }
 
-    public Restaurant getWithDishes(int id) {
-        return checkNotFoundWithId(restaurantRepository.getWithDishes(id), id);
+    @CacheEvict(value = "restaurants", allEntries = true)
+    public void delete(int id) {
+        checkNotFoundWithId(restaurantRepository.delete(id), id);
     }
 
-    public Restaurant getWithRating(int id) {
-        return checkNotFoundWithId(restaurantRepository.getWithRating(id), id);
+    @Cacheable("restaurants")
+    public List<Restaurant> getAll() {
+        return restaurantRepository.getAll();
     }
 
-    public List<Restaurant> getAllWithRatings() {
-        return restaurantRepository.getAllWithRating();
-       // return null;
+    public List<Restaurant> getAllWithDishes() {
+        return restaurantRepository.getAllWithDishes();
     }
+
 }

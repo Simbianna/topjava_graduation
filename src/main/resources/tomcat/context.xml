@@ -33,10 +33,10 @@
     <!--
     <Valve className="org.apache.catalina.valves.CometConnectionManagerValve" />
     -->
-    <Resource name="jdbc/restaurants"
+    <Resource name="jdbc/project"
               auth="Container"
               type="javax.sql.DataSource"
-              url="jdbc:postgresql://localhost:5432/restaurants"
+              url="jdbc:postgresql://localhost:5432/project"
               username="user"
               password="password"
               driverClassName="org.hsqldb.jdbcDriver"

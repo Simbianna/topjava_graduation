@@ -40,7 +40,8 @@ public class DataJpaDishRepository implements DishRepository {
     }
 
     public List<Dish> getBetween(LocalDateTime startDate, LocalDateTime endDate, int restaurantId) {
-        return dishRepository.getBetween(restaurantId, startDate, endDate);
+       return  null;
+        // return dishRepository.getBetween(restaurantId, startDate, endDate);
     }
 
     public Dish getWithRestaurant(int id, int restaurantId) {

@@ -27,6 +27,19 @@ VALUES ('SteakHouse'),
        ('Vietnam restaurant');
 
 INSERT INTO dishes (name, price, added, restaurant_id)
+/*VALUES ('Daily pizza', 500.00, 100003),
+       ('Roasted salmon', 700.00, 100003),
+       ('Grilled shrimps', 600.00, 100004),
+       ('Ribeye steak', 1000.00, 100002),
+       ('Machete steak', 700.00, 100002),
+       ('Pho bo soup', 400.00, 100004),
+       ('Chicken Parmigiana', 400.00, 100003),
+       ('Fried Mozzarella', 750.50, 100003),
+       ('Summer Rolls', 600.00, 100004),
+       ('T-bone', 1000.50, 100002),
+       ('Lamb Chops', 700.50, 100002),
+       ('Crispy Baby Squid', 400.50, 100004);*/
+
 VALUES ('Daily pizza', 500.00, '2020-03-30 10:00:00', 100003),
        ('Roasted salmon', 700.00, '2020-03-30 00:00:00', 100003),
        ('Grilled shrimps', 600.00, '2020-03-30 23:59:00', 100004),

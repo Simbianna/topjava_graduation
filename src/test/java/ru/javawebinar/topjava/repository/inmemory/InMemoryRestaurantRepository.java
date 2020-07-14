@@ -29,19 +29,14 @@ public class InMemoryRestaurantRepository extends InMemoryBaseRepository<Restaur
         return null;
     }
 
+
     @Override
-    public Restaurant getWithRating(int id) {
+    public List<Restaurant> getAllWithDishes() {
         return null;
     }
 
-    @Override
-    public List<Restaurant> getAllWithRating() {
-        return getCollection().stream()
-                .sorted(Comparator.comparing(Restaurant::getName))
-                .collect(Collectors.toList());
-    }
 
-   /* @Override
+    /* @Override
     public Restaurant gerWithDishesAndRating(int id) {
         return null;
     }*/

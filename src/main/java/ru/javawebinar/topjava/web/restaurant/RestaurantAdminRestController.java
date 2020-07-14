@@ -1,43 +1,32 @@
 package ru.javawebinar.topjava.web.restaurant;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.javawebinar.topjava.model.Restaurant;
-import ru.javawebinar.topjava.model.Vote;
-import ru.javawebinar.topjava.service.RestaurantService;
-import ru.javawebinar.topjava.service.VoteService;
-import ru.javawebinar.topjava.to.RestaurantTo;
-import ru.javawebinar.topjava.util.RestaurantsUtil;
-import ru.javawebinar.topjava.util.ValidationUtil;
-import ru.javawebinar.topjava.web.SecurityUtil;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 //TODO подумать, нужен ли UserID
 @RestController
-@RequestMapping(value = RestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class RestaurantRestController extends AbstractRestaurantController {
-    static final String REST_URL = "/rest/restaurants";
+@RequestMapping(value = RestaurantAdminRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class RestaurantAdminRestController extends AbstractRestaurantController {
+    static final String REST_URL = "/rest/admin/restaurants";
 
     @Override
     @GetMapping
-    public List<Restaurant> getAllWithRatings() {
-        return super.getAllWithRatings();
+    public List<Restaurant> getAll() {
+        return super.getAll();
     }
 
-
-/*
-
-    public Restaurant get(int id) {
-
-        return restaurantService.get(id);
+    @Override
+    @GetMapping("/{id}")
+    public Restaurant get(@PathVariable int id) {
+        return super.get(id);
     }
+    /*
 
     public RestaurantTo getWithRating(int id, LocalDateTime date) {
         List<Vote> restaurantVotes = voteService.getAllForRestaurantForOneDay(id, date);
