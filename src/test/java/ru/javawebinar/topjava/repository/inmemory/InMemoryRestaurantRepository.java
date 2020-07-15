@@ -25,7 +25,7 @@ public class InMemoryRestaurantRepository extends InMemoryBaseRepository<Restaur
     //TODO ничего не сделано
 
     @Override
-    public Restaurant getWithDishes(int id) {
+    public Restaurant getWithMenu(int id) {
         return null;
     }
 

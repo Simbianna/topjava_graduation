@@ -19,19 +19,12 @@ public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Inte
     @Transactional
     Restaurant save(Restaurant item);
 
+    @Query("SELECT distinct r FROM Restaurant r left join fetch r.menu m left join fetch m.dishes WHERE r.menu.restaurant.id=:id ")
+    Restaurant getWithMenu(@Param("id") int id);
 
-    //    https://stackoverflow.com/a/46013654/548473
-   /* @EntityGraph(attributePaths = {"dishes"}, type = EntityGraph.EntityGraphType.LOAD)
-    @Query("SELECT r FROM Restaurant r WHERE r.id=?1")*/
-    @Query("SELECT r FROM Restaurant r join fetch r.dishes WHERE r.id=:id")
-    Restaurant getWithDishes(@Param("id") int id);
+   @Query("SELECT distinct r FROM Restaurant r left join fetch r.menu m left join fetch m.dishes")
+   List<Restaurant> getAllWithDishes();
 
-   // @EntityGraph(attributePaths = {"dishes"}, type = EntityGraph.EntityGraphType.LOAD)
-    @Query("SELECT distinct r FROM Restaurant r join fetch r.dishes")
-    List<Restaurant> getAllWithDishes();
 
-    // @Query("select r, count(v) from Restaurant r left join Vote v on r.id = v.restaurant.id group by r")
-    // @Query("select res from Restaurant res left join (Select v.restaurant.id rty, count(v) cnt FROM Vote v group by v.restaurant.id) m on res.id = m.rty")
-    // @Query("SELECT r.id, r.name, r. FROM Restaurant r LEFT JOIN FETCH r.votes")
 
 }

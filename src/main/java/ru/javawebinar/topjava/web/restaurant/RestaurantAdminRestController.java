@@ -1,15 +1,17 @@
 package ru.javawebinar.topjava.web.restaurant;
 
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import ru.javawebinar.topjava.View;
 import ru.javawebinar.topjava.model.Restaurant;
 
+import java.net.URI;
 import java.util.List;
 
-//TODO подумать, нужен ли UserID
+
 @RestController
 @RequestMapping(value = RestaurantAdminRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantAdminRestController extends AbstractRestaurantController {
@@ -18,7 +20,7 @@ public class RestaurantAdminRestController extends AbstractRestaurantController 
     @Override
     @GetMapping
     public List<Restaurant> getAll() {
-        return super.getAll();
+        return super.getAllWithMenus();
     }
 
     @Override
@@ -26,6 +28,17 @@ public class RestaurantAdminRestController extends AbstractRestaurantController 
     public Restaurant get(@PathVariable int id) {
         return super.get(id);
     }
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Restaurant> createWithLocation(@Validated(View.Web.class) @RequestBody Restaurant restaurant) {
+        Restaurant created = super.create(restaurant);
+        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(REST_URL + "/{id}")
+                .buildAndExpand(created.getId()).toUri();
+
+        return ResponseEntity.created(uriOfNewResource).body(created);
+    }
+
     /*
 
     public RestaurantTo getWithRating(int id, LocalDateTime date) {

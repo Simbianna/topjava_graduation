@@ -13,12 +13,12 @@ import java.util.Set;
 @Table(name = "restaurants")
 public class Restaurant extends AbstractNamedEntity {
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")//, cascade = CascadeType.REMOVE, orphanRemoval = true
-    @OrderBy("added DESC")
-    private Set<Dish> dishes;
+    @OneToOne(fetch = FetchType.LAZY)//, cascade = CascadeType.REMOVE, orphanRemoval = true
+    private Menu menu;
 
     public Restaurant() {
     }
+
     public Restaurant(String name) {
         super(name);
     }
@@ -27,12 +27,12 @@ public class Restaurant extends AbstractNamedEntity {
         super(id, name);
     }
 
-    public Set<Dish> getDishes() {
-        return dishes;
+    public Menu getMenu() {
+        return menu;
     }
 
-    public void setDishes(Set<Dish> dishes) {
-        this.dishes = dishes;
+    public void setMenu(Menu menu) {
+        this.menu = menu;
     }
 
     @Override

@@ -77,13 +77,13 @@ class DishServiceTest extends AbstractServiceTest {
         assertMatch(service.getAllForToday(LocalDate.of(2020, Month.MARCH, 30), ITALIAN_ID), ITALIAN_DISHES_D_1);
     }
 
-    @Test
+ /*   @Test
     void getWithRestaurant() throws Exception {
         Dish italian1 = service.getWithRestaurant(DISH1_ID, ITALIAN_ID);
         assertMatch(italian1, ITALIAN_DISH_1);
         RestaurantTestData.assertMatch(italian1.getRestaurant(),ITALIAN);
     }
-
+*/
     @Test
     void getWithRestaurantNotFound() throws Exception {
         assertThrows(NotFoundException.class, () ->

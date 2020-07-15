@@ -25,15 +25,15 @@ public abstract class AbstractDishRestController {
         return service.get(id);
     }
 
+    public List<Dish> getAll(int restaurantId) {
+        log.info("get all dishes for restaurant {}", restaurantId);
+        return service.getAll(restaurantId);
+    }
+
     public void delete(int id) {
         int userId = authUserId();
         log.info("delete dish {}", id);
         service.delete(id, userId);
-    }
-
-    public List<Dish> getAll(int restaurantId) {
-        log.info("get all dishes for restaurant {}", restaurantId);
-        return service.getAll(restaurantId);
     }
 
     public void update(Dish dish, int id) {
@@ -42,6 +42,5 @@ public abstract class AbstractDishRestController {
         log.info("update dish {}", dish);
         service.update(dish, userId);
     }
-
 
 }

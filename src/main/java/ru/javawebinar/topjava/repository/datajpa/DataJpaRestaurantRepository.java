@@ -20,8 +20,13 @@ public class DataJpaRestaurantRepository implements RestaurantRepository {
     }
 
     @Override
-    public Restaurant getWithDishes(int id) {
-        return restaurantRepository.getWithDishes(id);
+    public List<Restaurant> getAll() {
+        return restaurantRepository.findAll();
+    }
+
+    @Override
+    public Restaurant getWithMenu(int id) {
+        return restaurantRepository.getWithMenu(id);
     }
 
     @Transactional
@@ -34,10 +39,7 @@ public class DataJpaRestaurantRepository implements RestaurantRepository {
         return restaurantRepository.delete(id) != 0;
     }
 
-    @Override
-    public List<Restaurant> getAll() {
-        return restaurantRepository.findAll();
-    }
+
 
     @Override
     public List<Restaurant> getAllWithDishes() {

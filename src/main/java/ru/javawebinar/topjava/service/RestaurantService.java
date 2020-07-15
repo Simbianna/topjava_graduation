@@ -27,8 +27,8 @@ public class RestaurantService {
         return checkNotFoundWithId(restaurantRepository.get(id), id);
     }
 
-    public Restaurant getWithDishes(int id) {
-        return checkNotFoundWithId(restaurantRepository.getWithDishes(id), id);
+    public Restaurant getWithMenu(int id) {
+        return checkNotFoundWithId(restaurantRepository.getWithMenu(id), id);
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)
@@ -53,7 +53,7 @@ public class RestaurantService {
         return restaurantRepository.getAll();
     }
 
-    public List<Restaurant> getAllWithDishes() {
+    public List<Restaurant> getAllWithMenus() {
         return restaurantRepository.getAllWithDishes();
     }
 

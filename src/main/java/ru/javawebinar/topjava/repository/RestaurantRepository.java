@@ -9,7 +9,7 @@ public interface RestaurantRepository {
     Restaurant get(int id);
 
     // null if not found
-    Restaurant getWithDishes(int id);
+    Restaurant getWithMenu(int id);
 
     // null if not found, when updated
     Restaurant save(Restaurant restaurant);

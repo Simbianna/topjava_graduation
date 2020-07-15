@@ -71,7 +71,7 @@ class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     void getAllWithDishes() throws Exception{
-        List<Restaurant> restaurants = service.getAllWithDishes();
+        List<Restaurant> restaurants = service.getAllWithMenus();
         assertMatchWithDishes(restaurants, ALL_RESTAURANTS);
     }
 
@@ -79,7 +79,7 @@ class RestaurantServiceTest extends AbstractServiceTest {
     @Test
     void getWithDishesNotFound() throws Exception {
         assertThrows(NotFoundException.class, () ->
-                service.getWithDishes(1));
+                service.getWithMenu(1));
     }
 
     @Test

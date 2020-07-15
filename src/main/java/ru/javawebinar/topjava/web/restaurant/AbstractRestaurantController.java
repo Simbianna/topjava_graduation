@@ -19,20 +19,24 @@ public abstract class AbstractRestaurantController {
 
     public List<Restaurant> getAll(){
         log.info("getAll restaurants");
-        return restaurantService.getAllWithDishes();
+        return restaurantService.getAll();
     }
 
-   /* public List<RestaurantTo> getAll(){
-        log.info("getAll with ratings");
-        RestaurantsUtil.createWithRating(restaurantService.getAll())
-        return restaurantService.getAll();
-    }*/
-
+    public List<Restaurant> getAllWithMenus(){
+        log.info("getAll restaurants");
+        return restaurantService.getAllWithMenus();
+    }
 
     public Restaurant get(int id) {
         log.info("get {}", id);
-        return restaurantService.getWithDishes(id);
+        return restaurantService.get(id);
     }
+
+    public Restaurant getWithMenu(int id) {
+        log.info("get {} with menu", id);
+        return restaurantService.getWithMenu(id);
+    }
+
 
     public Restaurant create(Restaurant restaurant) {
         log.info("create {}", restaurant);
