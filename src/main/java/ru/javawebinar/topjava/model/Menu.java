@@ -1,12 +1,12 @@
 package ru.javawebinar.topjava.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import ru.javawebinar.topjava.View;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+
 import java.util.Set;
 
 @Entity
@@ -17,12 +17,28 @@ public class Menu extends AbstractBaseEntity {
     @OrderBy("added DESC")
     private Set<Dish> dishes;
 
-    @JsonIgnore
+ //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
- //   @OnDelete(action = OnDeleteAction.CASCADE)
+    @OnDelete(action = OnDeleteAction.CASCADE)
   //  @NotNull(groups = View.Persist.class)
     private Restaurant restaurant;
+
+    public Menu() {
+    }
+
+    public Menu(Integer id) {
+        super(id);
+    }
+
+    /*public Menu(Integer id, String name, Set<Dish> dishes) {
+        super(id, name);
+        this.dishes = dishes;
+    }*/
+
+    /*public Menu(Set<Dish> dishes) {
+        this.dishes = dishes;
+    }*/
 
     public Set<Dish> getDishes() {
         return dishes;
@@ -40,8 +56,7 @@ public class Menu extends AbstractBaseEntity {
         this.restaurant = restaurant;
     }
 
-    public Menu() {
-    }
+
 
     @Override
     public String toString() {

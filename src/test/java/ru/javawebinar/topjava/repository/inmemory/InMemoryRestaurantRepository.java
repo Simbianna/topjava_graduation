@@ -31,7 +31,7 @@ public class InMemoryRestaurantRepository extends InMemoryBaseRepository<Restaur
 
 
     @Override
-    public List<Restaurant> getAllWithDishes() {
+    public List<Restaurant> getAllWithMenus() {
         return null;
     }
 

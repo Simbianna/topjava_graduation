@@ -35,10 +35,10 @@ VALUES ('2020-03-30 9:00:00', 100002, 100000),
        ('2020-03-31 9:00:00', 100003, 100000),
        ('2020-03-31 10:00:00', 100003, 100001);
 
-INSERT INTO menus (restaurant_id)
-VALUES (100002),
-       (100003),
-       (100004);
+INSERT INTO menus (name, restaurant_id)
+VALUES ('SteakHouse Menu',100002),
+       ('Italian Restaurant Menu',100003),
+       ('Vietnam Restaurant Menu',100004);
 
 INSERT INTO dishes (name, price, added, menu_id)
 VALUES ('Ribeye steak', 1000.00, '2020-03-30 10:00:00', 100009),

@@ -5,11 +5,11 @@ import java.util.List;
 
 public interface RestaurantRepository {
 
-    // null if not found
-    Restaurant get(int id);
+    // ordered by name ascending
+    List<Restaurant> getAll();
 
     // null if not found
-    Restaurant getWithMenu(int id);
+    Restaurant get(int id);
 
     // null if not found, when updated
     Restaurant save(Restaurant restaurant);
@@ -17,10 +17,10 @@ public interface RestaurantRepository {
     // false if not found
     boolean delete(int id);
 
-    // ordered by name ascending
-    List<Restaurant> getAll();
+    // null if not found
+    Restaurant getWithMenu(int id);
 
     // ordered by name ascending
-    List<Restaurant> getAllWithDishes();
+    List<Restaurant> getAllWithMenus();
 
 }

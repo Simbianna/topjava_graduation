@@ -27,10 +27,6 @@ public class RestaurantService {
         return checkNotFoundWithId(restaurantRepository.get(id), id);
     }
 
-    public Restaurant getWithMenu(int id) {
-        return checkNotFoundWithId(restaurantRepository.getWithMenu(id), id);
-    }
-
     @CacheEvict(value = "restaurants", allEntries = true)
     public void update(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
@@ -53,8 +49,11 @@ public class RestaurantService {
         return restaurantRepository.getAll();
     }
 
-    public List<Restaurant> getAllWithMenus() {
-        return restaurantRepository.getAllWithDishes();
+       public Restaurant getWithMenu(int id) {
+        return checkNotFoundWithId(restaurantRepository.getWithMenu(id), id);
     }
 
+    public List<Restaurant> getAllWithMenus() {
+        return restaurantRepository.getAllWithMenus();
+    }
 }

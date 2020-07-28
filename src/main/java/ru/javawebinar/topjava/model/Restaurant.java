@@ -5,8 +5,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cache;
 import org.springframework.context.annotation.Lazy;
 
-import javax.persistence.*;;
-import java.util.Set;
+import javax.persistence.*;
+import java.util.List;
+
 
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity
@@ -26,6 +27,11 @@ public class Restaurant extends AbstractNamedEntity {
     public Restaurant(int id, String name) {
         super(id, name);
     }
+
+   /* public Restaurant(int id, String name, Menu menu) {
+        super(id, name);
+        this.menu = menu;
+    }*/
 
     public Menu getMenu() {
         return menu;

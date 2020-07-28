@@ -1,4 +1,4 @@
-package ru.javawebinar.topjava.web.restaurant;
+package ru.javawebinar.topjava.web.menu;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -7,32 +7,31 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.javawebinar.topjava.View;
-import ru.javawebinar.topjava.model.Restaurant;
+import ru.javawebinar.topjava.model.Menu;
 
 import java.net.URI;
 import java.util.List;
 
-
 @RestController
-@RequestMapping(value = RestaurantAdminRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class RestaurantAdminRestController extends AbstractRestaurantController {
-    static final String REST_URL = "/rest/admin/restaurants";
+@RequestMapping(value = MenuAdminRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class MenuAdminRestController extends AbstractMenuRestController{
+    static final String REST_URL = "/rest/admin/menus";
 
     @Override
     @GetMapping
-    public List<Restaurant> getAll() {
+    public List<Menu> getAll() {
         return super.getAll();
     }
 
     @Override
     @GetMapping("/{id}")
-    public Restaurant get(@PathVariable int id) {
+    public Menu get(@PathVariable int id) {
         return super.get(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Restaurant> createResponseEntity(@Validated(View.Web.class) @RequestBody Restaurant restaurant) {
-        Restaurant created = super.create(restaurant);
+    public ResponseEntity<Menu> createResponseEntity(@Validated(View.Web.class) @RequestBody Menu menu) {
+        Menu created = super.create(menu);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
@@ -49,7 +48,7 @@ public class RestaurantAdminRestController extends AbstractRestaurantController 
     @Override
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void update(@Validated(View.Web.class) @RequestBody Restaurant restaurant, @PathVariable int id) {
-        super.update(restaurant, id);
+    public void update(@Validated(View.Web.class) @RequestBody Menu menu, @PathVariable int id) {
+        super.update(menu, id);
     }
 }

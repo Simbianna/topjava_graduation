@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.javawebinar.topjava.model.Restaurant;
 import ru.javawebinar.topjava.service.RestaurantService;
+import ru.javawebinar.topjava.to.RestaurantTo;
+import ru.javawebinar.topjava.util.toUtil.RestaurantsUtil;
 
 import java.util.List;
 
@@ -17,14 +19,14 @@ public abstract class AbstractRestaurantController {
     @Autowired
     RestaurantService restaurantService;
 
-    public List<Restaurant> getAll(){
+    public List<Restaurant> getAll() {
         log.info("getAll restaurants");
         return restaurantService.getAll();
     }
 
-    public List<Restaurant> getAllWithMenus(){
+    public List<RestaurantTo> getAllAsTo() {
         log.info("getAll restaurants");
-        return restaurantService.getAllWithMenus();
+        return RestaurantsUtil.getAsToList(restaurantService.getAllWithMenus());
     }
 
     public Restaurant get(int id) {
@@ -32,21 +34,20 @@ public abstract class AbstractRestaurantController {
         return restaurantService.get(id);
     }
 
-    public Restaurant getWithMenu(int id) {
+      public RestaurantTo getAsTo(int id) {
         log.info("get {} with menu", id);
-        return restaurantService.getWithMenu(id);
-    }
-
-
-    public Restaurant create(Restaurant restaurant) {
-        log.info("create {}", restaurant);
-        checkNew(restaurant);
-        return restaurantService.create(restaurant);
+        return RestaurantsUtil.getAsTo(restaurantService.getWithMenu(id));
     }
 
     public void delete(int id) {
         log.info("delete {}", id);
         restaurantService.delete(id);
+    }
+
+    public Restaurant create(Restaurant restaurant) {
+        log.info("create {}", restaurant);
+        checkNew(restaurant);
+        return restaurantService.create(restaurant);
     }
 
     public void update(Restaurant restaurant, int id) {
@@ -55,6 +56,13 @@ public abstract class AbstractRestaurantController {
         restaurantService.update(restaurant);
     }
 
-
+    /* public Restaurant getWithMenu(int id) {
+        log.info("get {} with menu", id);
+        return restaurantService.getWithMenu(id);
+    }*/
+    /*public List<Restaurant> getAllWithMenus(){
+        log.info("getAll restaurants");
+        return restaurantService.getAllWithMenus();
+    }*/
 
 }

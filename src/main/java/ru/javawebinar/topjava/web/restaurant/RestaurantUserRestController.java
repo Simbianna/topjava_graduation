@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.javawebinar.topjava.model.Restaurant;
+import ru.javawebinar.topjava.to.RestaurantTo;
 
 import java.util.List;
 
@@ -16,14 +16,13 @@ public class RestaurantUserRestController extends AbstractRestaurantController{
 
     @Override
     @GetMapping
-    public List<Restaurant> getAll() {
-        return super.getAllWithMenus();
+    public List<RestaurantTo> getAllAsTo() {
+        return super.getAllAsTo();
     }
 
-    @Override
     @GetMapping("/{id}")
-    public Restaurant get(@PathVariable int id) {
-        return super.getWithMenu(id);
+    public RestaurantTo getAsTo(@PathVariable int id) {
+        return super.getAsTo(id);
     }
 
 }

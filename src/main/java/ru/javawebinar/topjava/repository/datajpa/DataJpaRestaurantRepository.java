@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava.repository.datajpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.Restaurant;
@@ -10,23 +11,19 @@ import java.util.List;
 
 @Repository
 public class DataJpaRestaurantRepository implements RestaurantRepository {
+    private static final Sort SORT_NAME = Sort.by(Sort.Direction.ASC, "name");
 
     @Autowired
     CrudRestaurantRepository restaurantRepository;
 
     @Override
+    public List<Restaurant> getAll() {
+        return restaurantRepository.findAll(SORT_NAME);
+    }
+
+    @Override
     public Restaurant get(int id) {
         return restaurantRepository.findById(id).orElse(null);
-    }
-
-    @Override
-    public List<Restaurant> getAll() {
-        return restaurantRepository.findAll();
-    }
-
-    @Override
-    public Restaurant getWithMenu(int id) {
-        return restaurantRepository.getWithMenu(id);
     }
 
     @Transactional
@@ -39,11 +36,13 @@ public class DataJpaRestaurantRepository implements RestaurantRepository {
         return restaurantRepository.delete(id) != 0;
     }
 
-
-
+ @Override
+    public Restaurant getWithMenu(int id) {
+        return restaurantRepository.getWithMenu(id);
+    }
     @Override
-    public List<Restaurant> getAllWithDishes() {
-        return restaurantRepository.getAllWithDishes();
+    public List<Restaurant> getAllWithMenus() {
+        return restaurantRepository.getAllWithMenus();
     }
 
 }

@@ -17,14 +17,12 @@ public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Inte
 
     @Override
     @Transactional
-    Restaurant save(Restaurant item);
+    Restaurant save(Restaurant restaurant);
 
-    @Query("SELECT distinct r FROM Restaurant r left join fetch r.menu m left join fetch m.dishes WHERE r.menu.restaurant.id=:id ")
+  @Query("SELECT distinct r FROM Restaurant r left join fetch r.menu m left join fetch m.dishes WHERE r.menu.restaurant.id=:id ")
     Restaurant getWithMenu(@Param("id") int id);
 
    @Query("SELECT distinct r FROM Restaurant r left join fetch r.menu m left join fetch m.dishes")
-   List<Restaurant> getAllWithDishes();
-
-
+   List<Restaurant> getAllWithMenus();
 
 }

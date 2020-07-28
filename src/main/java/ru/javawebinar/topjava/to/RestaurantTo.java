@@ -1,33 +1,27 @@
 package ru.javawebinar.topjava.to;
 
-import ru.javawebinar.topjava.model.Dish;
+public class RestaurantTo extends BaseTo {
 
-import java.util.List;
-import java.util.Set;
+    private String name;
+    private MenuTo lunchMenu;
 
-public class RestaurantTo extends BaseTo{
+    public RestaurantTo(Integer id, String name) {
+        super(id);
+        this.name = name;
+    }
 
-    private final String name;
-    private final Set<Dish> lunchMenu;
-    private final Integer rating;
-
-    public RestaurantTo(Integer id, String name, Set<Dish> lunchMenu, Integer rating) {
+    public RestaurantTo(Integer id, String name, MenuTo lunchMenu) {
         super(id);
         this.name = name;
         this.lunchMenu = lunchMenu;
-        this.rating = rating;
     }
 
     public String getName() {
         return name;
     }
 
-    public Set<Dish> getLunchMenu() {
+    public MenuTo getLunchMenu() {
         return lunchMenu;
-    }
-
-    public Integer getRating() {
-        return rating;
     }
 
     @Override
@@ -36,7 +30,6 @@ public class RestaurantTo extends BaseTo{
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", lunchMenu=" + lunchMenu +
-                ", rating=" + rating +
                 '}';
     }
 }

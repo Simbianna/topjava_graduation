@@ -3,6 +3,7 @@ package ru.javawebinar.topjava.util;
 import org.slf4j.Logger;
 import ru.javawebinar.topjava.HasId;
 import ru.javawebinar.topjava.model.AbstractBaseEntity;
+import ru.javawebinar.topjava.model.Menu;
 import ru.javawebinar.topjava.model.Vote;
 import ru.javawebinar.topjava.util.exception.ErrorType;
 import ru.javawebinar.topjava.util.exception.IllegalRequestDataException;
@@ -18,6 +19,7 @@ import java.util.Set;
 public class ValidationUtil {
     private ValidationUtil() {
     }
+
 
     public static <T> T checkNotFoundWithId(T object, int id) {
         return checkNotFound(object, "id=" + id);
