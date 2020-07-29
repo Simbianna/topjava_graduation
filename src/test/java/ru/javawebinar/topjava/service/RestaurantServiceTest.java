@@ -16,7 +16,7 @@ import static ru.javawebinar.topjava.testData.RestaurantTestData.*;
 
 class RestaurantServiceTest extends AbstractServiceTest {
 
-    @Autowired
+   /* @Autowired
     RestaurantService service;
 
     @Autowired
@@ -42,12 +42,12 @@ class RestaurantServiceTest extends AbstractServiceTest {
     }
 
 
-   /* @Test
+   *//* @Test
     void getWithDishes() throws Exception {
         Restaurant italian = service.getWithDishes(ITALIAN_ID);
         assertMatch(italian, ITALIAN);
         DishTestData.assertMatch(italian.getDishes(), DishTestData.ITALIAN_DISHES_SORTED_BY_DT);
-    }*/
+    }*//*
 
 
 
@@ -69,7 +69,7 @@ class RestaurantServiceTest extends AbstractServiceTest {
     }
 
 
-   /* @Test
+   *//* @Test
     void getAllWithDishes() throws Exception{
         List<Restaurant> restaurants = service.getAllWithMenus();
         assertMatchWithDishes(restaurants, ALL_RESTAURANTS);
@@ -80,7 +80,7 @@ class RestaurantServiceTest extends AbstractServiceTest {
     void getWithDishesNotFound() throws Exception {
         assertThrows(NotFoundException.class, () ->
                 service.getWithMenu(1));
-    }*/
+    }*//*
 
     @Test
     void create() throws Exception {
@@ -100,5 +100,5 @@ class RestaurantServiceTest extends AbstractServiceTest {
 
 
 
-
+*/
 }

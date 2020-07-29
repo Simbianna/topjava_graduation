@@ -19,9 +19,9 @@ public class RestaurantsUtil {
     }
 
     public static RestaurantTo getAsTo(Restaurant restaurant) {
-        return restaurant.getMenu() == null?
+        return restaurant.getDishes() == null?
         new RestaurantTo(restaurant.getId(), restaurant.getName()):
-        new RestaurantTo(restaurant.getId(), restaurant.getName(), MenusUtil.asTo(restaurant.getMenu()));
+        new RestaurantTo(restaurant.getId(), restaurant.getName(), DishesUtil.asTo(restaurant.getDishes()));
     }
 
 }

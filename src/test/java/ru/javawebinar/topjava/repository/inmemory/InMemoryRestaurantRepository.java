@@ -25,13 +25,23 @@ public class InMemoryRestaurantRepository extends InMemoryBaseRepository<Restaur
     //TODO ничего не сделано
 
     @Override
-    public Restaurant getWithMenu(int id) {
+    public Restaurant getWithDishes(int id) {
         return null;
     }
 
 
     @Override
-    public List<Restaurant> getAllWithMenus() {
+    public List<Restaurant> getAllWithDishes() {
+        return null;
+    }
+
+    @Override
+    public Restaurant getWithActualMenu(int id) {
+        return null;
+    }
+
+    @Override
+    public List<Restaurant> getAllWithActualMenu() {
         return null;
     }
 
@@ -40,4 +50,6 @@ public class InMemoryRestaurantRepository extends InMemoryBaseRepository<Restaur
     public Restaurant gerWithDishesAndRating(int id) {
         return null;
     }*/
+
+
 }

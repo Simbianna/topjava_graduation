@@ -11,6 +11,7 @@ import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 
 import ru.javawebinar.topjava.web.AbstractControllerTest;
+import ru.javawebinar.topjava.web.controllers.user.AdminRestController;
 import ru.javawebinar.topjava.web.json.JsonUtil;
 
 import java.util.Collections;

@@ -19,10 +19,10 @@ public interface DishRepository {
     // ORDERED dateTime desc
     List<Dish> getAll(int restaurantId);
 
-    // ORDERED dateTime desc
+   /* // ORDERED dateTime desc
     List<Dish> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId);
 
     default Dish getWithRestaurant(int id, int restaurantId) {
         throw new UnsupportedOperationException();
-    }
+    }*/
 }

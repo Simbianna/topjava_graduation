@@ -18,9 +18,15 @@ public interface RestaurantRepository {
     boolean delete(int id);
 
     // null if not found
-    Restaurant getWithMenu(int id);
+    Restaurant getWithDishes(int id);
 
-    // ordered by name ascending
-    List<Restaurant> getAllWithMenus();
+    // ordered by added descending
+    List<Restaurant> getAllWithDishes();
+
+    // null if not found
+    Restaurant getWithActualMenu(int id);
+
+    // ordered by added descending
+    List<Restaurant> getAllWithActualMenu();
 
 }

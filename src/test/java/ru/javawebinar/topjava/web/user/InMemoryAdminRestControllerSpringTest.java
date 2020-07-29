@@ -8,6 +8,7 @@ import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.inmemory.InMemoryUserRepository;
 import ru.javawebinar.topjava.testData.UserTestData;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
+import ru.javawebinar.topjava.web.controllers.user.AdminRestController;
 
 import java.util.Collection;
 

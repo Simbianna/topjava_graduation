@@ -19,10 +19,16 @@ public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Inte
     @Transactional
     Restaurant save(Restaurant restaurant);
 
-  @Query("SELECT distinct r FROM Restaurant r left join fetch r.menu m left join fetch m.dishes WHERE r.menu.restaurant.id=:id ")
-    Restaurant getWithMenu(@Param("id") int id);
+    @Query("SELECT distinct r FROM Restaurant r left join fetch r.dishes d WHERE d.restaurant.id=:id ")
+    Restaurant getWithAllDishes(@Param("id") int id);
 
-   @Query("SELECT distinct r FROM Restaurant r left join fetch r.menu m left join fetch m.dishes")
-   List<Restaurant> getAllWithMenus();
+    @Query("SELECT distinct r FROM Restaurant r left join fetch r.dishes d WHERE d.restaurant.id=:id AND d.included = true")
+    Restaurant getWithActualMenu(@Param("id") int id);
+
+    @Query("SELECT distinct r FROM Restaurant r left join fetch r.dishes d")
+    List<Restaurant> getAllWithAllDishes();
+
+    @Query("SELECT distinct r FROM Restaurant r left join fetch r.dishes d WHERE d.included = true")
+    List<Restaurant> getAllWithActualMenu();
 
 }

@@ -20,16 +20,17 @@ public class Dish extends AbstractNamedEntity {
     @Range(min = 0)
     private double price;
 
-    @JsonIgnore
     @Column(name = "added", nullable = false)
-    @NotNull
+ /*   @NotNull*/
     @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
     private LocalDateTime added;
 
-    @JsonIgnore
+    @Column(name = "isIncludedInMenu", nullable = false, columnDefinition = "bool default true")
+    private boolean included;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "menu_id")
-    private Menu menu;
+    @JoinColumn(name = "restaurant_id")
+    private Restaurant restaurant;
 
     public Dish() {
     }
@@ -54,7 +55,6 @@ public class Dish extends AbstractNamedEntity {
         this.added = added;
     }
 
-
     public double getPrice() {
         return price;
     }
@@ -71,13 +71,9 @@ public class Dish extends AbstractNamedEntity {
         this.added = added;
     }
 
-    public Menu getMenu() {
-        return menu;
-    }
+    public void setIncluded(boolean included){this.included = included;}
 
-    public void setMenu(Menu menu) {
-        this.menu = menu;
-    }
+    public void setRestaurant(Restaurant restaurant){this.restaurant = restaurant;}
 
     @Override
     public String toString() {

@@ -1,16 +1,18 @@
 package ru.javawebinar.topjava.to;
 
+import java.util.Set;
+
 public class RestaurantTo extends BaseTo {
 
     private String name;
-    private MenuTo lunchMenu;
+    private Set<DishTo> lunchMenu;
 
     public RestaurantTo(Integer id, String name) {
         super(id);
         this.name = name;
     }
 
-    public RestaurantTo(Integer id, String name, MenuTo lunchMenu) {
+    public RestaurantTo(Integer id, String name, Set<DishTo> lunchMenu) {
         super(id);
         this.name = name;
         this.lunchMenu = lunchMenu;
@@ -20,9 +22,6 @@ public class RestaurantTo extends BaseTo {
         return name;
     }
 
-    public MenuTo getLunchMenu() {
-        return lunchMenu;
-    }
 
     @Override
     public String toString() {

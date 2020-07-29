@@ -6,7 +6,7 @@ import org.hibernate.annotations.Cache;
 import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -14,8 +14,8 @@ import java.util.List;
 @Table(name = "restaurants")
 public class Restaurant extends AbstractNamedEntity {
 
-    @OneToOne(fetch = FetchType.LAZY)//, cascade = CascadeType.REMOVE, orphanRemoval = true
-    private Menu menu;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")//, cascade = CascadeType.REMOVE, orphanRemoval = true
+    private Set<Dish> dishes;
 
     public Restaurant() {
     }
@@ -28,17 +28,8 @@ public class Restaurant extends AbstractNamedEntity {
         super(id, name);
     }
 
-   /* public Restaurant(int id, String name, Menu menu) {
-        super(id, name);
-        this.menu = menu;
-    }*/
-
-    public Menu getMenu() {
-        return menu;
-    }
-
-    public void setMenu(Menu menu) {
-        this.menu = menu;
+    public Set<Dish> getDishes() {
+        return dishes;
     }
 
     @Override

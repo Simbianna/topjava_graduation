@@ -26,7 +26,7 @@ public interface CrudDishRepository extends JpaRepository<Dish, Integer> {
 
     //   @Query("SELECT d FROM Dish d WHERE d.restaurant.id=:restaurantId ORDER BY d.added DESC")
    // @Query("SELECT d FROM Dish d JOIN FETCH d.restaurant WHERE d.restaurant.id=:restaurantId")
-    @Query("SELECT d FROM Dish d WHERE d.menu.id =:restaurantId")
+    @Query("SELECT d FROM Dish d WHERE d.restaurant.id =:restaurantId")
     List<Dish> getAll(@Param("restaurantId") int restaurantId);
 
     /* @SuppressWarnings("JpaQlInspection")
@@ -35,8 +35,8 @@ public interface CrudDishRepository extends JpaRepository<Dish, Integer> {
  */
    // @Query("SELECT d FROM Dish d JOIN FETCH d.restaurant WHERE d.id = ?1 and d.restaurant.id = ?2")
    // @Query("SELECT d FROM Dish d JOIN FETCH d.restaurant WHERE d.id = ?1 and d.restaurant.id = :restaurantId")
-    @Query("SELECT d FROM Dish d WHERE d.id = ?1 and d.menu.id = :restaurantId")
-    Dish getWithRestaurant(int id, int restaurantID);
+//    @Query("SELECT d FROM Dish d WHERE d.id = ?1 and d.restaurant.id = :restaurantId")
+//    Dish getWithRestaurant(int id, int restaurantID);
 
 //List<Dish> getDishesByRestaurant_IdAndAddedBetween(int restaurantId, LocalDateTime start, LocalDateTime end);
 //    @Query("SELECT d FROM  Dish d WHERE d.restaurant.id=:restaurantId AND d.added =:today")

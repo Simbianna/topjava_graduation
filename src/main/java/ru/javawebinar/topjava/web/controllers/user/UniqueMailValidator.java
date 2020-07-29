@@ -1,4 +1,4 @@
-package ru.javawebinar.topjava.web.user;
+package ru.javawebinar.topjava.web.controllers.user;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
