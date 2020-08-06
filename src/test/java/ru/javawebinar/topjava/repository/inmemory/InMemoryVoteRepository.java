@@ -21,10 +21,10 @@ public class InMemoryVoteRepository extends InMemoryBaseRepository<Vote> impleme
 
     private Map<Integer, InMemoryBaseRepository<Vote>> usersVotesMap = new ConcurrentHashMap<>();
 
-    public Vote save(Vote vote, int userId) {
+    public Vote saveForUser(Vote vote, int userId) {
             Objects.requireNonNull(vote, "Vote must not be null");
             InMemoryBaseRepository<Vote> votes = usersVotesMap.computeIfAbsent(userId, uid -> new InMemoryBaseRepository<>());
-            return votes.save(vote);
+            return votes.saveForAdmin(vote);
     }
 
     @PostConstruct
@@ -38,18 +38,18 @@ public class InMemoryVoteRepository extends InMemoryBaseRepository<Vote> impleme
     }
 
 
-    public boolean delete(int id, int userId) {
+    public boolean deleteForUser(int id, int userId) {
         InMemoryBaseRepository<Vote> votes = usersVotesMap.get(userId);
         return votes != null && votes.delete(id);
     }
 
-    public Vote get(int id, int userId) {
+    public Vote getByIdForUser(int id, int userId) {
         InMemoryBaseRepository<Vote> votes = usersVotesMap.get(userId);
         return votes == null ? null : votes.get(id);
     }
 
 
-    public Vote getLastForUser(int userId){
+    public Vote getVoteForExactDateForUser(int userId){
         InMemoryBaseRepository<Vote> votes = usersVotesMap.get(userId);
         return votes.getCollection().stream().max(Comparator.comparing(Vote::getVotingDateTime)).orElse(null);
     }

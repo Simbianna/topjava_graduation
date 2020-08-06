@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.javawebinar.topjava.model.Vote;
 import ru.javawebinar.topjava.repository.VoteRepository;
-import ru.javawebinar.topjava.repository.datajpa.DataJpaVoteRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,11 +25,11 @@ public class VoteService {
     }
 
     public Vote get(int id, int userId) {
-        return checkNotFoundWithId(voteRepository.get(id, userId), id);
+        return checkNotFoundWithId(voteRepository.getByIdForUser(id, userId), id);
     }
 
     public void delete(int id, int userId) {
-        checkNotFoundWithId(voteRepository.delete(id, userId), id);
+        checkNotFoundWithId(voteRepository.deleteForUser(id, userId), id);
     }
 
     public List<Vote> getAll() {
@@ -61,7 +60,7 @@ public class VoteService {
     }
 
     public Vote getLastForUser(int userId) {
-        return checkNotFoundWithId(voteRepository.getLastForUser(userId), userId);
+        return checkNotFoundWithId(voteRepository.getLastVoteForUserBetweenDateTimes(userId), userId);
     }
 
     public List<Vote> getAllForUser(int userId) {
@@ -76,12 +75,12 @@ public class VoteService {
 
     public void update(Vote vote, int userId) {
         Assert.notNull(vote, "vote must not be null");
-        checkNotFoundWithId(voteRepository.save(vote, userId), vote.getId());
+        checkNotFoundWithId(voteRepository.saveForUser(vote, userId), vote.getId());
     }
 
     public Vote create(Vote vote, int userId) {
         Assert.notNull(vote, "vote must not be null");
-        return voteRepository.save(vote, userId);
+        return voteRepository.saveForUser(vote, userId);
     }
 
     public Vote getWithUser(int id, int userId) {

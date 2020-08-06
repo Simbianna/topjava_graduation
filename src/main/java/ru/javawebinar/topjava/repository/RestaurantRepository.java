@@ -17,16 +17,15 @@ public interface RestaurantRepository {
     // false if not found
     boolean delete(int id);
 
+    // null if not found. Restaurant without menu will not be shown
+    Restaurant getWithActualMenu(int id);
+
+    //Restaurants without menus will not be shown
+    List<Restaurant> getAllWithActualMenu();
+
     // null if not found
     Restaurant getWithDishes(int id);
 
-    // ordered by added descending
     List<Restaurant> getAllWithDishes();
-
-    // null if not found
-    Restaurant getWithActualMenu(int id);
-
-    // ordered by added descending
-    List<Restaurant> getAllWithActualMenu();
 
 }

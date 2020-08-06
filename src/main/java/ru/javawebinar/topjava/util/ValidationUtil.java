@@ -14,6 +14,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Set;
 
+import static ru.javawebinar.topjava.util.DateTimeUtil.adjustStartDateTime;
+import static ru.javawebinar.topjava.util.DateTimeUtil.getDaysBeginning;
+
 public class ValidationUtil {
     private ValidationUtil() {
     }
@@ -97,13 +100,31 @@ public class ValidationUtil {
     }
 
     //My Own methods-----------------------------------------------------------
+    public static boolean isVotedToday(Vote vote){
+       return vote!=null;
+    }
+
+
+    public static void checkVoteCanBeUpdatedToday(LocalDateTime today){
+        if (!(today.isBefore(LocalDateTime.of(LocalDate.now(), LocalTime.of(11,0)))
+        &&today.isAfter(getDaysBeginning(LocalDate.now()))))
+        throw new IllegalRequestDataException("can`t change vote today");
+    }
+
     public static void checkVoteCanBeUpdated(LocalDateTime votingTime){
-        if (votingTime.isAfter(LocalDateTime.of(LocalDate.now(), LocalTime.of(11,0))))
-            throw new IllegalRequestDataException("vote can`t be changed");
+        if (votingTime.isBefore(adjustStartDateTime(votingTime.toLocalDate())))
+            throw new IllegalRequestDataException("old vote can`t be changed");
     }
 
     public static void checkVoteIsNewToday(Vote lastDBVote){
-        if (!lastDBVote.getVotingDateTime().toLocalDate().isAfter(LocalDate.now()))
+        if (!lastDBVote.getVotingDateTime().isBefore(adjustStartDateTime(LocalDate.now())))
             throw new IllegalRequestDataException("already voted today");
     }
+
+    public static boolean checkVoteMadeToday(LocalDateTime votingTime){
+        return votingTime.toLocalDate().isEqual(LocalDate.now());
+    }
+
+
+
 }

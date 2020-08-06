@@ -46,7 +46,7 @@ public class RestaurantAdminRestController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Restaurant> createResponseEntity(@Validated(View.Web.class) @RequestBody Restaurant restaurant) {
+    public ResponseEntity<Restaurant> create(@Validated(View.Web.class) @RequestBody Restaurant restaurant) {
         log.info("create {}", restaurant);
         Assert.notNull(restaurant, "restaurant must not be null");
         checkNew(restaurant);
@@ -58,6 +58,7 @@ public class RestaurantAdminRestController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
         log.info("delete {}", id);
         checkNotFoundWithId(restaurantRepository.delete(id), id);

@@ -26,12 +26,12 @@ public class DataJpaRestaurantRepository implements RestaurantRepository {
         return restaurantRepository.findById(id).orElse(null);
     }
 
-    @Transactional
+    @Override
     public Restaurant save(Restaurant restaurant) {
         return restaurantRepository.save(restaurant);
     }
 
-    @Transactional
+    @Override
     public boolean delete(int id) {
         return restaurantRepository.delete(id) != 0;
     }

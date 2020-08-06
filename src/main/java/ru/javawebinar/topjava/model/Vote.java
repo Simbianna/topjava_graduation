@@ -7,28 +7,28 @@ import ru.javawebinar.topjava.View;
 import ru.javawebinar.topjava.util.DateTimeUtil;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "votes")
-public class Vote extends AbstractBaseEntity{
+@Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "added"}, name = "votes_unique_user_added_idx")})
+public class Vote extends AbstractBaseEntity {
 
-    @Column(name = "added", nullable = false)
+    @Column(name = "added", nullable = false, columnDefinition = "timestamp default now()")
     @NotNull
     @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
     private LocalDateTime votingDateTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
-   // @OnDelete(action = OnDeleteAction.CASCADE) //Надо подумать, удалять ли голос при удалении рестика
-   // @NotNull(groups = View.Persist.class)
+    // @OnDelete(action = OnDeleteAction.CASCADE) //Надо подумать, удалять ли голос при удалении рестика
+    // @NotNull(groups = View.Persist.class)
     private Restaurant restaurant;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-   // @OnDelete(action = OnDeleteAction.CASCADE)
-  //  @NotNull(groups = View.Persist.class)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotNull(groups = View.Persist.class)
     private User user;
 
     public Vote() {
@@ -38,30 +38,41 @@ public class Vote extends AbstractBaseEntity{
         this(null, votingDateTime);
     }
 
-    public Vote(Integer id, LocalDateTime votingDateTime){
+    public Vote(Integer id, LocalDateTime votingDateTime) {
         super(id);
         this.votingDateTime = votingDateTime;
     }
 
-    public Vote(Integer id, LocalDateTime votingDateTime, Restaurant restaurant){
+    public Vote(Integer id, LocalDateTime votingDateTime, Restaurant restaurant) {
         super(id);
         this.votingDateTime = votingDateTime;
         this.restaurant = restaurant;
     }
 
-    public Vote(LocalDateTime votingDateTime, Restaurant restaurant){
+    public Vote(LocalDateTime votingDateTime, Restaurant restaurant) {
         this.votingDateTime = votingDateTime;
         this.restaurant = restaurant;
     }
 
-    public Vote(Integer id, LocalDateTime votingDateTime, Restaurant restaurant, User user){
+    public Vote(Integer id, LocalDateTime votingDateTime, Restaurant restaurant, User user) {
         super(id);
         this.votingDateTime = votingDateTime;
         this.restaurant = restaurant;
         this.user = user;
     }
 
-    public Vote(LocalDateTime votingDateTime, Restaurant restaurant, User user){
+    public Vote(Integer id, Restaurant restaurant, User user) {
+        super(id);
+        this.restaurant = restaurant;
+        this.user = user;
+    }
+
+    public Vote(Integer id, Restaurant restaurant) {
+        super(id);
+        this.restaurant = restaurant;
+    }
+
+    public Vote(LocalDateTime votingDateTime, Restaurant restaurant, User user) {
         this.votingDateTime = votingDateTime;
         this.restaurant = restaurant;
         this.user = user;

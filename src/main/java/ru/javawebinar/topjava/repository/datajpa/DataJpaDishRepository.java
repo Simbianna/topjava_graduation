@@ -8,54 +8,41 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.Dish;
 import ru.javawebinar.topjava.repository.DishRepository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
 public class DataJpaDishRepository implements DishRepository {
-    private static final Sort SORT_BY_ID = Sort.by(Sort.Direction.DESC, "id");
 
     @Autowired
     CrudDishRepository dishRepository;
 
-    //admin command
+    @Autowired
+    CrudRestaurantRepository restaurantRepository;
+
     @Transactional
-    public Dish save(Dish dish) {
+    public Dish save(Dish dish, int restaurantId) {
+        if (!dish.isNew() && get(dish.getId(), restaurantId) == null) {
+            return null;
+        }
+        dish.setRestaurant(restaurantRepository.getOne(restaurantId));
         return dishRepository.save(dish);
     }
 
-    //admin command
     @Transactional
-    public boolean delete(int id) {
-        return dishRepository.delete(id) != 0;
+    public boolean delete(int id, int restaurantId) {
+        return dishRepository.delete(id, restaurantId) != 0;
     }
 
-    public Dish get(int id) {
-        return dishRepository.findById(id).orElse(null);
+    public Dish get(int id, int restaurantId) {
+        return dishRepository.findById(id).filter(dish -> dish.getRestaurant().getId() == restaurantId) .orElse(null);
     }
 
-    //for restaurant
     public List<Dish> getAll(int restaurantId) {
         return dishRepository.getAll(restaurantId);
     }
 
-   /* public List<Dish> getBetween(LocalDateTime startDate, LocalDateTime endDate, int restaurantId) {
-       return  null;
-        // return dishRepository.getBetween(restaurantId, startDate, endDate);
+    @Override
+    public List<Dish> getAllIncluded(int restaurantId) {
+        return dishRepository.getAllIncluded(restaurantId);
     }
-
-    public Dish getWithRestaurant(int id, int restaurantId) {
-        return dishRepository.getWithRestaurant(id, restaurantId);
-    }*/
-//    public List<Dish> getAllForRestaurantForToday(LocalDateTime start today, int restaurantId) {
-//        return dishRepository.getDishesByRestaurantForToday(today, restaurantId);
-//    }
-
-//    public List<Dish> getAll() {
-//        return dishRepository.findAll(SORT_BY_ID);
-//    }
-
-//    public List<Dish> getForToday(int restaurantId) {
-//        return mealRepository.getBetween(LocalDate.now().atStartOfDay(),LocalDate.now().plusDays(1).atStartOfDay(), restaurantId);
-//    }
 }

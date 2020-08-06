@@ -14,6 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.javawebinar.topjava.View;
 import ru.javawebinar.topjava.model.Dish;
 import ru.javawebinar.topjava.repository.DishRepository;
+import ru.javawebinar.topjava.repository.RestaurantRepository;
 
 
 import java.net.URI;
@@ -21,7 +22,6 @@ import java.util.List;
 
 import static ru.javawebinar.topjava.util.ValidationUtil.*;
 
-//TODO возможно добавить возможность смотреть  актуальную еду
 @RestController
 @RequestMapping(value = DishAdminRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class DishAdminRestController {
@@ -30,9 +30,12 @@ public class DishAdminRestController {
 
     private final DishRepository dishRepository;
 
+    private final RestaurantRepository restaurantRepository;
+
     @Autowired
-    public DishAdminRestController(DishRepository dishRepository) {
+    public DishAdminRestController(DishRepository dishRepository, RestaurantRepository restaurantRepository) {
         this.dishRepository = dishRepository;
+        this.restaurantRepository = restaurantRepository;
     }
 
     @GetMapping
@@ -40,48 +43,54 @@ public class DishAdminRestController {
         log.info("get all dishes for restaurant {}", restaurantId);
         return dishRepository.getAll(restaurantId);
     }
+/*
+    @GetMapping("/lunchMenu")
+    public List<Dish> getAllIncludedInLunchMenu(@PathVariable("restaurantId") int restaurantId) {
+        log.info("get all dishes included in lunch menu for restaurant {}", restaurantId);
+        return dishRepository.getAllIncluded(restaurantId);
+    }*/
 
     @GetMapping("/{id}")
-    public Dish get(@PathVariable int id) {
-        log.info("get dish {}", id);
-        return checkNotFoundWithId(dishRepository.get(id), id);
+    public Dish get(@PathVariable("restaurantId") int restaurantId, @PathVariable int id) {
+        log.info("get dish {} for restaurant {}", id, restaurantId);
+        return checkNotFoundWithId(dishRepository.get(id, restaurantId), id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Dish> createResponseEntity(@Validated(View.Web.class) @RequestBody Dish dish) {
-        log.info("create {}", dish);
+    public ResponseEntity<Dish> createResponseEntity(@PathVariable("restaurantId") int restaurantId, @Validated(View.Web.class) @RequestBody Dish dish) {
+        log.info("create dish {} for restaurant {}", dish, restaurantId);
         Assert.notNull(dish, "dish must not be null");
         checkNew(dish);
-        Dish created = dishRepository.save(dish);
+        Dish created = dishRepository.save(dish, restaurantId);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
-                .buildAndExpand(created.getId()).toUri();
+                .buildAndExpand(restaurantId, created.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable int id) {
-        log.info("delete dish {}", id);
-        checkNotFoundWithId(dishRepository.delete(id), id);
+    public void delete(@PathVariable("restaurantId") int restaurantId, @PathVariable int id) {
+        log.info("delete dish {} for restaurant {}", id, restaurantId);
+        checkNotFoundWithId(dishRepository.delete(id, restaurantId), id);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void update(@Validated(View.Web.class) @RequestBody Dish dish, @PathVariable int id) {
+    public void update(@PathVariable("restaurantId") int restaurantId, @Validated(View.Web.class) @RequestBody Dish dish, @PathVariable int id) {
         log.info("update dish {}", dish);
         Assert.notNull(dish, "Dish must not be null");
         assureIdConsistent(dish, id);
-        checkNotFoundWithId(dishRepository.save(dish), dish.getId());
+        checkNotFoundWithId(dishRepository.save(dish, restaurantId), dish.getId());
     }
 
     @Transactional
     @PatchMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void includeInActualMenu(@PathVariable int id, @RequestParam boolean included) {
+    public void includeInActualMenu(@PathVariable("restaurantId") int restaurantId, @PathVariable int id, @RequestParam boolean included) {
         log.info(included ? "include {}" : "exclude {}", id);
-        Dish dish = checkNotFoundWithId(dishRepository.get(id), id);
+        Dish dish = checkNotFoundWithId(dishRepository.get(id, restaurantId), id);
         dish.setIncluded(included);
-     /*   dishRepository.save(dish);*///only for jdbc
+        /*   dishRepository.save(dish);*///only for jdbc
     }
 }

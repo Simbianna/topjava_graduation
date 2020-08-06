@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Dish;
 import ru.javawebinar.topjava.repository.DishRepository;
-import ru.javawebinar.topjava.util.Util;
 
 
 import javax.annotation.PostConstruct;
@@ -27,7 +26,7 @@ public class InMemoryDishRepository extends InMemoryBaseRepository<Dish> impleme
     public Dish save(Dish dish, int restaurantId) {
         Objects.requireNonNull(dish, "Dish must not be null");
         InMemoryBaseRepository<Dish> dishes = dishesMap.computeIfAbsent(restaurantId, rid -> new InMemoryBaseRepository<>());
-        return dishes.save(dish);
+        return dishes.saveForAdmin(dish);
     }
 
     @PostConstruct
@@ -52,6 +51,11 @@ public class InMemoryDishRepository extends InMemoryBaseRepository<Dish> impleme
 
     public List<Dish> getAll(int restaurantId) {
         return getAllFiltered(restaurantId, dish -> true);
+    }
+
+    @Override
+    public List<Dish> getAllIncluded(int restaurantId) {
+        return null;
     }
 
     private List<Dish> getAllFiltered(int restaurantId, Predicate<Dish> filter) {
