@@ -31,10 +31,7 @@ public class InMemoryUserRepository extends InMemoryBaseRepository<User> impleme
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public User getWithVotes(int id) {
-        return null;
-    }
+
 
 
     @Override

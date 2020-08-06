@@ -20,7 +20,4 @@ public interface UserRepository {
 
     List<User> getAll();
 
-    default User getWithVotes(int id) {
-        throw new UnsupportedOperationException();
-    }
 }

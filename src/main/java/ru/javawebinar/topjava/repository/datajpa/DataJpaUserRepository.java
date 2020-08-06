@@ -8,8 +8,6 @@ import org.springframework.data.domain.Sort;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -20,31 +18,29 @@ public class DataJpaUserRepository implements UserRepository {
     @Autowired
     CrudUserRepository userRepository;
 
+    @Override
     public User save(User user) {
-
         return userRepository.save(user);
     }
 
+    @Override
     public boolean delete(int id) {
         return userRepository.delete(id) != 0;
     }
 
+    @Override
     public User get(int id) {
         return userRepository.findById(id).orElse(null);
     }
 
+    @Override
     public User getByEmail(String email) {
         return userRepository.getByEmail(email);
     }
 
+    @Override
     public List<User> getAll() {
         return userRepository.findAll(SORT_NAME_EMAIL);
     }
 
-    public User getWithVotes(int id) {
-        return userRepository.getWithVotes(id);
-    }
-
-//    public User getWithLastVote(int id) { return userRepository.getWithLastVote(id);
-//    }
 }

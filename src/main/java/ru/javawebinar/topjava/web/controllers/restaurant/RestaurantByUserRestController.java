@@ -17,15 +17,15 @@ import java.util.List;
 import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
 
 @RestController
-@RequestMapping(value = RestaurantUserRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class RestaurantUserRestController {
+@RequestMapping(value = RestaurantByUserRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class RestaurantByUserRestController {
     static final String REST_URL = "/rest/restaurants";
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     private final RestaurantRepository restaurantRepository;
 
     @Autowired
-    public RestaurantUserRestController(RestaurantRepository restaurantRepository) {
+    public RestaurantByUserRestController(RestaurantRepository restaurantRepository) {
         this.restaurantRepository = restaurantRepository;
     }
 

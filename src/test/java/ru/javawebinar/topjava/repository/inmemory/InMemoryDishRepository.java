@@ -44,19 +44,24 @@ public class InMemoryDishRepository extends InMemoryBaseRepository<Dish> impleme
         return dishes != null && dishes.delete(id);
     }
 
+    @Override
+    public List<Dish> getAllIncludedByRestaurantId(int restaurantId) {
+        return null;
+    }
+
     public Dish get(int id, int restaurantId) {
         InMemoryBaseRepository<Dish> dishes = dishesMap.get(restaurantId);
         return dishes == null ? null : dishes.get(id);
     }
 
-    public List<Dish> getAll(int restaurantId) {
+    public List<Dish> getAllByRestaurantId(int restaurantId) {
         return getAllFiltered(restaurantId, dish -> true);
     }
 
-    @Override
+  /*  @Override
     public List<Dish> getAllIncluded(int restaurantId) {
         return null;
-    }
+    }*/
 
     private List<Dish> getAllFiltered(int restaurantId, Predicate<Dish> filter) {
         InMemoryBaseRepository<Dish> dishes = dishesMap.get(restaurantId);

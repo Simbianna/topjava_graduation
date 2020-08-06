@@ -13,7 +13,6 @@ import org.springframework.util.Assert;
 import ru.javawebinar.topjava.AuthorizedUser;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
-import ru.javawebinar.topjava.repository.datajpa.DataJpaUserRepository;
 import ru.javawebinar.topjava.to.UserTo;
 import ru.javawebinar.topjava.util.UserUtil;
 
@@ -24,7 +23,6 @@ import static ru.javawebinar.topjava.util.UserUtil.prepareToSave;
 import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFound;
 import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
 
-//TODO посмотри комментарии про jdbc
 @Service("userService")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class UserService implements UserDetailsService {
@@ -81,6 +79,7 @@ public class UserService implements UserDetailsService {
     public void enable(int id, boolean enabled) {
         User user = get(id);
         user.setEnabled(enabled);
+        repository.save(user);
     }
 
     @Override
@@ -90,14 +89,6 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException("User " + email + " is not found");
         }
         return new AuthorizedUser(user);
-    }
-
-//    public User getLastVote(int id) {
-//        return checkNotFoundWithId(repository.getWithLastVote(id), id);
-//    }
-
-    public User getWithVotes(int id) {
-        return checkNotFoundWithId(repository.getWithVotes(id), id);
     }
 
 }

@@ -26,8 +26,8 @@ import static ru.javawebinar.topjava.util.ValidationUtil.*;
 import static ru.javawebinar.topjava.web.SecurityUtil.authUserId;
 
 @RestController
-@RequestMapping(value = VoteUserRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class VoteUserRestController {
+@RequestMapping(value = VoteByUserRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class VoteByUserRestController {
     static final String REST_URL = "/rest/profile/votes";
     private final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -35,7 +35,7 @@ public class VoteUserRestController {
     private final RestaurantRepository restaurantRepository;
 
     @Autowired
-    VoteUserRestController(VoteRepository voteRepository, RestaurantRepository restaurantRepository) {
+    VoteByUserRestController(VoteRepository voteRepository, RestaurantRepository restaurantRepository) {
         this.voteRepository = voteRepository;
         this.restaurantRepository = restaurantRepository;
     }

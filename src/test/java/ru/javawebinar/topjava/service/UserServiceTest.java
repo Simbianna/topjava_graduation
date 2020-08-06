@@ -106,7 +106,7 @@ class UserServiceTest extends AbstractServiceTest {
     }
 
 
-    @Test
+  /*  @Test
     void getWithVotes() {
         User user = service.getWithVotes(USER_ID);
         assertMatch(user, USER);
@@ -117,7 +117,7 @@ class UserServiceTest extends AbstractServiceTest {
     void getWithVotesNotFound() {
         assertThrows(NotFoundException.class, () ->
                 service.getWithVotes(1));
-    }
+    }*/
 
     @Test
     void createWithException() throws Exception {

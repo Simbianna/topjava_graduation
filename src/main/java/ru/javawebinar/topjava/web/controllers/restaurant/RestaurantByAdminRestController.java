@@ -21,15 +21,15 @@ import static ru.javawebinar.topjava.util.ValidationUtil.*;
 
 
 @RestController
-@RequestMapping(value = RestaurantAdminRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class RestaurantAdminRestController {
+@RequestMapping(value = RestaurantByAdminRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class RestaurantByAdminRestController {
     static final String REST_URL = "/rest/admin/restaurants";
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     private final RestaurantRepository restaurantRepository;
 
     @Autowired
-    public RestaurantAdminRestController(RestaurantRepository restaurantRepository) {
+    public RestaurantByAdminRestController(RestaurantRepository restaurantRepository) {
         this.restaurantRepository = restaurantRepository;
     }
 

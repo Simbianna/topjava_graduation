@@ -25,7 +25,7 @@ public class Dish extends AbstractNamedEntity {
     @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
     private LocalDateTime added;
 
-    @Column(name = "isIncludedInMenu", nullable = false, columnDefinition = "bool default true")
+    @Column(name = "isIncludedInMenu", nullable = false, columnDefinition = "bool default false")
     private boolean included;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -53,6 +53,13 @@ public class Dish extends AbstractNamedEntity {
         super(id, name);
         this.price = price;
         this.added = added;
+    }
+
+    public Dish(int id, String name, double price, LocalDateTime added, boolean included) {
+        super(id, name);
+        this.price = price;
+        this.added = added;
+        this.included = included;
     }
 
     public double getPrice() {
@@ -85,6 +92,7 @@ public class Dish extends AbstractNamedEntity {
                 "id=" + id +
                 ", name='" + name +
                 ", price=" + price +
+                ", included=" + included +
                 '}';
     }
 

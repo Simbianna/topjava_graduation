@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava.repository;
 
 import ru.javawebinar.topjava.model.Restaurant;
+
 import java.util.List;
 
 public interface RestaurantRepository {
@@ -23,10 +24,4 @@ public interface RestaurantRepository {
     // false if not found
     boolean delete(int id);
 
-/*
-    // null if not found
-    Restaurant getWithDishes(int id);
-
-    List<Restaurant> getAllWithDishes();
-*/
 }

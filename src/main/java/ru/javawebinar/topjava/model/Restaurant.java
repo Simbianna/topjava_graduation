@@ -1,12 +1,11 @@
 package ru.javawebinar.topjava.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cache;
-import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
+
 
 
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -15,7 +14,7 @@ import java.util.Set;
 public class Restaurant extends AbstractNamedEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")//, cascade = CascadeType.REMOVE, orphanRemoval = true
-    private Set<Dish> dishes;
+    private List<Dish> dishes;
 
     public Restaurant() {
     }
@@ -28,7 +27,7 @@ public class Restaurant extends AbstractNamedEntity {
         super(id, name);
     }
 
-    public Set<Dish> getDishes() {
+    public List<Dish> getDishes() {
         return dishes;
     }
 

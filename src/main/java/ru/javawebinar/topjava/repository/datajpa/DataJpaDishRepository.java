@@ -8,6 +8,7 @@ import ru.javawebinar.topjava.model.Dish;
 import ru.javawebinar.topjava.repository.DishRepository;
 
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class DataJpaDishRepository implements DishRepository {
@@ -18,6 +19,22 @@ public class DataJpaDishRepository implements DishRepository {
     @Autowired
     CrudRestaurantRepository restaurantRepository;
 
+    @Override
+    public List<Dish> getAllByRestaurantId(int restaurantId) {
+        return dishRepository.getAllByRestaurantId(restaurantId);
+    }
+
+    @Override
+    public Dish get(int id, int restaurantId) {
+        return dishRepository.findById(id).filter(dish -> dish.getRestaurant().getId() == restaurantId).orElse(null);
+    }
+
+    @Override
+    public boolean delete(int id, int restaurantId) {
+        return dishRepository.delete(id, restaurantId) != 0;
+    }
+
+    @Override
     @Transactional
     public Dish save(Dish dish, int restaurantId) {
         if (!dish.isNew() && get(dish.getId(), restaurantId) == null) {
@@ -27,21 +44,9 @@ public class DataJpaDishRepository implements DishRepository {
         return dishRepository.save(dish);
     }
 
-    @Transactional
-    public boolean delete(int id, int restaurantId) {
-        return dishRepository.delete(id, restaurantId) != 0;
-    }
-
-    public Dish get(int id, int restaurantId) {
-        return dishRepository.findById(id).filter(dish -> dish.getRestaurant().getId() == restaurantId) .orElse(null);
-    }
-
-    public List<Dish> getAll(int restaurantId) {
-        return dishRepository.getAll(restaurantId);
-    }
-
     @Override
-    public List<Dish> getAllIncluded(int restaurantId) {
-        return dishRepository.getAllIncluded(restaurantId);
+    public List<Dish> getAllIncludedByRestaurantId(int restaurantId) {
+        return dishRepository.getAllIncludedByRestaurantId(restaurantId);
     }
+
 }
