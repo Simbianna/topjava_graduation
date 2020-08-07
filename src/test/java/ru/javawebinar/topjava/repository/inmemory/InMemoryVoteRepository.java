@@ -43,9 +43,19 @@ public class InMemoryVoteRepository extends InMemoryBaseRepository<Vote> impleme
         return votes != null && votes.delete(id);
     }
 
+    @Override
+    public Vote getById(int id) {
+        return null;
+    }
+
     public Vote getByIdForUser(int id, int userId) {
         InMemoryBaseRepository<Vote> votes = usersVotesMap.get(userId);
         return votes == null ? null : votes.get(id);
+    }
+
+    @Override
+    public Vote getLastVoteForUserBetweenDateTimes(int userId, LocalDateTime startDate, LocalDateTime endDate) {
+        return null;
     }
 
 

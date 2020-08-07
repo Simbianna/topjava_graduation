@@ -22,4 +22,14 @@ public class DishesUtil {
         }
         return dishesTo;
     }
+
+    static Set<DishTo> asToFilteredByIncluded(Set<Dish> dishes) {
+        Set<DishTo> dishesTo = new HashSet<>();
+        for (Dish dish : dishes) {
+            if (dish.isIncluded()) {
+                dishesTo.add(asTo(dish));
+            }
+        }
+        return dishesTo;
+    }
 }

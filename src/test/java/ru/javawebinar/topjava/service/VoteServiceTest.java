@@ -19,7 +19,7 @@ import static ru.javawebinar.topjava.testData.VoteTestData.*;
 
 class VoteServiceTest extends AbstractServiceTest {
 
-    @Autowired
+   /* @Autowired
     VoteService service;
 
     @Test
@@ -108,6 +108,6 @@ class VoteServiceTest extends AbstractServiceTest {
     void getWithUserNotFound() throws Exception {
         assertThrows(NotFoundException.class, () ->
                 service.getWithUser(VOTE_ID, ADMIN_ID));
-    }
+    }*/
     
 }

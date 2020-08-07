@@ -73,6 +73,8 @@ public class Dish extends AbstractNamedEntity {
 
     public void setIncluded(boolean included){this.included = included;}
 
+    public boolean isIncluded(){return included;}
+
     public void setRestaurant(Restaurant restaurant){this.restaurant = restaurant;}
 
     public Restaurant getRestaurant(){return restaurant;}

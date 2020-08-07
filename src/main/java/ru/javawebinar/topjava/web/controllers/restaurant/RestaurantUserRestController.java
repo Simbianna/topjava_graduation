@@ -31,14 +31,14 @@ public class RestaurantUserRestController {
 
     @GetMapping
     public List<RestaurantTo> getAll() {
-        log.info("getAll restaurants with lunchMenu");
-        return RestaurantsUtil.getAsToList(restaurantRepository.getAllWithActualMenu());
+        log.info("get All restaurants with lunchMenu");
+        return RestaurantsUtil.getAsToListForUser(restaurantRepository.getAllWithActualMenu());
     }
 
     @GetMapping("/{id}")
     public RestaurantTo get(@PathVariable int id) {
-        log.info("get {} with lunchMenu", id);
-        return RestaurantsUtil.getAsTo(checkNotFoundWithId(restaurantRepository.getWithActualMenu(id), id));
+        log.info("get restaurant {} with lunchMenu", id);
+        return RestaurantsUtil.getAsToForUser(checkNotFoundWithId(restaurantRepository.getWithActualMenu(id), id));
     }
 
 }

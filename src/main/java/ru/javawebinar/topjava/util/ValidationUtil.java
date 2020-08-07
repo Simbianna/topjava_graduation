@@ -2,7 +2,6 @@ package ru.javawebinar.topjava.util;
 
 import org.slf4j.Logger;
 import ru.javawebinar.topjava.HasId;
-import ru.javawebinar.topjava.model.Vote;
 import ru.javawebinar.topjava.util.exception.ErrorType;
 import ru.javawebinar.topjava.util.exception.IllegalRequestDataException;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
@@ -14,7 +13,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Set;
 
-import static ru.javawebinar.topjava.util.DateTimeUtil.adjustStartDateTime;
 import static ru.javawebinar.topjava.util.DateTimeUtil.getDaysBeginning;
 
 public class ValidationUtil {
@@ -99,32 +97,10 @@ public class ValidationUtil {
         return rootCause;
     }
 
-    //My Own methods-----------------------------------------------------------
-    public static boolean isVotedToday(Vote vote){
-       return vote!=null;
+    //Vote can be updated only if done today before 11 am
+    public static void checkVoteCanBeUpdatedToday(LocalDateTime today) {
+        if (!(today.isBefore(LocalDateTime.of(LocalDate.now(), LocalTime.of(11, 0)))
+                && today.isAfter(getDaysBeginning(LocalDate.now()))))
+            throw new IllegalRequestDataException("can`t change vote today");
     }
-
-
-    public static void checkVoteCanBeUpdatedToday(LocalDateTime today){
-        if (!(today.isBefore(LocalDateTime.of(LocalDate.now(), LocalTime.of(11,0)))
-        &&today.isAfter(getDaysBeginning(LocalDate.now()))))
-        throw new IllegalRequestDataException("can`t change vote today");
-    }
-
-    public static void checkVoteCanBeUpdated(LocalDateTime votingTime){
-        if (votingTime.isBefore(adjustStartDateTime(votingTime.toLocalDate())))
-            throw new IllegalRequestDataException("old vote can`t be changed");
-    }
-
-    public static void checkVoteIsNewToday(Vote lastDBVote){
-        if (!lastDBVote.getVotingDateTime().isBefore(adjustStartDateTime(LocalDate.now())))
-            throw new IllegalRequestDataException("already voted today");
-    }
-
-    public static boolean checkVoteMadeToday(LocalDateTime votingTime){
-        return votingTime.toLocalDate().isEqual(LocalDate.now());
-    }
-
-
-
 }

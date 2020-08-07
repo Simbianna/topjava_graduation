@@ -45,6 +45,13 @@ public class RestaurantAdminRestController {
         return checkNotFoundWithId(restaurantRepository.get(id), id);
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable int id) {
+        log.info("delete {}", id);
+        checkNotFoundWithId(restaurantRepository.delete(id), id);
+    }
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> create(@Validated(View.Web.class) @RequestBody Restaurant restaurant) {
         log.info("create {}", restaurant);
@@ -55,13 +62,6 @@ public class RestaurantAdminRestController {
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
-    }
-
-    @DeleteMapping("/{id}")
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable int id) {
-        log.info("delete {}", id);
-        checkNotFoundWithId(restaurantRepository.delete(id), id);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)

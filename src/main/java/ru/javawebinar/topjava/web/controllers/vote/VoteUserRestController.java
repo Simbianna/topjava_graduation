@@ -32,7 +32,6 @@ public class VoteUserRestController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     private final VoteRepository voteRepository;
-
     private final RestaurantRepository restaurantRepository;
 
     @Autowired
@@ -69,38 +68,20 @@ public class VoteUserRestController {
         Assert.notNull(vote, "vote must not be null");
         int userId = authUserId();
         LocalDateTime currentDateTime = LocalDateTime.now();
-        Vote lastVote = voteRepository.getLastVoteForUserBetweenDateTimes(userId, getDaysBeginning(currentDateTime), getDaysEnd(currentDateTime));
-        if (lastVote != null) {
+        Vote todaysVote = voteRepository.getLastVoteForUserBetweenDateTimes(userId, getDaysBeginning(currentDateTime), getDaysEnd(currentDateTime));
+        Vote persistedVote;
+        if (todaysVote != null) {
             checkVoteCanBeUpdatedToday(currentDateTime);
-            lastVote.setVotingDateTime(LocalDateTime.now());
-            lastVote.setRestaurant(restaurantRepository.get(vote.getId()));
+            todaysVote.setVotingDateTime(LocalDateTime.now());
+            todaysVote.setRestaurant(restaurantRepository.get(vote.getId()));
+            persistedVote = voteRepository.saveForUser(todaysVote, userId);
+        } else {
+            persistedVote = voteRepository.saveForUser(vote, userId);
         }
-        Assert.notNull(vote, "vote must not be null");
-        checkNew(vote);
-
-
-        checkVoteIsNewToday(lastVote);
-        Vote created = voteRepository.saveForUser(vote,userId);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
-                .buildAndExpand(created.getId()).toUri();
-        return ResponseEntity.created(uriOfNewResource).body(created);
+                .buildAndExpand(persistedVote.getId()).toUri();
+        return ResponseEntity.created(uriOfNewResource).body(persistedVote);
     }
-
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void update(@PathVariable int id,
-                       @RequestParam int restaurant_id) {
-        log.info("update vote {}", id);
-        checkVoteCanBeUpdatedToday();
-        int userId = authUserId();
-        Vote vote = voteRepository.getById(id);
-        checkVoteCanBeUpdated(vote.getVotingDateTime());
-        Vote lastVote = voteRepository.getLastVoteForUserBetweenDateTimes(userId);
-        Assert.notNull(vote, "vote must not be null");
-
-        checkNotFoundWithId(voteRepository.saveForAdmin(vote), vote.getId());
-    }
-
 
 }
