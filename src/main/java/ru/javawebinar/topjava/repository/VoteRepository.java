@@ -8,43 +8,51 @@ import java.util.List;
 
 public interface VoteRepository {
 
+    // ordered dateTime desc
+    List<Vote> getAll();
+
+    // ordered dateTime desc
+    List<Vote> getAllForUserWithRestaurant(int userId);
+
     // null if not found
     Vote getById(int id);
 
-    // null if vote does not belong to userId
+    // null if not found
     Vote getByIdForUser(int id, int userId);
 
-    // null if not found
-    Vote getLastVoteForUserBetweenDateTimes(int userId, LocalDateTime startDate, LocalDateTime endDate);
+    // null if vote does not belong to userId
+    Vote getByIdForUserWithRestaurant(int id, int userId);
 
-    // null if not found. Only for update.
-    Vote saveForAdmin(Vote vote);
+    // null if vote does not belong to userId
+    Vote getForUserByDateWithRestaurant(int userId, LocalDate date);
+
+    // false if not found
+    boolean deleteById(int id);
+
+    // false if vote do not belong to userId
+    boolean deleteByIdForUser(int id, int userId);
+
+    // null if not found.
+    Vote save(Vote vote);
 
     // null if updated vote do not belong to userId
     Vote saveForUser(Vote vote, int userId);
 
-    // false if not found
-    boolean delete(int id);
+    // null if not found
+    Vote getForUserByDate(int userId, LocalDate date);
 
-    // false if vote do not belong to userId
-    boolean deleteForUser(int id, int userId);
 
-    // ORDERED dateTime desc
-    List<Vote> getAll();
-
-    // ORDERED dateTime desc
-    List<Vote> getAllForUser(int userId);
-
-    // ORDERED dateTime desc
+    /* ORDERED dateTime desc
     List<Vote> getAllForUserBetween(int userId, LocalDateTime start, LocalDateTime end);
+
+    // null if not found
+    Vote getLastVoteForUserBetweenDateTimes(int userId, LocalDateTime startDate, LocalDateTime endDate);
 
     // ORDERED dateTime desc
     List<Vote> getAllForRestaurant(int restaurantId);
 
     // ORDERED dateTime desc
     List<Vote> getAllForRestaurantBetween(int restaurantId, LocalDateTime start, LocalDateTime end);
-
-
 
     default Vote getWithUser(int id, int userId) {
         throw new UnsupportedOperationException();
@@ -53,7 +61,5 @@ public interface VoteRepository {
     default Vote getWithRestaurant(int id, int restaurantId) {
         throw new UnsupportedOperationException();
     }
-
-
-
+    */
 }

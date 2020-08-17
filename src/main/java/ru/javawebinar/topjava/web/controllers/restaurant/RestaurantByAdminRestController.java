@@ -41,20 +41,20 @@ public class RestaurantByAdminRestController {
 
     @GetMapping("/{id}")
     public Restaurant get(@PathVariable int id) {
-        log.info("get {}", id);
+        log.info("get restaurant {}", id);
         return checkNotFoundWithId(restaurantRepository.get(id), id);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
-        log.info("delete {}", id);
+        log.info("delete restaurant {}", id);
         checkNotFoundWithId(restaurantRepository.delete(id), id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> create(@Validated(View.Web.class) @RequestBody Restaurant restaurant) {
-        log.info("create {}", restaurant);
+        log.info("create restaurant {}", restaurant);
         Assert.notNull(restaurant, "restaurant must not be null");
         checkNew(restaurant);
         Restaurant created = restaurantRepository.save(restaurant);
@@ -67,7 +67,7 @@ public class RestaurantByAdminRestController {
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void update(@Validated(View.Web.class) @RequestBody Restaurant restaurant, @PathVariable int id) {
-        log.info("update {} with id = {}", restaurant, id);
+        log.info("update restaurant {} with id = {}", restaurant, id);
         Assert.notNull(restaurant, "restaurant must not be null");
         assureIdConsistent(restaurant, id);
         checkNotFoundWithId(restaurantRepository.save(restaurant), restaurant.getId());

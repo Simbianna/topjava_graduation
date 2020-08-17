@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.javawebinar.topjava.View;
 import ru.javawebinar.topjava.model.Vote;
 import ru.javawebinar.topjava.repository.VoteRepository;
-
-
 import java.util.List;
 
 import static ru.javawebinar.topjava.util.ValidationUtil.assureIdConsistent;
@@ -39,15 +37,15 @@ public class VoteByAdminRestController {
 
     @GetMapping("/{id}")
     public Vote get(@PathVariable int id) {
-        log.info("get all votes");
+        log.info("get vote {}", id);
         return checkNotFoundWithId(voteRepository.getById(id), id);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
-        log.info("get vote {}", id);
-        checkNotFoundWithId(voteRepository.delete(id), id);
+        log.info("delete vote {}", id);
+        checkNotFoundWithId(voteRepository.deleteById(id), id);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -56,7 +54,7 @@ public class VoteByAdminRestController {
         log.info("update vote {}", id);
         Assert.notNull(vote, "vote must not be null");
         assureIdConsistent(vote, id);
-        checkNotFoundWithId(voteRepository.saveForAdmin(vote), vote.getId());
+        checkNotFoundWithId(voteRepository.save(vote), vote.getId());
     }
 
 }

@@ -16,7 +16,7 @@ public class InMemoryBaseRepository<T extends AbstractBaseEntity> {
 
     Map<Integer, T> entryMap = new ConcurrentHashMap<>();
 
-    public T saveForAdmin(T entry) {
+    public T save(T entry) {
         Objects.requireNonNull(entry, "Entry must not be null");
         if (entry.isNew()) {
             entry.setId(counter.incrementAndGet());
@@ -26,7 +26,7 @@ public class InMemoryBaseRepository<T extends AbstractBaseEntity> {
         return entryMap.computeIfPresent(entry.getId(), (id, oldT) -> entry);
     }
 
-    public boolean delete(int id) {
+    public boolean deleteById(int id) {
         return entryMap.remove(id) != null;
     }
 

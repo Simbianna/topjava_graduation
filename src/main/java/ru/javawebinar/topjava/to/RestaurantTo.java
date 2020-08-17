@@ -1,9 +1,9 @@
 package ru.javawebinar.topjava.to;
 
 import java.util.List;
+import java.util.Objects;
 
 public class RestaurantTo extends BaseTo {
-
     private String name;
     private List<DishTo> lunchMenu;
 
@@ -22,6 +22,19 @@ public class RestaurantTo extends BaseTo {
         return name;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RestaurantTo that = (RestaurantTo) o;
+        return
+                Objects.equals(id, that.id) && Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
 
     @Override
     public String toString() {

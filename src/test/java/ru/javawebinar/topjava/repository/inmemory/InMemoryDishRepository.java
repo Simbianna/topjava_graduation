@@ -26,7 +26,7 @@ public class InMemoryDishRepository extends InMemoryBaseRepository<Dish> impleme
     public Dish save(Dish dish, int restaurantId) {
         Objects.requireNonNull(dish, "Dish must not be null");
         InMemoryBaseRepository<Dish> dishes = dishesMap.computeIfAbsent(restaurantId, rid -> new InMemoryBaseRepository<>());
-        return dishes.saveForAdmin(dish);
+        return dishes.save(dish);
     }
 
     @PostConstruct
@@ -41,7 +41,7 @@ public class InMemoryDishRepository extends InMemoryBaseRepository<Dish> impleme
 
     public boolean delete(int id, int restaurantId) {
         InMemoryBaseRepository<Dish> dishes = dishesMap.get(restaurantId);
-        return dishes != null && dishes.delete(id);
+        return dishes != null && dishes.deleteById(id);
     }
 
     @Override

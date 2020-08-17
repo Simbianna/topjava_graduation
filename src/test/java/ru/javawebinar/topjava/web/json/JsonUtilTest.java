@@ -17,7 +17,7 @@ import static ru.javawebinar.topjava.testData.VoteTestData.*;
 
 class JsonUtilTest {
 
- @Test
+ /*@Test
     void readWriteValue() throws Exception {
         String json = JsonUtil.writeValue(USER_VOTE_D1);
         System.out.println(json);
@@ -31,7 +31,7 @@ class JsonUtilTest {
         System.out.println(json);
         List<Vote> meals = JsonUtil.readValues(json, Vote.class);
         assertMatch(meals, ALL_VOTES);
-    }
+    }*/
 
     @Test
     void writeOnlyAccess() throws Exception {

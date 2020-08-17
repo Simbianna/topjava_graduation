@@ -8,18 +8,27 @@ import ru.javawebinar.topjava.repository.VoteRepository;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
 public class DataJpaVoteRepository implements VoteRepository {
-    private static final Sort SORT_BY_ID = Sort.by(Sort.Direction.DESC, "id");
+    private static final Sort SORT_BY_DT = Sort.by(Sort.Direction.DESC, "votingDateTime");
 
     @Autowired
     CrudVoteRepository voteRepository;
 
     @Autowired
     private CrudUserRepository userRepository;
+
+    @Override
+    public List<Vote> getAll() {
+        return voteRepository.findAll(SORT_BY_DT);
+    }
+
+    @Override
+    public List<Vote> getAllForUserWithRestaurant(int userId) {
+        return voteRepository.getAllForUserWithRestaurant(userId);
+    }
 
     @Override
     public Vote getById(int id) {
@@ -32,24 +41,33 @@ public class DataJpaVoteRepository implements VoteRepository {
     }
 
     @Override
-    public Vote getLastVoteForUserBetweenDateTimes(int userId, LocalDateTime startDate, LocalDateTime endDate) {
-        return voteRepository.getLastVoteForUserBetweenDateTimes(userId, startDate, endDate);
+    public Vote getByIdForUserWithRestaurant(int id, int userId) {
+        return voteRepository.getByIdForUserWithRestaurant(id, userId);
     }
 
+    @Override
+    public Vote getForUserByDate(int userId, LocalDate date) {
+        return voteRepository.getByUserIdAndVotingDate(userId, date);
+    }
 
-     /* @Override
-    public Vote getLastForUser(int userId) {
-        return voteRepository.findFirstByUser_IdOrderByVotingDateTimeDesc(userId);
-    }*/
+    @Override
+    public Vote getForUserByDateWithRestaurant(int userId, LocalDate date) {
+        return voteRepository.getByUserIdAndVotingDateWithRestaurant(userId, date);
+    }
 
-   /* @Override
-    public Vote getLastForUser(int userId) {
-        return voteRepository.findFirstByUser_IdOrderByVotingDateTimeDesc(userId);
-    }*/
+    @Override
+    public boolean deleteById(int id) {
+        return voteRepository.delete(id) != 0;
+    }
+
+    @Override
+    public boolean deleteByIdForUser(int id, int userId) {
+        return voteRepository.delete(id, userId) != 0;
+    }
 
     @Override
     @Transactional
-    public Vote saveForAdmin(Vote vote) {
+    public Vote save(Vote vote) {
         if (!vote.isNew()) {
             return null;
         }
@@ -66,29 +84,15 @@ public class DataJpaVoteRepository implements VoteRepository {
         return voteRepository.save(vote);
     }
 
-    @Override
-    public boolean delete(int id) {
-        return voteRepository.delete(id) != 0;
-    }
+
+
+    /* @Override
+    public Vote getLastForUser(int userId) {
+        return voteRepository.findFirstByUser_IdOrderByVotingDateTimeDesc(userId);
 
     @Override
-    public boolean deleteForUser(int id, int userId) {
-        return voteRepository.delete(id, userId) != 0;
-    }
-
-    @Override
-    public List<Vote> getAll() {
-        return voteRepository.findAll(SORT_BY_ID);
-    }
-
-    @Override
-    public List<Vote> getAllForUser(int userId) {
-        return voteRepository.getAllForUser(userId);
-    }
-
-    @Override
-    public List<Vote> getAllForUserBetween(int userId, LocalDateTime start, LocalDateTime end) {
-        return voteRepository.getAllForUserBetween(userId, start, end);
+    public Vote getLastVoteForUserBetweenDateTimes(int userId, LocalDateTime startDate, LocalDateTime endDate) {
+        return voteRepository.getLastVoteForUserBetweenDateTimes(userId, startDate, endDate);
     }
 
     @Override
@@ -102,6 +106,11 @@ public class DataJpaVoteRepository implements VoteRepository {
     }
 
     @Override
+    public List<Vote> getAllForUserBetween(int userId, LocalDateTime start, LocalDateTime end) {
+        return voteRepository.getAllForUserBetween(userId, start, end);
+    }
+
+    @Override
     public List<Vote> getAllForRestaurant(int restaurantId) {
         return voteRepository.getAllByRestaurant(restaurantId);
     }
@@ -110,6 +119,5 @@ public class DataJpaVoteRepository implements VoteRepository {
     public List<Vote> getAllForRestaurantBetween(int restaurantId, LocalDateTime start, LocalDateTime end) {
         return voteRepository.getAllByRestaurantBetween(restaurantId, start, end);
     }
-
-
+ }*/
 }

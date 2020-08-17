@@ -27,6 +27,11 @@ public class InMemoryRestaurantRepository extends InMemoryBaseRepository<Restaur
     public Restaurant save(Restaurant restaurant) {
         return null;
     }
+
+    @Override
+    public boolean delete(int id) {
+        return false;
+    }
     //TODO ничего не сделано
 
 /*    @Override

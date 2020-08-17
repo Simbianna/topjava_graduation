@@ -2,22 +2,20 @@ package ru.javawebinar.topjava.model;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.format.annotation.DateTimeFormat;
 import ru.javawebinar.topjava.View;
-import ru.javawebinar.topjava.util.DateTimeUtil;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;;
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "added"}, name = "votes_unique_user_added_idx")})
 public class Vote extends AbstractBaseEntity {
 
-    @Column(name = "added", nullable = false, columnDefinition = "timestamp default now()")
+    @Column(name = "added", nullable = false, columnDefinition = "date default today()")
     @NotNull
-    @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
-    private LocalDateTime votingDateTime;
+    //   @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
+    private LocalDate votingDate = LocalDate.now();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
@@ -34,29 +32,29 @@ public class Vote extends AbstractBaseEntity {
     public Vote() {
     }
 
-    public Vote(LocalDateTime votingDateTime) {
-        this(null, votingDateTime);
+    public Vote(LocalDate votingDate) {
+        this(null, votingDate);
     }
 
-    public Vote(Integer id, LocalDateTime votingDateTime) {
+    public Vote(Integer id, LocalDate votingDate) {
         super(id);
-        this.votingDateTime = votingDateTime;
+        this.votingDate = votingDate;
     }
 
-    public Vote(Integer id, LocalDateTime votingDateTime, Restaurant restaurant) {
+    public Vote(Integer id, LocalDate votingDate, Restaurant restaurant) {
         super(id);
-        this.votingDateTime = votingDateTime;
+        this.votingDate = votingDate;
         this.restaurant = restaurant;
     }
 
-    public Vote(LocalDateTime votingDateTime, Restaurant restaurant) {
-        this.votingDateTime = votingDateTime;
+    public Vote(LocalDate votingDate, Restaurant restaurant) {
+        this.votingDate = votingDate;
         this.restaurant = restaurant;
     }
 
-    public Vote(Integer id, LocalDateTime votingDateTime, Restaurant restaurant, User user) {
+    public Vote(Integer id, LocalDate votingDate, Restaurant restaurant, User user) {
         super(id);
-        this.votingDateTime = votingDateTime;
+        this.votingDate = votingDate;
         this.restaurant = restaurant;
         this.user = user;
     }
@@ -72,18 +70,18 @@ public class Vote extends AbstractBaseEntity {
         this.restaurant = restaurant;
     }
 
-    public Vote(LocalDateTime votingDateTime, Restaurant restaurant, User user) {
-        this.votingDateTime = votingDateTime;
+    public Vote(LocalDate votingDate, Restaurant restaurant, User user) {
+        this.votingDate = votingDate;
         this.restaurant = restaurant;
         this.user = user;
     }
 
-    public LocalDateTime getVotingDateTime() {
-        return votingDateTime;
+    public LocalDate getVotingDate() {
+        return votingDate;
     }
 
-    public void setVotingDateTime(LocalDateTime votingDateTime) {
-        this.votingDateTime = votingDateTime;
+    public void setVotingDate(LocalDate votingDateTime) {
+        this.votingDate = votingDateTime;
     }
 
     public Restaurant getRestaurant() {

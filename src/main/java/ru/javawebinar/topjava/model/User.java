@@ -56,7 +56,7 @@ public class User extends AbstractNamedEntity implements HasEmail {
     private Set<Role> roles;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
-    @OrderBy("votingDateTime DESC")
+    @OrderBy("votingDate DESC")
     private List<Vote> votes;
 
    /* @Column(name = "voted", nullable = false, columnDefinition = "bool default false")

@@ -29,12 +29,12 @@ public class DishInRestaurantByUserRestController {
     @GetMapping
     public List<DishTo> getAll(@PathVariable("restaurantId") int restaurantId) {
         log.info("get all dishes included in lunch menu for restaurant {}", restaurantId);
-        return DishesUtil.asToFilteredByIncluded((dishRepository.getAllIncludedByRestaurantId(restaurantId)));
+        return DishesUtil.asToListFilteredByIncluded((dishRepository.getAllIncludedByRestaurantId(restaurantId)));
     }
 
     @GetMapping("/{id}")
     public DishTo get(@PathVariable("restaurantId") int restaurantId, @PathVariable int id) {
         log.info("get dish {} for restaurant {}", id, restaurantId);
-        return DishesUtil.asTo(checkNotFoundWithId(dishRepository.get(id, restaurantId), id));
+        return DishesUtil.asToList(checkNotFoundWithId(dishRepository.get(id, restaurantId), id));
     }
 }

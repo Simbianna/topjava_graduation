@@ -39,6 +39,11 @@ public class InMemoryUserRepository extends InMemoryBaseRepository<User> impleme
         return null;
     }
 
+    @Override
+    public boolean delete(int id) {
+        return false;
+    }
+
     public User getByEmail(String email) {
         Objects.requireNonNull(email, "email must not be null");
         return getCollection().stream()

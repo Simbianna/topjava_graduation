@@ -32,13 +32,13 @@ public class RestaurantByUserRestController {
     @GetMapping
     public List<RestaurantTo> getAll() {
         log.info("get All restaurants with lunchMenu");
-        return RestaurantsUtil.getAsToListForUser(restaurantRepository.getAllWithActualMenu());
+        return RestaurantsUtil.asToListForUser(restaurantRepository.getAllWithActualMenu());
     }
 
     @GetMapping("/{id}")
     public RestaurantTo get(@PathVariable int id) {
         log.info("get restaurant {} with lunchMenu", id);
-        return RestaurantsUtil.getAsToForUser(checkNotFoundWithId(restaurantRepository.getWithActualMenu(id), id));
+        return RestaurantsUtil.asToForUser(checkNotFoundWithId(restaurantRepository.getWithActualMenu(id), id));
     }
 
 }
