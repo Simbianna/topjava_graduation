@@ -1,7 +1,5 @@
 package ru.javawebinar.topjava.model;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.javawebinar.topjava.util.DateTimeUtil;
@@ -20,10 +18,10 @@ public class Dish extends AbstractNamedEntity {
     @Range(min = 0)
     private double price;
 
-    @Column(name = "added", nullable = false)
- /*   @NotNull*/
+    @Column(name = "added", nullable = false, columnDefinition = "timestamp default now()")
+    @NotNull
     @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
-    private LocalDateTime added;
+    private LocalDateTime added = LocalDateTime.now();
 
     @Column(name = "isIncludedInMenu", nullable = false, columnDefinition = "bool default false")
     private boolean included;
@@ -39,27 +37,15 @@ public class Dish extends AbstractNamedEntity {
         super(name);
     }
 
-    public Dish(String name, double price) {
-        super(name);
-        this.price = price;
-    }
-
-    public Dish(int id, String name, double price) {
-        super(id, name);
-        this.price = price;
-    }
-
-    public Dish(int id, String name, double price, LocalDateTime added) {
-        super(id, name);
-        this.price = price;
-        this.added = added;
-    }
-
-    public Dish(int id, String name, double price, LocalDateTime added, boolean included) {
+    public Dish(Integer id, String name, double price, LocalDateTime added, boolean included) {
         super(id, name);
         this.price = price;
         this.added = added;
         this.included = included;
+    }
+
+    public Dish(String name, double price, LocalDateTime added, boolean included) {
+      this(null, name, price, added, included);
     }
 
     public double getPrice() {
@@ -78,13 +64,21 @@ public class Dish extends AbstractNamedEntity {
         this.added = added;
     }
 
-    public void setIncluded(boolean included){this.included = included;}
+    public void setIncluded(boolean included) {
+        this.included = included;
+    }
 
-    public boolean isIncluded(){return included;}
+    public boolean isIncluded() {
+        return included;
+    }
 
-    public void setRestaurant(Restaurant restaurant){this.restaurant = restaurant;}
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
 
-    public Restaurant getRestaurant(){return restaurant;}
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
 
     @Override
     public String toString() {
@@ -95,53 +89,4 @@ public class Dish extends AbstractNamedEntity {
                 ", included=" + included +
                 '}';
     }
-
-   /* public Dish(String name, double price, Restaurant restaurant) {
-        this(null, name, price, restaurant);
-    }
-
-    public Dish(Integer id, String name, double price, Restaurant restaurant) {
-        super(id, name);
-        this.price = price;
-        this.restaurant = restaurant;
-    }*/
-
-    /*public Dish(Integer id, String name, double price, Restaurant restaurant) {
-        super(id, name);
-        this.price = price;
-        this.restaurant = restaurant;
-    }
-*/
-//    public Dish (String name, double price, LocalDateTime added) {
-//        this(null, name, price, added);
-//    }
-//
-//    public Dish(Integer id, String name, double price, LocalDateTime added) {
-//        super(id, name);
-//        this.price = price;
-//        this.added = added;
-//    }
-
-  /*  public Dish (String name, double price, LocalDateTime added, Restaurant restaurant) {
-        this(null, name, price, added, restaurant);
-    }*/
-
-  /*  public Dish(Integer id, String name, double price, LocalDateTime added, Restaurant restaurant) {
-        super(id, name);
-        this.price = price;
-        this.added = added;
-        this.restaurant = restaurant;
-    }*/
-
-
-
-   /* public LocalDateTime getAdded() {
-        return added;
-    }
-
-    public void setAdded(LocalDateTime added) {
-        this.added = added;
-    }*/
-
-
 }

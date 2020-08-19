@@ -13,8 +13,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Set;
 
-import static ru.javawebinar.topjava.util.DateTimeUtil.getDaysBeginning;
-
 public class ValidationUtil {
     private ValidationUtil() {
     }
@@ -98,9 +96,9 @@ public class ValidationUtil {
     }
 
     //Vote can be updated only if done today before 11 am
-    public static void checkVoteCanBeUpdatedToday(LocalDateTime now) {
-        if (now.isAfter(LocalDateTime.of(LocalDate.now(), LocalTime.of(11, 0)))
-                || now.isBefore(LocalDateTime.of(LocalDate.now(), LocalTime.MIN))) {
+    public static void checkVoteCanBeUpdatedToday(LocalDateTime votingTime) {
+        if (votingTime.isBefore(LocalDateTime.of(LocalDate.now(), LocalTime.MIN))
+                || votingTime.isAfter(LocalDateTime.of(LocalDate.now(), LocalTime.of(11, 0)))) {
             throw new IllegalRequestDataException("can`t change vote today");
         }
     }

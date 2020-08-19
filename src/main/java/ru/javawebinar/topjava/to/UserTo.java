@@ -3,7 +3,6 @@ package ru.javawebinar.topjava.to;
 
 import org.hibernate.validator.constraints.SafeHtml;
 import ru.javawebinar.topjava.HasEmail;
-import ru.javawebinar.topjava.model.Vote;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

@@ -7,7 +7,6 @@ import javax.persistence.*;
 import java.util.List;
 
 
-
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity
 @Table(name = "restaurants")
@@ -20,15 +19,19 @@ public class Restaurant extends AbstractNamedEntity {
     }
 
     public Restaurant(String name) {
-        super(name);
+        this(null, name);
     }
 
-    public Restaurant(int id, String name) {
+    public Restaurant(Integer id, String name) {
         super(id, name);
     }
 
     public List<Dish> getDishes() {
         return dishes;
+    }
+
+    public void setDishes(List<Dish> dishes) {
+        this.dishes = dishes;
     }
 
     @Override

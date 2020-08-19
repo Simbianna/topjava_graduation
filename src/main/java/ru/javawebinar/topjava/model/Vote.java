@@ -14,13 +14,12 @@ public class Vote extends AbstractBaseEntity {
 
     @Column(name = "added", nullable = false, columnDefinition = "date default today()")
     @NotNull
-    //   @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
     private LocalDate votingDate = LocalDate.now();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
-    // @OnDelete(action = OnDeleteAction.CASCADE) //Надо подумать, удалять ли голос при удалении рестика
-    // @NotNull(groups = View.Persist.class)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotNull(groups = View.Persist.class)
     private Restaurant restaurant;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -32,13 +31,11 @@ public class Vote extends AbstractBaseEntity {
     public Vote() {
     }
 
-    public Vote(LocalDate votingDate) {
-        this(null, votingDate);
-    }
-
-    public Vote(Integer id, LocalDate votingDate) {
+    public Vote(Integer id, LocalDate votingDate, Restaurant restaurant, User user) {
         super(id);
         this.votingDate = votingDate;
+        this.restaurant = restaurant;
+        this.user = user;
     }
 
     public Vote(Integer id, LocalDate votingDate, Restaurant restaurant) {
@@ -47,33 +44,12 @@ public class Vote extends AbstractBaseEntity {
         this.restaurant = restaurant;
     }
 
-    public Vote(LocalDate votingDate, Restaurant restaurant) {
-        this.votingDate = votingDate;
-        this.restaurant = restaurant;
-    }
-
-    public Vote(Integer id, LocalDate votingDate, Restaurant restaurant, User user) {
-        super(id);
-        this.votingDate = votingDate;
-        this.restaurant = restaurant;
-        this.user = user;
-    }
-
-    public Vote(Integer id, Restaurant restaurant, User user) {
-        super(id);
-        this.restaurant = restaurant;
-        this.user = user;
-    }
-
-    public Vote(Integer id, Restaurant restaurant) {
-        super(id);
-        this.restaurant = restaurant;
-    }
-
     public Vote(LocalDate votingDate, Restaurant restaurant, User user) {
-        this.votingDate = votingDate;
-        this.restaurant = restaurant;
-        this.user = user;
+        this(null, votingDate, restaurant, user);
+    }
+
+    public Vote(LocalDate votingDate, Restaurant restaurant) {
+        this(null, votingDate, restaurant);
     }
 
     public LocalDate getVotingDate() {
@@ -98,5 +74,15 @@ public class Vote extends AbstractBaseEntity {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Vote{" +
+                "votingDate=" + votingDate +
+                ", restaurant=" + restaurant +
+                ", user=" + user +
+                ", id=" + id +
+                '}';
     }
 }

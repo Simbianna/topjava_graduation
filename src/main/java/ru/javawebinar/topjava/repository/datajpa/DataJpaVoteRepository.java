@@ -12,7 +12,6 @@ import java.util.List;
 
 @Repository
 public class DataJpaVoteRepository implements VoteRepository {
-    private static final Sort SORT_BY_DT = Sort.by(Sort.Direction.DESC, "votingDateTime");
 
     @Autowired
     CrudVoteRepository voteRepository;
@@ -21,8 +20,8 @@ public class DataJpaVoteRepository implements VoteRepository {
     private CrudUserRepository userRepository;
 
     @Override
-    public List<Vote> getAll() {
-        return voteRepository.findAll(SORT_BY_DT);
+    public List<Vote> getAllWithRestaurant() {
+        return voteRepository.getAllWithRestaurant();
     }
 
     @Override
@@ -31,8 +30,8 @@ public class DataJpaVoteRepository implements VoteRepository {
     }
 
     @Override
-    public Vote getById(int id) {
-        return voteRepository.findById(id).orElse(null);
+    public Vote getByIdWithRestaurant(int id) {
+        return voteRepository.getByIdWithRestaurant(id);
     }
 
     @Override

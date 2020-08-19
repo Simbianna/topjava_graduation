@@ -46,7 +46,7 @@ public class InMemoryVoteRepository extends InMemoryBaseRepository<Vote> impleme
     }
 
     @Override
-    public Vote getById(int id) {
+    public Vote getByIdWithRestaurant(int id) {
         return null;
     }
 
@@ -131,6 +131,11 @@ public class InMemoryVoteRepository extends InMemoryBaseRepository<Vote> impleme
         return getCollection().stream()
                 .sorted(Comparator.comparing(Vote::getVotingDate))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Vote> getAllWithRestaurant() {
+        return null;
     }
 
     @Override

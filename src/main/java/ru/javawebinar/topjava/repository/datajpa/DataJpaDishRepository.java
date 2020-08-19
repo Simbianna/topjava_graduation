@@ -8,7 +8,6 @@ import ru.javawebinar.topjava.model.Dish;
 import ru.javawebinar.topjava.repository.DishRepository;
 
 import java.util.List;
-import java.util.Set;
 
 @Repository
 public class DataJpaDishRepository implements DishRepository {

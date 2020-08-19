@@ -70,6 +70,7 @@ public class DishInRestaurantByAdminRestController {
         log.info("update dish {} for restaurant", dish);
         Assert.notNull(dish, "Dish must not be null");
         assureIdConsistent(dish, id);
+        dish.setAdded(dishRepository.get(id, restaurantId).getAdded());
         checkNotFoundWithId(dishRepository.save(dish, restaurantId), dish.getId());
     }
 

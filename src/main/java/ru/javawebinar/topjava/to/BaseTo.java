@@ -23,5 +23,4 @@ public abstract class BaseTo implements HasId{
         this.id = id;
     }
 
-
 }

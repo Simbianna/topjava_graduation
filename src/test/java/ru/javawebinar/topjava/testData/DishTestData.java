@@ -19,7 +19,7 @@ public class DishTestData {
 //    private static final Comparator<Dish> SORT_DISHES_BY_DATETIME = (o1, o2) -> o2.getAdded().compareTo(o1.getAdded());
     private static final Comparator<Dish> SORT_DISHES_BY_ID = (o1, o2) -> o2.getId().compareTo(o1.getId());
 
-    public static final Dish ITALIAN_DISH_3 = new Dish(DISH1_ID + 6, "Chicken Parmigiana", 400.00, of(2020, Month.MARCH, 31, 10, 0));
+   /* public static final Dish ITALIAN_DISH_3 = new Dish(DISH1_ID + 6, "Chicken Parmigiana", 400.00, of(2020, Month.MARCH, 31, 10, 0));
     public static final Dish ITALIAN_DISH_4 = new Dish(DISH1_ID + 7, "Fried Mozzarella", 750.50, of(2020, Month.MARCH, 31, 10, 0));
     public static final Dish VIETNAM_DISH_3 = new Dish(DISH1_ID + 8, "Summer Rolls", 600.00, of(2020, Month.MARCH, 31, 10, 0));
     public static final Dish STEAK_DISH_3 = new Dish(DISH1_ID + 9, "T-bone", 1000.50, of(2020, Month.MARCH, 31, 10, 0));
@@ -32,16 +32,16 @@ public class DishTestData {
     public static final Dish STEAK_DISH_2 = new Dish(DISH1_ID + 4, "Machete steak", 700.00, of(2020, Month.MARCH, 30, 10, 0));
     public static final Dish VIETNAM_DISH_2 = new Dish(DISH1_ID + 5, "Pho bo soup", 400.00, of(2020, Month.MARCH, 30, 10, 0));
     public static final Dish ITALIAN_DISH_CREATED = new Dish(100021, "new Italian Dish", 100.00, LocalDateTime.of(2020, Month.MARCH, 1, 10, 0));
-    public static final Dish ITALIAN_DISH_TO_DELETE = ITALIAN_DISH_1;
+    public static final Dish ITALIAN_DISH_TO_DELETE = ITALIAN_DISH_1;*/
 
     //    public static final Dish NONEXISTING_DISH = new Dish(null, "New", 0.00, LocalDateTime.now(), ITALIAN);
-
+/*
     public static final List<Dish> STEAK_DISHES_D_1 = List.of(STEAK_DISH_1, STEAK_DISH_2);
     public static final List<Dish> STEAK_DISHES_D_2 = List.of(STEAK_DISH_3, STEAK_DISH_4);
     public static final List<Dish> ITALIAN_DISHES_D_1 = List.of(ITALIAN_DISH_1, ITALIAN_DISH_2);
     public static final List<Dish> ITALIAN_DISHES_D_2 = List.of(ITALIAN_DISH_3, ITALIAN_DISH_4);
     public static final List<Dish> VIETNAM_DISHES_D_1 = List.of(VIETNAM_DISH_1, VIETNAM_DISH_2);
-    public static final List<Dish> VIETNAM_DISHES_D_2 = List.of(VIETNAM_DISH_3, VIETNAM_DISH_4);
+    public static final List<Dish> VIETNAM_DISHES_D_2 = List.of(VIETNAM_DISH_3, VIETNAM_DISH_4);*/
 
     //    public static final List<Dish> ALL_DISHES = collectEntities(STEAK_DISHES_D_1, STEAK_DISHES_D_2, ITALIAN_DISHES_D_1, ITALIAN_DISHES_D_2, VIETNAM_DISHES_D_1, VIETNAM_DISHES_D_2);
   /*  public static final List<Dish> ALL_DISHES_SORTED_BY_DT = collectEntitiesSorted(SORT_DISHES_BY_DATETIME, STEAK_DISHES_D_1, STEAK_DISHES_D_2, ITALIAN_DISHES_D_1, ITALIAN_DISHES_D_2, VIETNAM_DISHES_D_1, VIETNAM_DISHES_D_2);

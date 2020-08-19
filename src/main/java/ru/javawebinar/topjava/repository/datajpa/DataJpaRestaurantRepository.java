@@ -45,5 +45,4 @@ public class DataJpaRestaurantRepository implements RestaurantRepository {
         return restaurantRepository.save(restaurant);
     }
 
-
 }
