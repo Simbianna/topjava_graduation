@@ -7,7 +7,6 @@ import org.springframework.validation.Errors;
 import ru.javawebinar.topjava.HasEmail;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
-import ru.javawebinar.topjava.repository.datajpa.DataJpaUserRepository;
 import ru.javawebinar.topjava.web.ExceptionInfoHandler;
 
 

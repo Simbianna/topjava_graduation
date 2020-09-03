@@ -1,6 +1,5 @@
 package ru.javawebinar.topjava.to;
 
-
 import java.time.LocalDate;
 import java.util.Objects;
 

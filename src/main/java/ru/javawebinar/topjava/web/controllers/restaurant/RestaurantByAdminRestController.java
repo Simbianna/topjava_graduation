@@ -3,6 +3,8 @@ package ru.javawebinar.topjava.web.controllers.restaurant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +35,7 @@ public class RestaurantByAdminRestController {
         this.restaurantRepository = restaurantRepository;
     }
 
+    @Cacheable("restaurants")
     @GetMapping
     public List<Restaurant> getAll() {
         log.info("getAll restaurants");
@@ -45,6 +48,7 @@ public class RestaurantByAdminRestController {
         return checkNotFoundWithId(restaurantRepository.get(id), id);
     }
 
+    @CacheEvict(value = "restaurants", allEntries = true)
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
@@ -52,6 +56,7 @@ public class RestaurantByAdminRestController {
         checkNotFoundWithId(restaurantRepository.delete(id), id);
     }
 
+    @CacheEvict(value = "restaurants", allEntries = true)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> create(@Validated(View.Web.class) @RequestBody Restaurant restaurant) {
         log.info("create restaurant {}", restaurant);
@@ -64,6 +69,7 @@ public class RestaurantByAdminRestController {
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
+    @CacheEvict(value = "restaurants", allEntries = true)
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void update(@Validated(View.Web.class) @RequestBody Restaurant restaurant, @PathVariable int id) {

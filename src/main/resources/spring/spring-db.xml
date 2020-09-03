@@ -59,8 +59,7 @@
                 <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SECOND_LEVEL_CACHE}" value="true"/>
                 <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_QUERY_CACHE}" value="false"/> <!--default-->
 
-                <entry key="javax.persistence.validation.group.pre-persist"
-                       value="ru.javawebinar.topjava.View$Persist"/>
+                <entry key="javax.persistence.validation.group.pre-persist" value="ru.javawebinar.topjava.View$Persist"/>
                 <entry key="javax.persistence.validation.group.pre-update" value="ru.javawebinar.topjava.View$Persist"/>
 
             </map>
@@ -75,8 +74,6 @@
     <!-- Transaction manager for a single JPA EntityManagerFactory (alternative to JTA) -->
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
           p:entityManagerFactory-ref="entityManagerFactory"/>
-
-    <bean class="ru.javawebinar.topjava.repository.JpaUtil"/>
 
 
 </beans>

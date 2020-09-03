@@ -24,14 +24,6 @@ public abstract class AbstractUserController {
     @Autowired
     private UniqueMailValidator emailValidator;
 
-    //   private boolean modificationRestriction;
-
-//    @Autowired
-//    @SuppressWarnings("deprecation")
-//    public void setEnvironment(Environment environment) {
-//        modificationRestriction = environment.acceptsProfiles(Profiles.HEROKU);
-//    }
-
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         binder.addValidators(emailValidator);

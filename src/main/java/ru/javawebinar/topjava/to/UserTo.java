@@ -38,14 +38,6 @@ public class UserTo extends BaseTo implements HasEmail, Serializable {
         this.password = password;
     }
 
-   /* public UserTo(Integer id, String name, String email, String password, Vote vote) {
-        super(id);
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.vote = vote;
-    }*/
-
     public String getPassword() {
         return password;
     }
@@ -70,14 +62,6 @@ public class UserTo extends BaseTo implements HasEmail, Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-
-  /*  public void setVote(Vote vote) {
-        this.vote = vote;
-    }
-
-    public Vote getVote() {
-        return vote;
-    }*/
 
     @Override
     public String toString() {

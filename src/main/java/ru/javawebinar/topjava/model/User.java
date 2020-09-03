@@ -1,6 +1,6 @@
 package ru.javawebinar.topjava.model;
 
-;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.Cache;
@@ -48,7 +48,8 @@ public class User extends AbstractNamedEntity implements HasEmail {
 
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
+            uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role"}, name = "user_roles_unique_idx")})
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
 //    @Fetch(FetchMode.SUBSELECT)
@@ -57,10 +58,8 @@ public class User extends AbstractNamedEntity implements HasEmail {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
     @OrderBy("votingDate DESC")
+    @JsonManagedReference
     private List<Vote> votes;
-
-   /* @Column(name = "voted", nullable = false, columnDefinition = "bool default false")
-    private boolean voted = false;*/
 
     public User() {
     }
@@ -69,7 +68,6 @@ public class User extends AbstractNamedEntity implements HasEmail {
         this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(),
                 u.getRegistered(), u.getRoles());
     }
-
 
     public User(Integer id, String name, String email, String password, Role role, Role... roles) {
         this(id, name, email, password, true, new Date(), EnumSet.of(role, roles));

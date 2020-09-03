@@ -13,8 +13,6 @@
     <name>graduation</name>
     <description>Restaurants rating system.</description>
 
-    <!--Добавить ссылку на проект  <url></url>-->
-
     <properties>
         <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -82,7 +80,7 @@
                             <file.encoding>UTF-8</file.encoding>
                             <spring.profiles.active>tomcat,datajpa</spring.profiles.active>
                         </systemProperties>
-                         <dependencies>
+                        <dependencies>
                             <dependency>
                                 <groupId>org.hsqldb</groupId>
                                 <artifactId>hsqldb</artifactId>
@@ -171,7 +169,7 @@
             <version>2.5.0</version>
         </dependency>
 
-<!--for pooling use-->
+        <!--for pooling use-->
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-jdbc</artifactId>
@@ -236,13 +234,6 @@
             <artifactId>tomcat-servlet-api</artifactId>
             <version>${tomcat.version}</version>
             <scope>provided</scope>
-        </dependency>
-
-        <!--Нужно для jsp, хз надо ли-->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
         </dependency>
 
         <dependency>

@@ -3,7 +3,6 @@ package ru.javawebinar.topjava.web;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import ru.javawebinar.topjava.AuthorizedUser;
-import ru.javawebinar.topjava.model.AbstractBaseEntity;
 
 import static java.util.Objects.requireNonNull;
 
@@ -30,9 +29,5 @@ public class SecurityUtil {
     public static int authUserId() {
         return get().getUserTo().id();
     }
-
-/*    public static int authUserCaloriesPerDay() {
-        return get().getUserTo().getCaloriesPerDay();
-    }*/
 
 }
