@@ -1,7 +1,7 @@
 # TopJava graduation project.
 Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot) without frontend.
 
-##The task is:
+## The task is:
 Build a voting system for deciding where to have lunch.
 
 2 types of users: admin and regular users
