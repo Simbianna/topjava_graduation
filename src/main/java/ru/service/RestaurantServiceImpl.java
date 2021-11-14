@@ -32,7 +32,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public Restaurant getById(int id) {
-        return validator.checkNotFoundWithId(restaurantRepository.findById(id).orElseGet(null), id);
+        return validator.checkNotFoundWithId(restaurantRepository.findById(id).orElse(null), id);
     }
 
     @Override
@@ -57,6 +57,6 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public RestaurantTo getByIdAsTo(int id) {
         return restaurantTransformer.asToForUser(
-                validator.checkNotFoundWithId(restaurantRepository.findById(id).orElseGet(null), id));
+                validator.checkNotFoundWithId(restaurantRepository.findById(id).orElse(null), id));
     }
 }

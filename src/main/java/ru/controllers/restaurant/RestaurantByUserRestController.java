@@ -14,9 +14,10 @@ import ru.dto.RestaurantTo;
 
 import java.util.List;
 
+
 @AllArgsConstructor
 @RestController
-@RequestMapping(value = RestaurantByUserRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = RestaurantByUserRestController.REST_URL, produces = {MediaType.APPLICATION_JSON_VALUE})
 public class RestaurantByUserRestController {
     static final String REST_URL = "/restaurants";
     private final Logger log = LoggerFactory.getLogger(getClass());

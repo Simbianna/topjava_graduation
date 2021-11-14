@@ -25,12 +25,18 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testImplementation 'org.springframework.security:spring-security-test'
 }
 
 group = 'ru.simbial'
 version = '1.0-SNAPSHOT'
 description = 'graduation'
 java.sourceCompatibility = JavaVersion.VERSION_11
+
+test {
+    useJUnitPlatform()
+}
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'

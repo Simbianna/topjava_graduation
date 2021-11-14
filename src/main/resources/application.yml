@@ -15,9 +15,11 @@ spring:
       ddl-auto: none
 
   #   defer-datasource-initialization: true
-  sql:
-    init:
-      enabled: false
+  #sql:
+    #init:
+     # enabled: false
+  messages:
+    basename: locale/messages
 server:
   port: 8080
   servlet:

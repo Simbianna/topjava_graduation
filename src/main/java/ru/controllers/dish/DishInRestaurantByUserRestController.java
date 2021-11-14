@@ -19,7 +19,6 @@ public class DishInRestaurantByUserRestController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     private final DishService dishService;
-    private final DishToDtoTransformer dishTransformer;
 
     @GetMapping
     public List<DishTo> getAllIncludedInLunchMenu(@PathVariable("restaurantId") int restaurantId) {

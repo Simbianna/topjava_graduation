@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.controllers.restaurant.RestaurantByAdminRestControllerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-11-14T15:57:09" hostname="Air-Annette" time="0.345">
+  <properties/>
+  <testcase name="deleteById()" classname="ru.controllers.restaurant.RestaurantByAdminRestControllerTest" time="0.345"/>
+  <system-out><![CDATA[18:57:00.199 ?[34mINFO ?[0;39m ?[36mo.s.t.c.support.AbstractTestContextBootstrapper.buildDefaultMergedContextConfiguration:305?[0;39m - Neither @ContextConfiguration nor @ContextHierarchy found for test class [ru.controllers.restaurant.RestaurantByAdminRestControllerTest], using SpringBootContextLoader
+18:57:00.210 ?[34mINFO ?[0;39m ?[36mo.s.test.context.support.AbstractContextLoader.generateDefaultLocations:264?[0;39m - Could not detect default resource locations for test class [ru.controllers.restaurant.RestaurantByAdminRestControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+18:57:00.212 ?[34mINFO ?[0;39m ?[36mo.s.t.c.support.AnnotationConfigContextLoaderUtils.detectDefaultConfigurationClasses:83?[0;39m - Could not detect default configuration classes for test class [ru.controllers.restaurant.RestaurantByAdminRestControllerTest]: RestaurantByAdminRestControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+18:57:00.487 ?[34mINFO ?[0;39m ?[36mo.s.b.t.context.SpringBootTestContextBootstrapper.getOrFindConfigurationClasses:238?[0;39m - Found @SpringBootConfiguration ru.RestaurantApp for test class ru.controllers.restaurant.RestaurantByAdminRestControllerTest
+18:57:00.627 ?[34mINFO ?[0;39m ?[36mo.s.t.c.support.AbstractTestContextBootstrapper.getDefaultTestExecutionListenerClassNames:245?[0;39m - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+18:57:00.649 ?[34mINFO ?[0;39m ?[36mo.s.t.c.support.AbstractTestContextBootstrapper.getTestExecutionListeners:174?[0;39m - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@70807224, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@7e97551f, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@400d912a, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@9f6e406, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@7a94b64e, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3e6f3bae, org.springframework.test.context.transaction.TransactionalTestExecutionListener@12477988, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@2caf6912, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@73d69c0f, org.springframework.test.context.event.EventPublishingTestExecutionListener@34237b90, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@1d01dfa5, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@4a31c2ee, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@d400943, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@22101c80, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@31ff1390, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@759d81f3, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@781a9412]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.5.0)
+
+18:57:01.244 ?[34mINFO ?[0;39m ?[36morg.hibernate.validator.internal.util.Version.<clinit>:21?[0;39m - HV000001: Hibernate Validator 6.2.0.Final
+18:57:01.254 ?[34mINFO ?[0;39m ?[36morg.springframework.boot.StartupInfoLogger.logStarting:55?[0;39m - Starting RestaurantByAdminRestControllerTest using Java 11.0.10 on Air-Annette with PID 21676 (started by annettesimbi in /Users/annettesimbi/Java/JavaProjects/topjava_graduation/topjava_graduation)
+18:57:01.260 ?[34mINFO ?[0;39m ?[36morg.springframework.boot.SpringApplication.logStartupProfileInfo:663?[0;39m - No active profile set, falling back to default profiles: default
+18:57:01.899 ?[31mWARN ?[0;39m ?[36morg.springframework.core.log.CompositeLog.warn:127?[0;39m - For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+18:57:02.824 ?[34mINFO ?[0;39m ?[36mo.s.d.r.config.RepositoryConfigurationDelegate.registerRepositoriesIn:132?[0;39m - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+18:57:02.980 ?[34mINFO ?[0;39m ?[36mo.s.d.r.config.RepositoryConfigurationDelegate.registerRepositoriesIn:201?[0;39m - Finished Spring Data repository scanning in 148 ms. Found 4 JPA repository interfaces.
+18:57:04.275 ?[34mINFO ?[0;39m ?[36morg.hibernate.jpa.internal.util.LogHelper.logPersistenceUnitInformation:31?[0;39m - HHH000204: Processing PersistenceUnitInfo [name: default]
+18:57:04.338 ?[34mINFO ?[0;39m ?[36morg.hibernate.Version.logVersion:44?[0;39m - HHH000412: Hibernate ORM core version 5.4.31.Final
+18:57:04.518 ?[34mINFO ?[0;39m ?[36mo.h.a.common.reflection.java.JavaReflectionManager.<clinit>:56?[0;39m - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+18:57:04.680 ?[34mINFO ?[0;39m ?[36mcom.zaxxer.hikari.HikariDataSource.getConnection:110?[0;39m - HikariPool-1 - Starting...
+18:57:04.812 ?[34mINFO ?[0;39m ?[36mcom.zaxxer.hikari.HikariDataSource.getConnection:123?[0;39m - HikariPool-1 - Start completed.
+18:57:04.853 ?[34mINFO ?[0;39m ?[36morg.hibernate.dialect.Dialect.<init>:175?[0;39m - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+18:57:06.048 ?[34mINFO ?[0;39m ?[36mo.h.e.t.jta.platform.internal.JtaPlatformInitiator.initiateService:52?[0;39m - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+18:57:06.068 ?[34mINFO ?[0;39m ?[36mo.s.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory:437?[0;39m - Initialized JPA EntityManagerFactory for persistence unit 'default'
+18:57:06.281 ?[31mWARN ?[0;39m ?[36mo.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration.openEntityManagerInViewInterceptor:219?[0;39m - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+18:57:08.898 ?[34mINFO ?[0;39m ?[36mo.s.security.web.DefaultSecurityFilterChain.<init>:51?[0;39m - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@191cf38f, org.springframework.security.web.context.SecurityContextPersistenceFilter@510d4d4b, org.springframework.security.web.header.HeaderWriterFilter@100d5018, org.springframework.security.web.authentication.logout.LogoutFilter@684a34f4, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4eb69e8d, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@611ffa8d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@234dfc8e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3a3375d8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2dc54b50, org.springframework.security.web.session.SessionManagementFilter@1ae37be2, org.springframework.security.web.access.ExceptionTranslationFilter@25f67aea, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4582da06]
+18:57:09.045 ?[34mINFO ?[0;39m ?[36morg.springframework.mock.web.MockServletContext.log:455?[0;39m - Initializing Spring TestDispatcherServlet ''
+18:57:09.045 ?[34mINFO ?[0;39m ?[36morg.springframework.web.servlet.FrameworkServlet.initServletBean:525?[0;39m - Initializing Servlet ''
+18:57:09.046 ?[34mINFO ?[0;39m ?[36morg.springframework.web.servlet.FrameworkServlet.initServletBean:547?[0;39m - Completed initialization in 1 ms
+18:57:09.077 ?[34mINFO ?[0;39m ?[36morg.springframework.boot.StartupInfoLogger.logStarted:61?[0;39m - Started RestaurantByAdminRestControllerTest in 8.37 seconds (JVM running for 10.469)
+18:57:09.080 ?[34mINFO ?[0;39m ?[36mo.s.boot.availability.ApplicationAvailabilityBean.logStateChange:75?[0;39m - Application availability state LivenessState changed to CORRECT
+18:57:09.083 ?[34mINFO ?[0;39m ?[36mo.s.boot.availability.ApplicationAvailabilityBean.logStateChange:75?[0;39m - Application availability state ReadinessState changed to ACCEPTING_TRAFFIC
+18:57:09.315 ?[34mINFO ?[0;39m ?[36mr.c.restaurant.RestaurantByAdminRestController.deleteById:55?[0;39m - delete restaurant 1
+Hibernate: select restaurant0_.id as id1_1_0_, restaurant0_.name as name2_1_0_ from restaurants restaurant0_ where restaurant0_.id=?
+Hibernate: delete from restaurants where id=?
+
+MockHttpServletRequest:
+      HTTP Method = DELETE
+      Request URI = /admin/restaurants/1
+       Parameters = {}
+          Headers = []
+             Body = null
+    Session Attrs = {SPRING_SECURITY_CONTEXT=SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=user, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, credentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=null, Granted Authorities=[ROLE_ADMIN]]]}
+
+Handler:
+             Type = ru.controllers.restaurant.RestaurantByAdminRestController
+           Method = ru.controllers.restaurant.RestaurantByAdminRestController#deleteById(int)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 204
+    Error message = null
+          Headers = [X-Content-Type-Options:"nosniff", X-XSS-Protection:"1; mode=block", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0", X-Frame-Options:"DENY"]
+     Content type = null
+             Body = 
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
