@@ -4,7 +4,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;
 import ru.model.Role;
 import ru.model.User;
-import ru.to.UserTo;
+import ru.dto.UserTo;
 
 public class UserUtil {
 

@@ -6,3 +6,8 @@ log
 /todo
 /old/
 /src/main2/
+.gradle
+gradle
+gradlew
+gradlew.bat
+pom.xml

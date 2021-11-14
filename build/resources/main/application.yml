@@ -1,0 +1,21 @@
+spring:
+  data:
+    rest:
+      base-path: /rest/api
+  datasource:
+    url: jdbc:postgresql://localhost:5432/rests
+    username: pomsi
+    password: simbi
+  cache:
+    jcache:
+      config: cache/ehcache.xml
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+
+  #   defer-datasource-initialization: true
+server:
+  port: 8080
+  servlet:
+    context-path: /api

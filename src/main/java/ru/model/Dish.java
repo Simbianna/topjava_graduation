@@ -1,6 +1,10 @@
 package ru.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.util.DateTimeUtil;
@@ -8,9 +12,13 @@ import ru.util.DateTimeUtil;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "dishes")
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class Dish extends AbstractNamedEntity {
 
     @Column(name = "price")
@@ -23,7 +31,7 @@ public class Dish extends AbstractNamedEntity {
     @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
     private LocalDateTime added = LocalDateTime.now();
 
-    @Column(name = "isIncludedInMenu", nullable = false, columnDefinition = "bool default false")
+    @Column(name = "isincludedinmenu", nullable = false, columnDefinition = "bool default false")
     private boolean included;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,8 +39,6 @@ public class Dish extends AbstractNamedEntity {
     @JsonBackReference
     private Restaurant restaurant;
 
-    public Dish() {
-    }
 
     public Dish(String name) {
         super(name);
@@ -49,38 +55,6 @@ public class Dish extends AbstractNamedEntity {
       this(null, name, price, added, included);
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public LocalDateTime getAdded() {
-        return added;
-    }
-
-    public void setAdded(LocalDateTime added) {
-        this.added = added;
-    }
-
-    public void setIncluded(boolean included) {
-        this.included = included;
-    }
-
-    public boolean isIncluded() {
-        return included;
-    }
-
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
-    }
-
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
     @Override
     public String toString() {
         return "Dish{" +
@@ -89,5 +63,22 @@ public class Dish extends AbstractNamedEntity {
                 ", price=" + price +
                 ", included=" + included +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Dish)) return false;
+        if (!super.equals(o)) return false;
+        Dish dish = (Dish) o;
+        return Double.compare(dish.getPrice(), getPrice()) == 0 &&
+                isIncluded() == dish.isIncluded() &&
+                Objects.equals(getAdded(), dish.getAdded()) &&
+                Objects.equals(getRestaurant(), dish.getRestaurant());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getPrice());
     }
 }

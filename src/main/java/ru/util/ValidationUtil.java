@@ -1,50 +1,46 @@
 package ru.util;
 
 import org.slf4j.Logger;
-import ru.HasId;
+import org.springframework.stereotype.Component;
+import ru.model.HasId;
 import ru.util.exception.ErrorType;
 import ru.util.exception.IllegalRequestDataException;
 import ru.util.exception.NotFoundException;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Set;
 
+@Component
 public class ValidationUtil {
-    private ValidationUtil() {
-    }
 
-
-    public static <T> T checkNotFoundWithId(T object, int id) {
+    public <T> T checkNotFoundWithId(T object, int id) {
         return checkNotFound(object, "id=" + id);
     }
 
-    public static void checkNotFoundWithId(boolean found, int id) {
+    public void checkNotFoundWithId(boolean found, int id) {
         checkNotFound(found, "id=" + id);
     }
 
-    public static <T> T checkNotFound(T object, String msg) {
+    public <T> T checkNotFound(T object, String msg) {
         checkNotFound(object != null, msg);
         return object;
     }
 
-    public static void checkNotFound(boolean found, String arg) {
+    public void checkNotFound(boolean found, String arg) {
         if (!found) {
             throw new NotFoundException(arg);
         }
     }
 
-    public static void checkNew(HasId bean) {
+    public void checkNew(HasId bean) {
         if (!bean.isNew()) {
             throw new IllegalRequestDataException(bean + " must be new (id=null)");
         }
     }
 
-
-    public static void assureIdConsistent(HasId bean, int id) {
+    public void assureIdConsistent(HasId bean, int id) {
 //      conservative when you reply, but accept liberally (http://stackoverflow.com/a/32728226/548473)
         if (bean.isNew()) {
             bean.setId(id);
@@ -68,7 +64,7 @@ public class ValidationUtil {
         return e.getLocalizedMessage() != null ? e.getLocalizedMessage() : e.getClass().getName();
     }
 
-    private static final Validator validator;
+    /*private static final Validator validator;
 
     static {
         //  From Javadoc: implementations are thread-safe and instances are typically cached and reused.
@@ -83,9 +79,9 @@ public class ValidationUtil {
         if (!violations.isEmpty()) {
             throw new ConstraintViolationException(violations);
         }
-    }
+    }*/
 
-    public static Throwable logAndGetRootCause(Logger log, HttpServletRequest req, Exception e, boolean logException, ErrorType errorType) {
+    public Throwable logAndGetRootCause(Logger log, HttpServletRequest req, Exception e, boolean logException, ErrorType errorType) {
         Throwable rootCause = ValidationUtil.getRootCause(e);
         if (logException) {
             log.error(errorType + " at request " + req.getRequestURL(), rootCause);
@@ -96,7 +92,7 @@ public class ValidationUtil {
     }
 
     //Vote can be updated only if done today before 11 am
-    public static void checkVoteCanBeUpdatedToday(LocalDateTime votingTime) {
+    public void checkVoteCanBeUpdatedToday(LocalDateTime votingTime) {
         if (votingTime.isBefore(LocalDateTime.of(LocalDate.now(), LocalTime.MIN))
                 || votingTime.isAfter(LocalDateTime.of(LocalDate.now(), LocalTime.of(11, 0)))) {
             throw new IllegalRequestDataException("can`t change vote today");

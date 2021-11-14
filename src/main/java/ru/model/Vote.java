@@ -1,6 +1,9 @@
 package ru.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import ru.View;
@@ -8,7 +11,10 @@ import ru.View;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Objects;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "added"}, name = "votes_unique_user_added_idx")})
 public class Vote extends AbstractBaseEntity {
@@ -54,30 +60,6 @@ public class Vote extends AbstractBaseEntity {
         this(null, votingDate, restaurant);
     }
 
-    public LocalDate getVotingDate() {
-        return votingDate;
-    }
-
-    public void setVotingDate(LocalDate votingDateTime) {
-        this.votingDate = votingDateTime;
-    }
-
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     @Override
     public String toString() {
         return "Vote{" +
@@ -86,5 +68,16 @@ public class Vote extends AbstractBaseEntity {
                 ", user=" + user +
                 ", id=" + id +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Vote)) return false;
+        if (!super.equals(o)) return false;
+        Vote vote = (Vote) o;
+        return Objects.equals(getVotingDate(), vote.getVotingDate()) &&
+                Objects.equals(getRestaurant(), vote.getRestaurant()) &&
+                Objects.equals(getUser(), vote.getUser());
     }
 }

@@ -1,64 +1,50 @@
 package ru.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.model.Vote;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public interface VoteRepository {
+@Repository
+//@Transactional(readOnly = true)
+public interface VoteRepository extends JpaRepository<Vote, Integer> {
 
-    // ordered dateTime desc
-    List<Vote> getAllWithRestaurant();
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Vote v WHERE v.id=:id")
+    int delete(@Param("id") int id);
 
-    // ordered dateTime desc
-    List<Vote> getAllForUserWithRestaurant(int userId);
+    //@Modifying
+    @Transactional
+    @Query("DELETE FROM Vote v WHERE v.id=:id AND v.user.id=:userId")
+    int deleteByIdForUser(@Param("id") int id, @Param("userId") int userId);
 
-    // null if not found
-    Vote getByIdWithRestaurant(int id);
-
-    // null if not found
-    Vote getByIdForUser(int id, int userId);
-
-    // null if vote does not belong to userId
-    Vote getByIdForUserWithRestaurant(int id, int userId);
-
-    // null if vote does not belong to userId
-    Vote getForUserByDateWithRestaurant(int userId, LocalDate date);
-
-    // false if not found
-    boolean deleteById(int id);
-
-    // false if vote do not belong to userId
-    boolean deleteByIdForUser(int id, int userId);
-
-    // null if not found.
+    @Override
+    @Transactional
     Vote save(Vote vote);
 
-    // null if updated vote do not belong to userId
-    Vote saveForUser(Vote vote, int userId);
+    @Query("SELECT v FROM Vote v left join fetch v.restaurant r ORDER BY v.votingDate DESC")
+    List<Vote> getAllWithRestaurant();
 
-    // null if not found
-    Vote getForUserByDate(int userId, LocalDate date);
+    @Query("SELECT v FROM Vote v left join fetch v.restaurant r WHERE v.user.id=:userId ORDER BY v.votingDate DESC")
+    List<Vote> getAllForUserWithRestaurant(@Param("userId") int userId);
 
+    @Query("SELECT v FROM Vote v left join fetch v.restaurant r WHERE v.id=:id")
+    Vote getByIdWithRestaurant(@Param("id") int id);
 
-    /* ORDERED dateTime desc
-    List<Vote> getAllForUserBetween(int userId, LocalDateTime start, LocalDateTime end);
+    @Query("SELECT v FROM Vote v left join fetch v.restaurant r WHERE v.id=:id and v.user.id=:userId")
+    Vote getByIdForUserWithRestaurant(@Param("id") int id, @Param("userId") int userId);
 
-    // null if not found
-    Vote getLastVoteForUserBetweenDateTimes(int userId, LocalDateTime startDate, LocalDateTime endDate);
+    @Query("SELECT v FROM Vote v WHERE v.user.id=:userId and v.votingDate=:date ")
+    Vote getByUserIdAndVotingDate(@Param("userId") int userId, @Param("date") LocalDate date);
 
-    // ORDERED dateTime desc
-    List<Vote> getAllForRestaurant(int restaurantId);
+    @Query("SELECT v FROM Vote v left join fetch v.restaurant r WHERE v.user.id=:userId and v.votingDate=:date ")
+    Vote getByUserIdAndVotingDateWithRestaurant(@Param("userId") int userId, @Param("date") LocalDate date);
 
-    // ORDERED dateTime desc
-    List<Vote> getAllForRestaurantBetween(int restaurantId, LocalDateTime start, LocalDateTime end);
-
-    default Vote getWithUser(int id, int userId) {
-        throw new UnsupportedOperationException();
-    }
-
-    default Vote getWithRestaurant(int id, int restaurantId) {
-        throw new UnsupportedOperationException();
-    }
-    */
 }

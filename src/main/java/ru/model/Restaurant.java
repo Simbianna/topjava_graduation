@@ -1,13 +1,20 @@
 package ru.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cache;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
-
+@Getter
+@Setter
+@RequiredArgsConstructor
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity
 @Table(name = "restaurants")
@@ -17,25 +24,6 @@ public class Restaurant extends AbstractNamedEntity {
     @JsonManagedReference
     private List<Dish> dishes;
 
-    public Restaurant() {
-    }
-
-    public Restaurant(String name) {
-        this(null, name);
-    }
-
-    public Restaurant(Integer id, String name) {
-        super(id, name);
-    }
-
-    public List<Dish> getDishes() {
-        return dishes;
-    }
-
-    public void setDishes(List<Dish> dishes) {
-        this.dishes = dishes;
-    }
-
     @Override
     public String toString() {
         return "Restaurant{" +
@@ -44,4 +32,17 @@ public class Restaurant extends AbstractNamedEntity {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Restaurant)) return false;
+        if (!super.equals(o)) return false;
+        Restaurant that = (Restaurant) o;
+        return Objects.equals(getDishes(), that.getDishes());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode());
+    }
 }
